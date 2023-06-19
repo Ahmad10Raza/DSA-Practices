@@ -1,5 +1,3 @@
-package Array;
-
 public class Insert_Element {
     public static void insert(int[] arr,int pos,int element){
         for(int i=arr.length-1;i>pos ;i--){

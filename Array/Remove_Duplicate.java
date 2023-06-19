@@ -1,5 +1,3 @@
-package Array;
-
 public class Remove_Duplicate {
     public static int rmDuplicate(int arr[],int n){
         if(n==0 || n==1){
