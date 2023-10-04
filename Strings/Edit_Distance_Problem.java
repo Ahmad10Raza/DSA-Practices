@@ -34,8 +34,7 @@ public class Edit_Distance_Problem {
         // values.
         return 1 + min(editDist(str1, str2, m, n - 1), // Insert
                   editDist(str1, str2, m - 1, n), // Remove
-                  editDist(str1, str2, m - 1,
-                           n - 1) // Replace
+                  editDist(str1, str2, m - 1,n - 1) // Replace
               );
     }
  
