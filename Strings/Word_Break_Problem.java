@@ -16,7 +16,7 @@ public class Word_Break_Problem {
             // present in dictionary ,if yes then we will check for 
             // suffix of length size-i recursively. if both prefix and 
             // suffix are present the word is found in dictionary.
-            if(dictionary.contains(str.substring(0,i)) && WordBreakProblem(str.substring(i,size))){
+            if(dictionary.contains(str.substring(0,i)) && WordBreakProblem(str.substring(i,size))){ 
                 return true;
             }
         }
