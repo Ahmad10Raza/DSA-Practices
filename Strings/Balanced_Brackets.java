@@ -1,5 +1,18 @@
 import java.util.*;
 
+
+// Follow the steps mentioned below to implement the idea:
+// 
+// Declare a character stack (say temp).
+// Now traverse the string exp. 
+// If the current character is a starting bracket ( ‘(‘ or ‘{‘  or ‘[‘ ) then push it to stack.
+// If the current character is a closing bracket ( ‘)’ or ‘}’ or ‘]’ ) then pop from the stack and if the popped character is the matching starting bracket then fine.
+// Else brackets are Not Balanced.
+// After complete traversal, if some starting brackets are left in the stack then the expression is Not balanced, else Balanced.
+
+
+
+
 public class Balanced_Brackets {
     
     // function to check if brackets are balanced
