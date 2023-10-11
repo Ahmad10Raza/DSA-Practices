@@ -1,3 +1,5 @@
+package com.Recurssion;
+
 public class Binary_String_Problem {
     public static void PrintBinString(int n,int lastplace,String ans){
         //base case
