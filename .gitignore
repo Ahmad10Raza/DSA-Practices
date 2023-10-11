@@ -1,0 +1,5 @@
+# Ignore the ijava-kernel directory
+ijava-kernel/
+
+# Ignore the myenv directory
+myenv/
