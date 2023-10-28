@@ -25,8 +25,7 @@ return count;
 static void sortBySetBitCount(int arr[],
 							int n)
 {
-Vector<Integer> []count = 
-		new Vector[32];
+Vector<Integer> []count = new Vector[32];
 
 for (int i = 0; 
 		i < count.length; i++)
@@ -58,8 +57,7 @@ for (int i = 31; i >= 0; i--)
 
 // Utility function to print 
 // an array
-static void printArr(int arr[], 
-					int n)
+static void printArr(int arr[], int n)
 {
 for (int i = 0; i < n; i++)
 	System.out.print(arr[i] + " ");
