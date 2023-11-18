@@ -1,4 +1,4 @@
- class TrafficLightExample {
+ public class EnumTypesExample {
     // Enum type representing the states of a traffic light
     enum TrafficLightState {
         RED("Stop", 30),
