@@ -2,13 +2,12 @@
 
 # Data Structures and Algorithms Practice
 
-![GitHub repo size](https://img.shields.io/github/repo-size/Ahmad10Raza/DSA-Practices)
-![GitHub last commit](https://img.shields.io/github/last-commit/Ahmad10Raza/DSA-Practices)
-![GitHub](https://img.shields.io/github/license/Ahmad10Raza/DSA-Practices)
+![GitHub repo size](https://img.shields.io/github/repo-size/Ahmad10Raza/DSA-Practices)		![GitHub last commit](https://img.shields.io/github/last-commit/Ahmad10Raza/DSA-Practices)		![GitHub](https://img.shields.io/github/license/Ahmad10Raza/DSA-Practices)
 
 Welcome to the Data Structures and Algorithms (DSA) Practice repository! Here, you will find a collection of DSA questions and their Java solutions, designed to help you improve your coding skills and prepare for technical interviews with top companies.
 
 ## Table of Contents
+
 - [Introduction](#introduction)
 - [How to Use](#how-to-use)
 - [Contributing](#contributing)
@@ -25,17 +24,13 @@ This repository contains a variety of DSA questions, covering topics such as arr
 ## How to Use
 
 1. **Clone the Repository:**
-   ``` git clone https://github.com/Ahmad10Raza/DSA-Practices.git ```
-
-
+   ``git clone https://github.com/Ahmad10Raza/DSA-Practices.git``
 2. **Navigate to the Desired Topic:**
-The questions are organized by topic in separate directories. For example, you can find array-related questions in the "arrays" directory and tree-related questions in the "trees" directory.
-
+   The questions are organized by topic in separate directories. For example, you can find array-related questions in the "arrays" directory and tree-related questions in the "trees" directory.
 3. **Choose a Question:**
-Pick a question you want to practice, and open the corresponding Java file to see the problem statement and solution.
-
+   Pick a question you want to practice, and open the corresponding Java file to see the problem statement and solution.
 4. **Contribute:**
-Feel free to contribute by adding your own solutions, improving existing ones, or adding more questions. We encourage collaboration to make this resource even more valuable for others.
+   Feel free to contribute by adding your own solutions, improving existing ones, or adding more questions. We encourage collaboration to make this resource even more valuable for others.
 
 ## Contributing
 
