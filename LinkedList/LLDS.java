@@ -8,7 +8,7 @@ public class LLDS {
             this.data = data;
             this.next = null;
         }
-    }
+    }             
 
     Node head;
     Node tail=null; // Declare the head variable
