@@ -18,9 +18,21 @@ public class SimpleLL {
 
         a.next=b;
         b.next=c;
-        System.out.println(a.data);
-        System.out.println(a.next.data);
-        System.out.println(a.next.next.data);
+        // System.out.println(a.data);
+        // System.out.println(a.next.data);
+        // System.out.println(a.next.next.data);
+
+        Node temp= a;
+        // for(int i=0;i<3;i++){
+        //     System.out.println(temp.data);
+        //     temp=temp.next;
+        // }
+
+            while(temp != null)
+        {
+            System.out.println(temp.data);
+            temp=temp.next;
+        }
     }
 
 
