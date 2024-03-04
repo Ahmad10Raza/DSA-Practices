@@ -366,6 +366,63 @@ public class LLDS {
     }
 
 
+    // function to get middle element
+
+    public Node getMiddleNode(Node head){
+        Node slow=head;
+        Node fast=head;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }   
+
+        return slow;
+    }
+
+
+    // function to delete middle element of the linked list
+
+    public Node deleteMiddleNode2(Node head){
+        Node slow=head;
+        Node fast=head;
+        Node prev=null;
+
+        if(fast.next ==null) {
+            return null;
+        }
+
+        while(fast != null && fast.next != null){
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }   
+
+        prev.next = slow.next;
+        return head;
+    }
+
+
+    public Node deleteMiddleNode(Node head){
+        Node slow=head;
+        Node fast=head;
+        
+        if(fast.next ==null) {
+            return null;
+        }
+
+        while(fast.next.next != null && fast.next.next.next != null){
+            
+            slow = slow.next;
+            fast = fast.next.next;
+        }   
+
+        
+        slow.next = slow.next.next;
+        return head;
+    }
+
+
     public static void main(String[] args) {
         LLDS list = new LLDS();
         list.insertAtEnd(1);
@@ -385,9 +442,14 @@ public class LLDS {
         // int a =list.getNthNodeSingle(list.head, 2);
         // System.out.println(a);
         // System.out.println(b);
+        // list.traverse();
+        // list.deleteNthNode(list.head, 5);
         list.traverse();
-        list.deleteNthNode(list.head, 5);
-        list.traverse();
+
+        // list.getMiddleNode(list.head);
+        System.out.println(list.getMiddleNode(list.head).data);
+
+
     }
 
 }
