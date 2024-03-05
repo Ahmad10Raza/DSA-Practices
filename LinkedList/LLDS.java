@@ -215,9 +215,9 @@ public class LLDS {
         searchRecursive(current.next, data, index + 1);
     }
 
-    public void reverse() {
-        Node current = head;
+    public Node reverse(Node head) {
         Node prev = null;
+        Node current = head;
         Node next = null;
         while (current != null) {
             next = current.next;
@@ -225,22 +225,18 @@ public class LLDS {
             prev = current;
             current = next;
         }
-        tail = head;
-        head = prev;
+        return prev;
+
     }
 
-    public void reverseRecursive(Node current) {
-        if (current == null) {
-            return;
+    public Node reverseRecursive(Node current) {
+        if (current == null || current.next == null) {
+            return current;
         }
-        if (current.next == null) {
-            head = current;
-            return;
-        }
-        reverseRecursive(current.next);
+        Node newHead = reverseRecursive(current.next);
         current.next.next = current;
         current.next = null;
-        tail = current;
+        return newHead;
     }
 
     public void clear() {
@@ -254,7 +250,7 @@ public class LLDS {
     }
 
 
-    public void Delete_Node_Itself_As_Parameter(Node node){
+    public void DeleteNodeItselfAsParameter(Node node){
 
 
         node.data = node.next.data;
@@ -522,6 +518,118 @@ public class LLDS {
         }
         return dummy.next;
     }
+
+
+    // function to delete duplicate node from ll
+    
+    public Node deleteDuplicate(Node head){
+        Node temp=head;
+        while(temp != null && temp.next != null){
+            if(temp.data == temp.next.data){
+                temp.next = temp.next.next;
+            }
+            else{
+                temp = temp.next;
+            }
+        }
+        return head;
+    }
+
+    // second method to delete duplicate node from ll
+
+    public Node deleteDuplicate2(Node head){
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node prevPrev = null;
+        Node prev = null;
+        Node curr = head;
+
+        while (curr != null) {
+            prevPrev = prev;
+            prev = curr;
+            int value = curr.data;
+            int flag = 0;
+            while (curr.next != null && curr.next.data == value) {
+                curr = curr.next;
+                flag = 1;
+            }
+            if (flag == 1) {
+                if (prevPrev == null) {
+                    head = curr.next;
+                    prev = null;
+                    prevPrev = null;
+                } else {
+                    prev = prevPrev;
+                    prevPrev.next = curr.next;
+                }
+            }
+            curr = curr.next;
+        }
+
+        return head;
+        
+    }
+
+
+
+    // function to check palindrome linked list
+
+    public boolean isPalindrome(Node head){
+        Node slow=head;
+        Node fast=head;
+        if(head == null || head.next == null){
+            return true;
+        }
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }   
+
+        Node prev=null;
+        Node next=null;
+        Node curr=slow;
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        slow = prev;
+        fast = head;
+        while(slow != null){
+            if(slow.data != fast.data){
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return true;
+    }
+
+    // function to check palindrome linked list using deep copy
+
+    public boolean isPalindrome2(Node head){
+        Node temp=head;
+        Node newHead=null;
+        while(temp != null){
+            Node newNode = new Node(temp.data);
+            newNode.next = newHead;
+            newHead = newNode;
+            temp = temp.next;
+        }
+        while(head != null){
+            if(head.data != newHead.data){
+                return false;
+            }
+            head = head.next;
+            newHead = newHead.next;
+        }
+        return true;
+    }
+
+
+
 
     public static void main(String[] args) {
         LLDS list = new LLDS();
