@@ -403,6 +403,8 @@ public class LLDS {
     }
 
 
+
+
     public Node deleteMiddleNode(Node head){
         Node slow=head;
         Node fast=head;
@@ -422,6 +424,104 @@ public class LLDS {
         return head;
     }
 
+
+    // function to detect cycle in linked list
+
+    public boolean detectCycle(Node head){
+        Node slow=head;
+        Node fast=head;
+        if(head == null || head.next == null){
+            return false;
+        }
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                return true;
+            }
+        }   
+
+        return false;
+    }
+
+    // function to get node where cycle starts
+
+    public Node getNodewhereCycleStarts(Node head){
+        Node slow=head;
+        Node fast=head;
+        if(head == null || head.next == null){
+            return null;
+        }
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){
+                slow = head;
+                while(slow != fast){
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
+            }
+        }   
+
+        return null;
+    }
+
+    // function to merge two sorted linked list
+
+    public Node mergeTwoList(Node headA,Node headB){ // T.C = O(n+m) and S.C = O(n+m)
+        Node tempA = headA;
+        Node tempB = headB;
+        Node dummy = new Node(0);
+        Node temp = dummy;
+        while(tempA != null && tempB != null){
+            if(tempA.data < tempB.data){
+                temp.next = tempA;
+                tempA = tempA.next;
+            }
+            else{
+                temp.next = tempB;
+                tempB = tempB.next;
+            }
+            temp = temp.next;
+        }
+        if(tempA != null){
+            temp.next = tempA;
+        }
+        if(tempB != null){
+            temp.next = tempB;
+        }
+        return dummy.next;
+    }
+
+
+    public Node mergeTwoListOptimized(Node headA,Node headB){ // T.C = O(n+m) and S.C = O(1)
+        Node tempA = headA;
+        Node tempB = headB;
+        Node dummy = new Node(0);
+        Node temp = dummy;
+        while(tempA != null && tempB != null){
+            if(tempA.data < tempB.data){
+                temp.next = tempA;
+                temp = tempA;
+                tempA = tempA.next;
+            }
+            else{
+                temp.next = tempB;
+                temp = tempB;
+                tempB = tempB.next;
+            }
+           
+        }
+        if(tempA == null){
+            temp.next = tempB;
+        }
+        else{
+            temp.next = tempA;
+        }
+        return dummy.next;
+    }
 
     public static void main(String[] args) {
         LLDS list = new LLDS();
