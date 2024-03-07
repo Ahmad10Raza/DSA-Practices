@@ -756,7 +756,44 @@ public class LLDS {
 
 
 
+    // function to remove loop in ll
 
+    // Function that detects loop in the list
+    int detectAndRemoveLoop(Node node)
+    {
+        Node slow = node, fast = node;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+ 
+            // If slow and fast meet at same point then loop
+            // is present
+            if (slow == fast) {
+                removeLoop(slow, node);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+
+    // Function to remove loop
+    void removeLoop(Node loop, Node head)
+    {
+        Node ptr1 = loop;
+        Node ptr2 = loop;
+ 
+        // Count the number of nodes in loop
+        int k = 1, i;
+        Node prevNode = ptr1;
+        while (ptr1.next != ptr2) {
+            // keeping track beforeing moving next
+            prevNode = ptr1;
+            ptr1 = ptr1.next;
+            k++;
+        }
+        prevNode.next = null;
+    }
 
     // public Node copyRandomList(Node head){
     //     if (head==null){
