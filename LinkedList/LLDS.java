@@ -629,6 +629,135 @@ public class LLDS {
     }
 
 
+    // function to odd even linked list
+
+    public Node oddEvenList(Node head){
+        Node odd = new Node(0);
+        Node even = new Node(0);
+        Node tempodd = odd;
+        Node tempeven = even;
+        Node temp=head;
+
+        while(temp != null){
+            tempodd.next = temp;
+            tempodd = tempodd.next;
+            temp = temp.next;
+            if(temp != null){
+                tempeven.next = temp;
+                tempeven = tempeven.next;
+                temp = temp.next;
+            }
+        }
+        tempodd.next = even.next;
+        tempeven.next = null;
+        return odd.next;
+
+    }
+
+
+
+    // function to twin sum or pair sum in linked list
+
+    public int pairSum(Node head){
+        Node slow=head;
+        Node fast=head;
+        int Maxsum=0;
+        while(fast.next.next != null){
+            
+            slow = slow.next;
+            fast = fast.next.next;
+        }   
+
+        slow.next = reverse_TwinSum(slow.next);
+        Node head1 = head;
+        Node head2 = slow.next;
+
+        while(head2 != null){
+            int sum = head1.data + head2.data;
+            if(sum > Maxsum){
+                Maxsum = sum;
+            }
+            head1 = head1.next;
+            head2 = head2.next; 
+        }
+        return Maxsum;
+
+    }
+
+    public Node reverse_TwinSum(Node head){
+        Node prev = null;
+        Node current = head;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+
+    }
+
+
+
+    // function to reverse k nodes in linked list
+    
+    public Node reverseKNodes(Node head, int k){
+        Node prev=null;
+        Node next=null;
+        Node curr=head;
+        int count=0;
+        if(head == null){
+            return null;
+        }
+        while(curr != null && count < k){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            count++;
+        }
+
+        
+        if(next != null ){
+            head.next = reverseKNodes(next, k);
+        }
+        return prev;
+    }
+
+
+// function to reverse k nodes in linked bot of remain nodes
+    public Node reverseK(Node head){
+        if(head==null||head.next==null)return head;
+        Node rev=reverseK(head.next);
+        head.next.next=head;
+        head.next=null;
+        return rev;
+    }
+    public Node reverseKGroup(Node head, int k) {
+        Node temp=head;
+        for(int i=1;i<k;i++){
+            if(temp==null)return head;
+            else temp=temp.next;
+        }
+        Node n=null;
+        if(temp!=null)
+       { 
+        n=reverseKGroup(temp.next,k);
+        temp.next=null;
+        head=reverseK(head);
+        temp=head;
+        while(temp.next!=null)temp=temp.next;
+        temp.next=n;
+    }
+        return head;
+        
+    }
+
+
+
+
+
     // public Node copyRandomList(Node head){
     //     if (head==null){
     //         return null;
