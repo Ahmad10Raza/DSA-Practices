@@ -855,6 +855,33 @@ public class LLDS {
 	}
 
 
+
+    //  function to move last element to front of linked list
+
+    public Node moveLastToFront(Node head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        Node secLast = null;
+        Node last = head;
+
+        while(last.next != null){
+            secLast = last;
+            last = last.next;
+        }
+
+        // set the next of second last as null
+        secLast.next = null;
+
+
+        // change head to last node
+        last.next = head;
+        head = last;
+        
+        return head;
+    }
+
+
     public static void main(String[] args) {
         LLDS list = new LLDS();
         list.insertAtEnd(1);
@@ -879,7 +906,8 @@ public class LLDS {
         list.traverse();
 
         // list.getMiddleNode(list.head);
-        System.out.println(list.getMiddleNode(list.head).data);
+        list.moveLastToFront(list.head);
+        list.traverse();
 
 
     }
