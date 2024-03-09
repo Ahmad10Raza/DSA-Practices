@@ -76,6 +76,50 @@ public class DLLDS {
         System.out.println("null");
     }
 
+    public void displayReverse(Node head) {
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        while (temp != null) {
+            System.out.print(temp.data + " <==> ");
+            temp = temp.prev;
+        }
+        System.out.println("null");
+    }
+
+    public void displayReverseFromTail(Node tail){
+        Node temp = tail;
+        while (temp != null) {
+            System.out.print(temp.data + " <==> ");
+            temp = temp.prev;
+        }
+        System.out.println("null");
+    }
+
+    public void displayReverseRecursive(Node node) {
+        if (node == null) {
+            return;
+        }
+        displayReverseRecursive(node.next);
+        System.out.print(node.data + " <==> ");
+    }
+
+
+    public void displayWithRandom(Node random){
+        Node temp = random;
+        while(temp != null){
+            temp = temp.prev;
+        }
+
+        while(temp != null){
+            System.out.print(temp.data + " <==> ");
+            temp = temp.next;
+        }
+        System.out.println();
+
+    }
+
     public static void main(String[] args) {
         DLLDS dll = new DLLDS();
         dll.insertAtFront(30);
@@ -85,9 +129,14 @@ public class DLLDS {
         dll.insertAtEnd(50);
         dll.printList();
 
-        dll.deleteAtFront();
-        dll.deleteAtEnd();
-        dll.printList();
+        //dll.deleteAtFront();
+        //dll.deleteAtEnd();
+       // dll.printList();
+        // dll.displayReverse(dll.head);
+        // dll.displayReverseRecursive(dll.head);
+        // dll.displayReverseFromTail(dll.head.next.next.next.next.next);
+
+        dll.displayWithRandom(dll.head.next.next);   // 50 40 30 20 10
     }
 }
 
