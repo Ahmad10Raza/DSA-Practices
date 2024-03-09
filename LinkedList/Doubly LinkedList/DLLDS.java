@@ -1,0 +1,94 @@
+public class DLLDS {
+    public static class Node {
+        int data;
+        Node next;
+        Node prev;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+            this.prev = null;
+        }
+    }
+
+    private Node head;
+
+    public DLLDS() {
+        this.head = null;
+    }
+
+    public void insertAtFront(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+    }
+
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    public void deleteAtFront() {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to delete.");
+        } else {
+            head = head.next;
+            if (head != null) {
+                head.prev = null;
+            }
+        }
+    }
+
+    public void deleteAtEnd() {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to delete.");
+        } else if (head.next == null) {
+            head = null;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.prev.next = null;
+        }
+    }
+
+    public void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " <==> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        DLLDS dll = new DLLDS();
+        dll.insertAtFront(30);
+        dll.insertAtFront(20);
+        dll.insertAtFront(10);
+        dll.insertAtEnd(40);
+        dll.insertAtEnd(50);
+        dll.printList();
+
+        dll.deleteAtFront();
+        dll.deleteAtEnd();
+        dll.printList();
+    }
+}
+
+
