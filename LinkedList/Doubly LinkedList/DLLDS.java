@@ -42,6 +42,26 @@ public class DLLDS {
         }
     }
 
+
+
+    public void insertAtAnyIndex(int data, int index) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp.next;
+            }
+            newNode.next = temp.next;
+            temp.next.prev = newNode;
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    
+
     public void deleteAtFront() {
         if (head == null) {
             System.out.println("List is empty. Nothing to delete.");
