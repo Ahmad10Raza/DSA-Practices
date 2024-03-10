@@ -44,7 +44,7 @@ public class DLLDS {
 
 
 
-    public void insertAtAnyIndex(int data, int index) {
+    public void insertAtIndex(int data, int index) {
         Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
@@ -86,6 +86,24 @@ public class DLLDS {
             temp.prev.next = null;
         }
     }
+
+
+
+    // function to delete node at any index
+
+    public void deleteAtIndex(int index) {
+        if (head == null) {
+            System.out.println("List is empty. Nothing to delete.");
+        } else {
+            Node temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp.next;
+            }
+            temp.next = temp.next.next;
+            temp.next.prev = temp;
+        }
+    }
+
 
     public void printList() {
         Node temp = head;
@@ -147,6 +165,7 @@ public class DLLDS {
         dll.insertAtFront(10);
         dll.insertAtEnd(40);
         dll.insertAtEnd(50);
+        dll.insertAtIndex(25, 2);
         dll.printList();
 
         //dll.deleteAtFront();
