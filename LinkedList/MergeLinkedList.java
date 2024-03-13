@@ -99,7 +99,7 @@ public class MergeLinkedList {
 	public static void main(String[] args)
 	{
 
-		linkedList li = new linkedList();
+		MergeLinkedList li = new MergeLinkedList();
 		/*
 		* Let us create a unsorted linked list to test the functions
 		* created. The list shall be a: 2->3->20->5->10->15
