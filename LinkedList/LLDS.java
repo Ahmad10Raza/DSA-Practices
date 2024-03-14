@@ -910,6 +910,54 @@ public class LLDS {
     }
 
 
+    // function to zig-zag linked list
+
+    public Node ZigZag(Node head){
+        // find mid
+
+        Node slow=head;
+        Node fast=head.next;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node mid = slow;
+
+        // reverse the second half
+        Node prev=null;
+        Node next=null;
+        Node curr=mid.next;
+        mid.next = null;
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+
+        // swap the nodes
+
+        Node left = head;
+        Node right = prev;
+        Node nextL, nextR;
+
+        while(left != null && right != null){
+            nextL = left.next;
+            left.next = right;
+            nextR = right.next;
+            right.next = nextL;
+            
+            
+
+            left = nextL;
+            right = nextR;
+        }
+
+        return head;
+    }
+
+
     public static void main(String[] args) {
         LLDS list = new LLDS();
         list.insertAtEnd(1);
@@ -931,10 +979,13 @@ public class LLDS {
         // System.out.println(b);
         // list.traverse();
         // list.deleteNthNode(list.head, 5);
-        list.traverse();
+        // list.traverse();
 
         // list.getMiddleNode(list.head);
-        list.moveLastToFront(list.head);
+        // list.moveLastToFront(list.head);
+        list.traverse();
+
+        list.ZigZag(list.head);
         list.traverse();
 
 
