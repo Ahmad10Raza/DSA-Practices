@@ -174,6 +174,33 @@ public class DLLDS {
         return head;
     }
 
+    // function to Rotate DoublyLinked list by N nodes.
+
+    public Node rotateDLLByN(Node head, int N){
+        if(N == 0){
+            return head;
+        }
+        Node current = head;
+        int count = 1;
+        while(count < N && current != null){
+            current = current.next;
+            count++;
+        }
+        if(current == null){
+            return head;
+        }
+        Node NthNode = current;
+        while(current.next != null){
+            current = current.next;
+        }
+        current.next = head;
+        head.prev = current;
+        head = NthNode.next;
+        head.prev = null;
+        NthNode.next = null;
+        return head;
+    }
+
     public static void main(String[] args) {
         DLLDS dll = new DLLDS();
         dll.insertAtFront(30);
