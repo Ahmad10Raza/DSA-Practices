@@ -201,6 +201,30 @@ public class DLLDS {
         return head;
     }
 
+    // function Rotate a Doubly Linked list in group of Given Size.[Very IMP]
+
+    public Node rotateDllInGroupSize(Node head, int k){
+        
+        Node prev = null;
+        Node current = head;
+        Node next = null; // Initialize next to null
+        int count = 0;
+        while(current != null && count < k){
+            next = current.next;
+            current.next = prev;
+            current.prev = next;
+            prev = current;
+            current = next;
+            count++;
+        }
+
+        if(next != null){
+            head.next = rotateDllInGroupSize(next, k);
+            
+        }
+        return prev;
+    }
+
     public static void main(String[] args) {
         DLLDS dll = new DLLDS();
         dll.insertAtFront(30);
