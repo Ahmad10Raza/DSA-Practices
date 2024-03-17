@@ -975,6 +975,28 @@ public class LLDS {
         return num1 * num2;
     }
 
+    // function to delete node with greater value on right side
+
+    public Node deleteNodeGreaterInRightSide(Node head){
+        head = reverse(head);
+        Node current = head;
+        Node maxnode = head;
+        Node temp;
+        while(current != null && current.next != null){
+            if(current.next.data < maxnode.data){
+                temp = current.next;
+                current.next = temp.next;
+                temp = null;
+            }
+            else{
+                current = current.next;
+                maxnode = current;
+            }
+        }
+        head = reverse(head);
+        return head;
+    }
+
     // Multiply contents of two linked lists 
     static long multiplyTwoLists(Node first, Node second) 
     { 
