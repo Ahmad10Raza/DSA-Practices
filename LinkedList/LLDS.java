@@ -1021,6 +1021,44 @@ public class LLDS {
     } 
   
 
+    // function to segragate even and odd nodes in linked list
+
+    public Node segregateEvenOdd(Node head){
+        Node end = head;
+        Node prev = null;
+        Node curr = head;
+        while(end.next != null){
+            end = end.next;
+        }
+        Node new_end = end;
+        while(curr.data % 2 != 0 && curr != end){
+            new_end.next = curr;
+            curr = curr.next;
+            new_end.next.next = null;
+            new_end = new_end.next;
+        }
+        if(curr.data % 2 == 0){
+            head = curr;
+            while(curr != end){
+                if(curr.data % 2 == 0){
+                    prev = curr;
+                    curr = curr.next;
+                }
+                else{
+                    prev.next = curr.next;
+                    curr.next = null;
+                    new_end.next = curr;
+                    new_end = curr;
+                    curr = prev.next;
+                }
+            }
+        }
+        else{
+            prev = curr;
+        }
+        return head;
+    }
+
 
     public static void main(String[] args) {
         LLDS list = new LLDS();
