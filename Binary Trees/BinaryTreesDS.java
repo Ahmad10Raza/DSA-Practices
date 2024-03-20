@@ -290,6 +290,114 @@ is changed to...
         return root;
     }
 
+    // function to check if the tree is mirror of itself
+
+    public boolean isMirror(Node root1, Node root2){
+        if(root1 == null && root2 == null){
+            return true;
+        }
+        if(root1 == null || root2 == null){
+            return false;
+        }
+        return (root1.data == root2.data) && isMirror(root1.left, root2.right) && isMirror(root1.right, root2.left);
+    }
+
+    // function to print left view of the tree
+ 
+  /*  Input: 
+                   4
+                /   \
+              5     2
+                   /   \
+                3     1
+              /  \
+           6    7
+
+Output: 4 5 3 6 */ 
+    static int max_level = 0;
+
+    public void leftViewRec(Node root,int level){
+        
+
+        // base case
+        if(root == null){
+            return;
+        }
+
+        if (max_level < level) {
+            System.out.print(root.data + " ");
+            max_level = level;
+        }
+
+        leftViewRec(root.left, level + 1);
+        leftViewRec(root.right, level + 1);
+
+    }
+
+    // function to print left view iteratively
+
+    public void leftViewIterative(Node root){
+        if(root == null){
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int n = q.size();
+            for(int i = 1; i <= n; i++){
+                Node temp = q.poll();
+                if(i == 1){
+                    System.out.print(temp.data+" ");
+                }
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+                if(temp.right != null){
+                    q.add(temp.right);
+                }
+            }
+        }
+    }
+
+    // function to print right view of the tree using recursive approach
+
+    public void rightViewRec(Node root,int level){
+        if(root == null){
+            return;
+        }
+        if(max_level < level){
+            System.out.print(root.data+" ");
+            max_level = level;
+        }
+        rightViewRec(root.right, level + 1);
+        rightViewRec(root.left, level + 1);
+    }
+
+    // function to print right view of the tree using iterative approach
+
+    public void rightViewIterative(Node root){
+        if(root == null){
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int n = q.size();
+            for(int i = 1; i <= n; i++){
+                Node temp = q.poll();
+                if(i == n){
+                    System.out.print(temp.data+" ");
+                }
+                if(temp.left != null){
+                    q.add(temp.left);
+                }
+                if(temp.right != null){
+                    q.add(temp.right);
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -304,11 +412,21 @@ is changed to...
         // System.out.println("Inorder traversal:");
         // tree.inorder();
 
+        // System.out.println("\nInorder traversal using iterative approach:");
+        // tree.inorderIterative(tree.root);
+
         // System.out.println("\nPreorder traversal:");
         // tree.preorder();
 
+        // System.out.println("\nPreorder traversal using iterative approach:");
+        // tree.preorderIterative(tree.root);
+
+
         // System.out.println("\nPostorder traversal:");
         // tree.postorder();
+
+        // System.out.println("\nPostorder traversal using iterative approach:");
+        // tree.postorderIterative(tree.root);
 
         System.out.println("\nLevel order traversal:");
         levelOrder(tree.root);
@@ -329,9 +447,27 @@ is changed to...
         // int height = 0;
         // System.out.println(tree.diameterOptimized(tree.root, height));
 
-        System.out.println("\nMirror of the tree:");
-        Node mirror = tree.mirror(tree.root);
-        levelOrder(mirror);
+        // System.out.println("\nMirror of the tree:");
+        // Node mirror = tree.mirror(tree.root);
+        // levelOrder(mirror);
+
+        // System.out.println("\nIs tree mirror of itself:");
+        // System.out.println(tree.isMirror(tree.root, tree.root));
+
+        System.out.println("\nLeft view of the tree:");
+        int level = 1;
+        tree.leftViewRec(tree.root, level);
+
+        System.out.println("\nLeft view of the tree using iterative approach:");
+        tree.leftViewIterative(tree.root);
+
+        // System.out.println("\nRight view of the tree:");
+        // tree.rightViewRec(tree.root, level);
+
+        // System.out.println("\nRight view of the tree using iterative approach:");
+        // tree.rightViewIterative(tree.root);
+
+        
         
     }
 }
