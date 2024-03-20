@@ -1,6 +1,8 @@
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.TreeMap;
 class BinaryTree {
     class Node {
         int data;
@@ -398,6 +400,73 @@ Output: 4 5 3 6 */
         }
     }
 
+
+    // function to print the top view of the tree
+
+    public void topView(Node root){
+        if(root == null){
+            return;
+        }
+        class QueueObj{ // class to store the node and its horizontal distance
+            Node node;
+            int hd;
+            QueueObj(Node node, int hd){
+                this.node = node;
+                this.hd = hd;
+            }
+        }
+        Queue<QueueObj> q = new LinkedList<>(); // create a queue to store the nodes and its horizontal distance
+        Map<Integer, Node> topViewMap = new TreeMap<>(); // create a map to store the top view of the tree
+        q.add(new QueueObj(root, 0));
+        while(!q.isEmpty()){
+            QueueObj tempNode = q.poll();
+            if(!topViewMap.containsKey(tempNode.hd)){
+                topViewMap.put(tempNode.hd, tempNode.node);
+            }
+            if(tempNode.node.left != null){
+                q.add(new QueueObj(tempNode.node.left, tempNode.hd - 1));
+            }
+            if(tempNode.node.right != null){
+                q.add(new QueueObj(tempNode.node.right, tempNode.hd + 1));
+            }
+        }
+        for(Map.Entry<Integer, Node> entry : topViewMap.entrySet()){
+            System.out.print(entry.getValue().data+" ");
+        }
+    }
+
+    // function to print the bottom view of the tree
+
+    public void bottomView(Node root){
+        if(root == null){
+            return;
+        }
+        class QueueObj{ // class to store the node and its horizontal distance
+            Node node;
+            int hd;
+            QueueObj(Node node, int hd){
+                this.node = node;
+                this.hd = hd;
+            }
+        }
+        Queue<QueueObj> q = new LinkedList<>(); // create a queue to store the nodes and its horizontal distance
+        Map<Integer, Node> bottomViewMap = new TreeMap<>(); // create a map to store the bottom view of the tree
+        q.add(new QueueObj(root, 0));
+        while(!q.isEmpty()){
+            QueueObj tempNode = q.poll();
+            bottomViewMap.put(tempNode.hd, tempNode.node);
+            if(tempNode.node.left != null){
+                q.add(new QueueObj(tempNode.node.left, tempNode.hd - 1));
+            }
+            if(tempNode.node.right != null){
+                q.add(new QueueObj(tempNode.node.right, tempNode.hd + 1));
+            }
+        }
+        for(Map.Entry<Integer, Node> entry : bottomViewMap.entrySet()){
+            System.out.print(entry.getValue().data+" ");
+        }
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -454,12 +523,12 @@ Output: 4 5 3 6 */
         // System.out.println("\nIs tree mirror of itself:");
         // System.out.println(tree.isMirror(tree.root, tree.root));
 
-        System.out.println("\nLeft view of the tree:");
-        int level = 1;
-        tree.leftViewRec(tree.root, level);
+        // System.out.println("\nLeft view of the tree:");
+        // int level = 1;
+        // tree.leftViewRec(tree.root, level);
 
-        System.out.println("\nLeft view of the tree using iterative approach:");
-        tree.leftViewIterative(tree.root);
+        // System.out.println("\nLeft view of the tree using iterative approach:");
+        // tree.leftViewIterative(tree.root);
 
         // System.out.println("\nRight view of the tree:");
         // tree.rightViewRec(tree.root, level);
@@ -467,7 +536,13 @@ Output: 4 5 3 6 */
         // System.out.println("\nRight view of the tree using iterative approach:");
         // tree.rightViewIterative(tree.root);
 
-        
+        System.out.println("\nTop view of the tree:");
+        tree.topView(tree.root);
+
+        System.out.println("\nBottom view of the tree:");
+        tree.bottomView(tree.root);
+
+
         
     }
 }
