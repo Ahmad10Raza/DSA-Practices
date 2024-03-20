@@ -83,59 +83,32 @@ class BinaryTree {
     // function to level order traversal of the tree
 
     public static void levelOrder(Node root) {
-
         if(root == null) {
- 
             return;
- 
         }
- 
-        Queue<Node> q = new LinkedList<>();
- 
+        Queue<Node> q = new LinkedList<>(); // create a queue to store the nodes
         q.add(root);
- 
         q.add(null);
- 
         while(!q.isEmpty()) {
- 
             Node curr = q.remove();
- 
             if(curr == null) {
- 
                 System.out.println();
- 
                 //queue empty
- 
                 if(q.isEmpty()) {
- 
                     break;
- 
                 } else {
- 
                     q.add(null);
- 
                 }
- 
             } else {
- 
                 System.out.print(curr.data+" ");
- 
                 if(curr.left != null) {
- 
                     q.add(curr.left);
- 
                 }
- 
                 if(curr.right != null) {
- 
-                    q.add(curr.right);
- 
+                       q.add(curr.right);
                 }
- 
             }
- 
         }
- 
     }
 
 
@@ -223,6 +196,38 @@ class BinaryTree {
     }
 
 
+    // function to mirror the tree
+     
+    /* Change a tree so that the roles of the left and
+    right pointers are swapped at every node.
+ 
+So the tree...
+     4
+    / \
+   2   5
+  / \
+ 3   1
+ 
+is changed to...
+     4
+    / \
+   5   2
+      / \
+     1   3
+*/
+
+     
+    public Node mirror(Node root){
+        if(root == null){
+            return null;
+        }
+        Node left = mirror(root.left);
+        Node right = mirror(root.right);
+        root.left = right;
+        root.right = left;
+        return root;
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -246,20 +251,25 @@ class BinaryTree {
         System.out.println("\nLevel order traversal:");
         levelOrder(tree.root);
 
-        System.out.println("\nHeight of the tree:");
-        System.out.println(tree.height(tree.root));
+        // System.out.println("\nHeight of the tree:");
+        // System.out.println(tree.height(tree.root));
 
-        System.out.println("\nCount of the nodes of the tree:");
-        System.out.println(tree.countNodes(tree.root));
+        // System.out.println("\nCount of the nodes of the tree:");
+        // System.out.println(tree.countNodes(tree.root));
 
-        System.out.println("\nSum of the nodes of the tree:");
-        System.out.println(tree.sumOfNodes(tree.root));
+        // System.out.println("\nSum of the nodes of the tree:");
+        // System.out.println(tree.sumOfNodes(tree.root));
 
-        System.out.println("\nDiameter of the tree:");
-        System.out.println(tree.diameter(tree.root));
+        // System.out.println("\nDiameter of the tree:");
+        // System.out.println(tree.diameter(tree.root));
 
-        System.out.println("\nDiameter of the tree using O(n) approach:");
-        int height = 0;
-        System.out.println(tree.diameterOptimized(tree.root, height));
+        // System.out.println("\nDiameter of the tree using O(n) approach:");
+        // int height = 0;
+        // System.out.println(tree.diameterOptimized(tree.root, height));
+
+        System.out.println("\nMirror of the tree:");
+        Node mirror = tree.mirror(tree.root);
+        levelOrder(mirror);
+        
     }
 }

@@ -10,8 +10,8 @@ public class DiameterOfTree {
 
     public int diameterOfBinaryTree(TreeNode root) {
         int[] diameter = new int[1];
-        height(root, diameter);
-        return diameter[0];        
+        height(root, diameter); // the height function also updates the diameter    
+        return diameter[0];      // the diameter is stored in the first element of the array  
     }
 
     private int height(TreeNode node, int[] diameter) {
@@ -20,8 +20,8 @@ public class DiameterOfTree {
         }
         int lh = height(node.left, diameter);
         int rh = height(node.right, diameter);
-        diameter[0] = Math.max(diameter[0], lh + rh);
-        return 1 + Math.max(lh, rh);
+        diameter[0] = Math.max(diameter[0], lh + rh); // update the diameter if necessary 
+        return 1 + Math.max(lh, rh); // return the height of the current node 
     }
 
     public static void main(String[] args) {
