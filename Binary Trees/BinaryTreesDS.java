@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 class BinaryTree {
     class Node {
         int data;
@@ -78,6 +80,64 @@ class BinaryTree {
         }
     }
 
+    // function to level order traversal of the tree
+
+    public static void levelOrder(Node root) {
+
+        if(root == null) {
+ 
+            return;
+ 
+        }
+ 
+        Queue<Node> q = new LinkedList<>();
+ 
+        q.add(root);
+ 
+        q.add(null);
+ 
+        while(!q.isEmpty()) {
+ 
+            Node curr = q.remove();
+ 
+            if(curr == null) {
+ 
+                System.out.println();
+ 
+                //queue empty
+ 
+                if(q.isEmpty()) {
+ 
+                    break;
+ 
+                } else {
+ 
+                    q.add(null);
+ 
+                }
+ 
+            } else {
+ 
+                System.out.print(curr.data+" ");
+ 
+                if(curr.left != null) {
+ 
+                    q.add(curr.left);
+ 
+                }
+ 
+                if(curr.right != null) {
+ 
+                    q.add(curr.right);
+ 
+                }
+ 
+            }
+ 
+        }
+ 
+    }
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -97,5 +157,8 @@ class BinaryTree {
 
         System.out.println("\nPostorder traversal:");
         tree.postorder();
+
+        System.out.println("\nLevel order traversal:");
+        levelOrder(tree.root);
     }
 }
