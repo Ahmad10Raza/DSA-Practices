@@ -192,8 +192,35 @@ class BinaryTree {
     }
 
 
+    // function to calculate the diameter of the tree using O(n) approach
+
+    public int diameterOptimized(Node root, int height){
+        if(root == null){
+            height = 0;
+            return 0;
+        }
+        int lh = 0, rh = 0;
+        int leftDiameter = diameterOptimized(root.left, lh);
+        int rightDiameter = diameterOptimized(root.right, rh);
+        height = Math.max(lh, rh) + 1;
+        return Math.max(lh + rh + 1, Math.max(leftDiameter, rightDiameter));
+    }
     
- 
+    public int diameterOfBinaryTree(Node root) {
+        int[] diameter = new int[1];
+        height2(root, diameter);
+        return diameter[0];        
+    }
+
+    private int height2(Node node, int[] diameter) {
+        if (node == null) {
+            return 0;
+        }
+        int lh = height2(node.left, diameter);
+        int rh = height2(node.right, diameter);
+        diameter[0] = Math.max(diameter[0], lh + rh);
+        return 1 + Math.max(lh, rh);
+    }
 
 
     public static void main(String[] args) {
@@ -230,5 +257,9 @@ class BinaryTree {
 
         System.out.println("\nDiameter of the tree:");
         System.out.println(tree.diameter(tree.root));
+
+        System.out.println("\nDiameter of the tree using O(n) approach:");
+        int height = 0;
+        System.out.println(tree.diameterOptimized(tree.root, height));
     }
 }
