@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 class BinaryTree {
     class Node {
         int data;
@@ -56,6 +57,24 @@ class BinaryTree {
         }
     }
 
+    // funtion to inorder traversal of the tree using iterative approach
+    public void inorderIterative(Node root){
+        if(root == null){
+            return;
+        }
+        Stack<Node> stack = new Stack<>();
+        Node curr = root;
+        while(curr != null || !stack.isEmpty()){
+            while(curr != null){
+                stack.push(curr);
+                curr = curr.left;
+            }
+            curr = stack.pop();
+            System.out.print(curr.data+" ");
+            curr = curr.right;
+        }
+    }
+
     void preorder() {
         preorderRec(root);
     }
@@ -68,8 +87,51 @@ class BinaryTree {
         }
     }
 
+    // funtion to preorder traversal of the tree using iterative approach
+    public void preorderIterative(Node root){
+        if(root == null){
+            return;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while(!stack.isEmpty()){
+            Node curr = stack.pop();
+            System.out.print(curr.data+" ");
+            if(curr.right != null){
+                stack.push(curr.right);
+            }
+            if(curr.left != null){
+                stack.push(curr.left);
+            }
+        }
+    }
+
+
     void postorder() {
         postorderRec(root);
+    }
+
+    // function to postorder traversal of the tree using iterative approach
+    public void postorderIterative(Node root){
+        if(root == null){
+            return;
+        }
+        Stack<Node> stack1 = new Stack<>();
+        Stack<Node> stack2 = new Stack<>();
+        stack1.push(root);
+        while(!stack1.isEmpty()){
+            Node curr = stack1.pop();
+            stack2.push(curr);
+            if(curr.left != null){
+                stack1.push(curr.left);
+            }
+            if(curr.right != null){
+                stack1.push(curr.right);
+            }
+        }
+        while(!stack2.isEmpty()){
+            System.out.print(stack2.pop().data+" ");
+        }
     }
 
     void postorderRec(Node root) {
