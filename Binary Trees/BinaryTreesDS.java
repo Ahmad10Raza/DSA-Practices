@@ -138,6 +138,64 @@ class BinaryTree {
  
     }
 
+
+    // function to calculate the height of the tree
+
+    public int height(Node root){
+        if(root == null){
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+
+
+    // funtion to count the node of the tree
+
+    public int countNodes(Node root){
+        if(root == null){
+            return 0;
+        }
+        return countNodes(root.left) + countNodes(root.right) + 1;
+    }
+
+
+
+
+    // function to calculate sum of all the nodes of the tree
+
+    public int sumOfNodes(Node root){
+        if(root == null){
+            return 0;
+        }
+        return sumOfNodes(root.left) + sumOfNodes(root.right) + root.data;
+    }
+
+
+    // function to calculate the diameter of the tree using O(n^2) approach
+    // diameter means   eg:  1
+    //                      5 6
+    //                    7 8 9 10
+    // diameter = 5
+
+    public int diameter(Node root){  // O(n^2) approach
+        if(root == null){
+            return 0;
+        }
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+        int leftDiameter = diameter(root.left);
+        int rightDiameter = diameter(root.right);
+        return Math.max(leftHeight + rightHeight + 1, Math.max(leftDiameter, rightDiameter));
+    }
+
+
+    
+ 
+
+
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -149,16 +207,28 @@ class BinaryTree {
         tree.insert(60);
         tree.insert(80);
 
-        System.out.println("Inorder traversal:");
-        tree.inorder();
+        // System.out.println("Inorder traversal:");
+        // tree.inorder();
 
-        System.out.println("\nPreorder traversal:");
-        tree.preorder();
+        // System.out.println("\nPreorder traversal:");
+        // tree.preorder();
 
-        System.out.println("\nPostorder traversal:");
-        tree.postorder();
+        // System.out.println("\nPostorder traversal:");
+        // tree.postorder();
 
         System.out.println("\nLevel order traversal:");
         levelOrder(tree.root);
+
+        System.out.println("\nHeight of the tree:");
+        System.out.println(tree.height(tree.root));
+
+        System.out.println("\nCount of the nodes of the tree:");
+        System.out.println(tree.countNodes(tree.root));
+
+        System.out.println("\nSum of the nodes of the tree:");
+        System.out.println(tree.sumOfNodes(tree.root));
+
+        System.out.println("\nDiameter of the tree:");
+        System.out.println(tree.diameter(tree.root));
     }
 }
