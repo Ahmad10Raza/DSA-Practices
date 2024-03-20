@@ -3,9 +3,9 @@ class BinaryTree {
         int data;
         Node left, right;
 
-        public Node(int item) {
-            data = item;
-            left = right = null;
+        public Node(int data ) {
+            this.data = data;
+            this.left = this.right = null;
         }
     }
 
@@ -30,6 +30,15 @@ class BinaryTree {
         else if (data > root.data)
             root.right = insertRec(root.right, data);
 
+        return root;
+    }
+
+    // function to build the tree 
+
+    public Node buildTree(int nodes[]){
+        for(int i = 0; i < nodes.length; i++){
+            insert(nodes[i]);
+        }
         return root;
     }
 
