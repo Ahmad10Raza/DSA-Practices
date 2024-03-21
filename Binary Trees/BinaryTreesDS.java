@@ -609,6 +609,37 @@ Output: 4 5 3 6 */
         return Math.max(lh, rh) + 1; // 1 is for the root node
     }
 
+
+    // function to diagonal traversal of the tree
+
+    public void diagonalTraversal(Node root){
+        
+        if(root == null){
+            return;
+        }
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        q.add(null);
+        while(!q.isEmpty()){
+            Node temp = q.poll();
+            if(temp == null){
+                if(q.isEmpty()){
+                    break;
+                }
+                q.add(null);
+                System.out.println();
+            } else {
+                while(temp != null){
+                    System.out.print(temp.data+" ");
+                    if(temp.left != null){
+                        q.add(temp.left);
+                    }
+                    temp = temp.right;
+                }
+            }
+        }
+    }
+
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -694,13 +725,17 @@ Output: 4 5 3 6 */
         // }
 
 
-        System.out.println("\nHeight balanced tree:");
-        int balanced = tree.isBalanced(tree.root);
-        if(balanced == -1){
-            System.out.println("Tree is not height balanced");
-        } else {
-            System.out.println("Tree is height balanced");
-        }
+        // System.out.println("\nHeight balanced tree:");
+        // int balanced = tree.isBalanced(tree.root);
+        // if(balanced == -1){
+        //     System.out.println("Tree is not height balanced");
+        // } else {
+        //     System.out.println("Tree is height balanced");
+        // }
+
+
+        System.out.println("\nDiagonal traversal of the tree:"); 
+        tree.diagonalTraversal(tree.root);
 
         
     }
