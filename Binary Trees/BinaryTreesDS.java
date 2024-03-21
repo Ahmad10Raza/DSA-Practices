@@ -588,6 +588,27 @@ Output: 4 5 3 6 */
     }
  
 
+    // function to check height balanced tree
+
+    public int isBalanced(Node root){
+    
+        if(root == null){
+            return 0;
+        }
+        int lh = isBalanced(root.left);
+        if(lh == -1){
+            return -1;
+        }
+        int rh = isBalanced(root.right);
+        if(rh == -1){
+            return -1;
+        }
+        if(Math.abs(lh - rh) > 1){
+            return -1;
+        }
+        return Math.max(lh, rh) + 1; // 1 is for the root node
+    }
+
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -663,15 +684,23 @@ Output: 4 5 3 6 */
         // System.out.println("\nBottom view of the tree:");
         // tree.bottomView(tree.root);
 
-        System.out.println("\nZigzag traversal of the tree:");
-        tree.zigzagTraversal(tree.root);
+        // System.out.println("\nZigzag traversal of the tree:");
+        // tree.zigzagTraversal(tree.root);
 
-        System.out.println("\nZigzag traversal of the tree using odd even level approach:");
-        Vector<Integer> v = zigZagTraversal(tree.root);
-        for(int i = 0; i < v.size(); i++){
-            System.out.print(v.get(i)+" ");  
+        // System.out.println("\nZigzag traversal of the tree using odd even level approach:");
+        // Vector<Integer> v = zigZagTraversal(tree.root);
+        // for(int i = 0; i < v.size(); i++){
+        //     System.out.print(v.get(i)+" ");  
+        // }
+
+
+        System.out.println("\nHeight balanced tree:");
+        int balanced = tree.isBalanced(tree.root);
+        if(balanced == -1){
+            System.out.println("Tree is not height balanced");
+        } else {
+            System.out.println("Tree is height balanced");
         }
-
 
         
     }
