@@ -369,6 +369,14 @@ Output: 4 5 3 6 */
 
     // function to print right view of the tree using recursive approach
 
+    //       1
+    //      / \
+    //     2   3
+    //    / \ / \
+    //   4  5 6  7
+
+    // output: 1 3 7
+
     public void rightViewRec(Node root,int level){
         if(root == null){
             return;
@@ -409,6 +417,14 @@ Output: 4 5 3 6 */
 
     // function to print the top view of the tree
 
+    //        1
+    //       / \
+    //      2   3
+    //     / \ / \
+    //    4  5 6  7
+
+    // output: 4 2 1 3 7
+
     public void topView(Node root){
         if(root == null){
             return;
@@ -442,6 +458,16 @@ Output: 4 5 3 6 */
     }
 
     // function to print the bottom view of the tree
+
+    //        20
+    //       /  \
+    //      8    22
+    //     / \   / \
+    //    5  3 4   25
+    //       / \
+    //      10 14
+
+    // output: 5 10 4 14 25
 
     public void bottomView(Node root){
         if(root == null){
@@ -611,6 +637,15 @@ Output: 4 5 3 6 */
 
 
     // function to diagonal traversal of the tree
+    //        8
+    //       / \
+    //      3   10
+    //     / \    \
+    //    1   6    14
+    //       / \   /
+    //      4   7 13
+
+    // output: 8 10 14 3 6 7 13 1 4
 
     public void diagonalTraversal(Node root){
         
@@ -639,6 +674,84 @@ Output: 4 5 3 6 */
             }
         }
     }
+
+
+
+    // function to print the boundary of the tree
+
+    //       20
+    //      /  \
+    //     8    22
+    //    / \   / \
+    //   4  12 21  25
+    //     /  \
+    //    10  14
+
+    // output: 20 8 4 10 14 25 22 21
+
+    
+
+    // function to print the left boundary of the tree
+
+    public void printLeftBoundary(Node root){
+         
+        if(root == null){
+            return;
+        }
+        if(root.left != null){
+            System.out.print(root.data+" ");
+            printLeftBoundary(root.left);
+        } else if(root.right != null){
+            System.out.print(root.data+" ");
+            printLeftBoundary(root.right);
+        }
+
+    }
+
+    // function to print the right boundary of the tree
+
+    public void printRightBoundary(Node root){
+        
+        if(root == null){
+            return;
+        }
+        if(root.right != null){
+            printRightBoundary(root.right);
+            System.out.print(root.data+" ");
+        } else if(root.left != null){
+            printRightBoundary(root.left);
+            System.out.print(root.data+" ");
+        }
+    }
+
+    // function to print the leaves of the tree
+
+    public void printLeaves(Node root){
+        
+        if(root == null){
+            return;
+        }
+        printLeaves(root.left);
+        if(root.left == null && root.right == null){
+            System.out.print(root.data+" ");
+        }
+        printLeaves(root.right);
+    }
+
+    // function to print the boundary of the tree
+    
+    public void printBoundary(Node root){
+        
+        if(root == null){
+            return;
+        }
+        System.out.print(root.data+" ");
+        printLeftBoundary(root.left);
+        printLeaves(root.left);
+        printLeaves(root.right);
+        printRightBoundary(root.right);
+    }
+
 
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
@@ -734,8 +847,12 @@ Output: 4 5 3 6 */
         // }
 
 
-        System.out.println("\nDiagonal traversal of the tree:"); 
-        tree.diagonalTraversal(tree.root);
+        // System.out.println("\nDiagonal traversal of the tree:"); 
+        // tree.diagonalTraversal(tree.root);
+
+        System.out.println("\nBoundary of the tree:");
+        tree.printBoundary(tree.root);
+
 
         
     }
