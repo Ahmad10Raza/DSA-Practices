@@ -1,8 +1,14 @@
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.Vector;
+
+
+
+
 class BinaryTree {
     class Node {
         int data;
@@ -470,26 +476,40 @@ Output: 4 5 3 6 */
 
 
     // functiona to print the zigzag traversal of the tree
+        //         1
+        //       /   \
+        //      2     3
+        //     / \   / \
+        //    7   6 5   4
+
+        // output: 1 3 2 7 6 5 4
 
     public void zigzagTraversal(Node root){
         if(root == null){
             return;
         }
-        Stack<Node> currentLevel = new Stack<>();
-        Stack<Node> nextLevel = new Stack<>();
-        boolean leftToRight = true;
+// create a stack to store the current level nodes 
+        Stack<Node> currentLevel = new Stack<>(); 
+           // create a stack to store the next level nodes
+        Stack<Node> nextLevel = new Stack<>(); 
+        
+        boolean leftToRight = true; 
+        // boolean variable to check the direction of the traversal
         currentLevel.push(root);
-        while(!currentLevel.isEmpty()){
+        while(!currentLevel.isEmpty()){  
+             // iterate until the current level stack is empty
             Node temp = currentLevel.pop();
+             // pop the node from the current level stack and store it in temp
             System.out.print(temp.data+" ");
-            if(leftToRight){
+            if(leftToRight){ // if leftToRight is true then push the left node first and then right node    
                 if(temp.left != null){
                     nextLevel.push(temp.left);
                 }
                 if(temp.right != null){
                     nextLevel.push(temp.right);
                 }
-            } else {
+            } else { 
+                // if leftToRight is false then push the right node first and then left node   
                 if(temp.right != null){
                     nextLevel.push(temp.right);
                 }
@@ -497,7 +517,9 @@ Output: 4 5 3 6 */
                     nextLevel.push(temp.left);
                 }
             }
-            if(currentLevel.isEmpty()){
+            if(currentLevel.isEmpty()){ 
+                // if the current level stack is empty then swap the current level 
+                // stack with next level stack and change the direction of the traversal    
                 leftToRight = !leftToRight;
                 Stack<Node> tempStack = currentLevel;
                 currentLevel = nextLevel;
@@ -506,8 +528,65 @@ Output: 4 5 3 6 */
         }
     }
 
+    // zig-zag traversal using odd even level approach
 
+    // Function to print the zigzag traversal
+    public static Vector<Integer> zigZagTraversal(Node root) {
 
+        Deque<Node> q = new LinkedList<Node>();
+        Vector<Integer> v = new Vector<Integer>();
+        q.add(root);
+        v.add(root.data);
+        Node temp;
+        
+        // set initial level as 1, because root is
+        // already been taken care of.
+        int l = 1;
+                     
+        while (q.size() > 0) {
+            int n = q.size();
+      
+            for (int i = 0; i < n; i++) {
+      
+                // popping mechanism
+                if (l % 2 == 0) {
+                    temp = q.peekLast();
+                    q.pollLast();
+                }
+                else {
+                    temp = q.peekFirst();
+                    q.pollFirst();
+                }
+      
+                // pushing mechanism
+                if (l % 2 != 0) {
+      
+                    if (temp.right != null) {
+                        q.add(temp.right);
+                        v.add(temp.right.data);
+                    }
+                    if (temp.left != null) {
+                        q.add(temp.left);
+                        v.add(temp.left.data);
+                    }
+                }
+                else if (l % 2 == 0) {
+      
+                    if (temp.left != null) {
+                        q.offerFirst(temp.left);
+                        v.add(temp.left.data);
+                    }
+                    if (temp.right != null) {
+                        q.offerFirst(temp.right);
+                        v.add(temp.right.data);
+                    }
+                }
+            }
+            l++; // level plus one
+        }
+        return v;
+    }
+ 
 
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
@@ -578,11 +657,20 @@ Output: 4 5 3 6 */
         // System.out.println("\nRight view of the tree using iterative approach:");
         // tree.rightViewIterative(tree.root);
 
-        System.out.println("\nTop view of the tree:");
-        tree.topView(tree.root);
+        // System.out.println("\nTop view of the tree:");
+        // tree.topView(tree.root);
 
-        System.out.println("\nBottom view of the tree:");
-        tree.bottomView(tree.root);
+        // System.out.println("\nBottom view of the tree:");
+        // tree.bottomView(tree.root);
+
+        System.out.println("\nZigzag traversal of the tree:");
+        tree.zigzagTraversal(tree.root);
+
+        System.out.println("\nZigzag traversal of the tree using odd even level approach:");
+        Vector<Integer> v = zigZagTraversal(tree.root);
+        for(int i = 0; i < v.size(); i++){
+            System.out.print(v.get(i)+" ");  
+        }
 
 
         
