@@ -753,6 +753,50 @@ Output: 4 5 3 6 */
     }
 
 
+    // function to Construct Binary Tree from String with Bracket Representation
+
+    public Node constructTree(String str){
+
+        if(str.length() == 0){
+            return null;
+        }
+        Stack<Node> stack = new Stack<>();
+        Node root = null;
+        for(int i = 0; i < str.length(); i++){
+            char ch = str.charAt(i);
+            if(ch == '('){
+                stack.push(root);
+            } else if(Character.isDigit(ch) || ch == '-'){
+                int num = 0;
+                int sign = 1;
+                if(ch == '-'){
+                    sign = -1;
+                    i++;
+                    ch = str.charAt(i);
+                }
+                while(i < str.length() && Character.isDigit(str.charAt(i))){
+                    num = num * 10 + (str.charAt(i) - '0');
+                    i++;
+                }
+                i--;
+                num = num * sign;
+                Node temp = new Node(num);
+                if(root == null){
+                    root = temp;
+                } else {
+                    if(stack.peek().left == null){
+                        stack.peek().left = temp;
+                    } else {
+                        stack.peek().right = temp;
+                    }
+                }
+            } else if(ch == ')'){
+                stack.pop();
+            }
+        }
+        return root;
+    }
+
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
