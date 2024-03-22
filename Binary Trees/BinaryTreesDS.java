@@ -863,6 +863,48 @@ Output: 4 5 3 6 */
                 return node.data + old_val;
 
     }
+
+
+    // function to construct a binary tree from inorder and preorder traversal  of the tree
+
+    //         1
+    //       /   \
+    //      2     3
+    //     / \   / \
+    //    4   5 6   7
+
+    // Inorder: 4 2 5 1 6 3 7
+    // Preorder: 1 2 4 5 3 6 7
+
+
+    static int preIndex = 0;
+
+    public Node buildTree(int in[], int pre[], int inStrt, int inEnd){
+
+        if(inStrt > inEnd){
+            return null;
+        }
+        Node tNode = new Node(pre[preIndex++]);
+        if(inStrt == inEnd){
+            return tNode;
+        }
+        int inIndex = search(in, inStrt, inEnd, tNode.data);
+        tNode.left = buildTree(in, pre, inStrt, inIndex - 1);
+        tNode.right = buildTree(in, pre, inIndex + 1, inEnd);
+        return tNode;
+
+    }
+
+    public int search(int arr[], int strt, int end, int value){
+
+        int i;
+        for(i = strt; i <= end; i++){
+            if(arr[i] == value){
+                return i;
+            }
+        }
+        return i;
+    }
     
 
         public static void main(String[] args) {
@@ -978,9 +1020,16 @@ Output: 4 5 3 6 */
         //     head = head.right;
         // }
 
-        System.out.println("\nConvert Binary tree into Sum tree:");
-        tree.convertToSumTree(tree.root);
-        levelOrder(tree.root);
+        // System.out.println("\nConvert Binary tree into Sum tree:");
+        // tree.convertToSumTree(tree.root);
+        // levelOrder(tree.root);
+
+        System.out.println("\nConstruct a binary tree from inorder and preorder traversal of the tree:");    
+        int in[] = {4, 2, 5, 1, 6, 3, 7};
+        int pre[] = {1, 2, 4, 5, 3, 6, 7};
+        Node root = tree.buildTree(in, pre, 0, in.length - 1);
+        levelOrder(root);
+
 
 
 
