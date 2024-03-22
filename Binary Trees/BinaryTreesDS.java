@@ -832,7 +832,37 @@ Output: 4 5 3 6 */
         return head;
     }
 
-    // another aprocach to convert a binary tree to a doubly linked list
+    // function to Convert Binary tree into Sum tree
+
+    //     10
+    //    /  \
+    //   -2    6
+    //  / \   / \
+    // 8  -4  7  5
+
+    // output: 20 
+    //        /  \
+    //      4    12
+    //     / \   / \
+    //    0  0   0  0
+
+    public int convertToSumTree(Node node){
+                // Base case
+                if (node == null)
+                return 0;
+
+                // Store the old value
+                int old_val = node.data;
+
+                // Recursively call for left and right subtrees and store the sum
+                // as new value of this node
+                node.data = convertToSumTree(node.left) + convertToSumTree(node.right);
+
+                // Return the sum of values of nodes in left and right subtrees
+                // and old_value of this node
+                return node.data + old_val;
+
+    }
     
 
         public static void main(String[] args) {
@@ -932,8 +962,27 @@ Output: 4 5 3 6 */
         // System.out.println("\nDiagonal traversal of the tree:"); 
         // tree.diagonalTraversal(tree.root);
 
-        System.out.println("\nBoundary of the tree:");
-        tree.printBoundary(tree.root);
+        // System.out.println("\nBoundary of the tree:");
+        // tree.printBoundary(tree.root);
+
+        // System.out.println("\nConstruct Binary Tree from String with Bracket Representation:");
+        // String str = "4(2(3)(1))(6(5))";
+
+        // Node root = tree.constructTree(str);
+        // levelOrder(root);
+
+        // System.out.println("\nConvert a binary tree to a doubly linked list:");
+        // Node head = tree.convertToDLL(tree.root);
+        // while(head != null){
+        //     System.out.print(head.data+" ");
+        //     head = head.right;
+        // }
+
+        System.out.println("\nConvert Binary tree into Sum tree:");
+        tree.convertToSumTree(tree.root);
+        levelOrder(tree.root);
+
+
 
 
         
