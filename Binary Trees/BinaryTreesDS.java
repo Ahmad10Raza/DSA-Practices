@@ -905,6 +905,32 @@ Output: 4 5 3 6 */
         }
         return i;
     }
+
+    // function to build the tree from inorder and postorder traversal of the tree
+
+    //        1
+    //       / \
+    //      2   3
+    //     / \ / \
+    //    4  5 6  7
+
+    // Inorder: 4 2 5 1 6 3 7
+    // Postorder: 4 5 2 6 7 3 1
+
+    public Node buildTree2(int in[], int post[], int inStrt, int inEnd){
+
+        if(inStrt > inEnd){
+            return null;
+        }
+        Node tNode = new Node(post[preIndex--]);
+        if(inStrt == inEnd){
+            return tNode;
+        }
+        int inIndex = search(in, inStrt, inEnd, tNode.data);
+        tNode.right = buildTree2(in, post, inIndex + 1, inEnd);
+        tNode.left = buildTree2(in, post, inStrt, inIndex - 1);
+        return tNode;
+    }
     
 
         public static void main(String[] args) {
