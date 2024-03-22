@@ -797,6 +797,44 @@ Output: 4 5 3 6 */
         return root;
     }
 
+
+    // function to convert a binary tree to a doubly linked list
+
+    //      10
+    //     /  \
+    //    12   15
+    //   /  \   \
+    //  25  30   36
+
+    // output: 25 <-> 12 <-> 30 <-> 10 <-> 36 <-> 15
+
+    public Node convertToDLL(Node root){
+
+        if(root == null){
+            return null;
+        }
+        Node head = convertToDLL(root.left);
+        if(head == null){
+            head = root;
+        } else {
+            Node temp = head;
+            while(temp.right != null){
+                temp = temp.right;
+            }
+            temp.right = root;
+            root.left = temp;
+        }
+        Node right = convertToDLL(root.right);
+        if(right != null){
+            root.right = right;
+            right.left = root;
+        }
+        return head;
+    }
+
+    // another aprocach to convert a binary tree to a doubly linked list
+    
+
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
