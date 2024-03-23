@@ -1126,6 +1126,50 @@ Output: 4 5 3 6 */
     }
 
 
+    // Function to Print all "K" Sum paths in a Binary tree
+
+    // Given a binary tree and an integer k, print all paths that sum to k. The paths can only go down from the root to a leaf node.
+
+    //       1
+    //     /   \
+    //    3     -1
+    //   / \   / \
+    //  2   1 4   5
+
+    // input: 5
+    // output: 1 3 1
+    //         3 2
+    //         1 -1 4
+
+    public void printKPath(Node root, int k) {
+
+        int path[] = new int[1000];
+        printKPathUtil(root, path, 0, k);
+
+    }
+
+    public void printKPathUtil(Node root, int path[], int pathLen, int k) {
+
+        if(root == null){
+            return;
+        }
+        path[pathLen] = root.data;
+        int sum = 0;
+        for(int i = pathLen; i >= 0; i--){
+            sum += path[i];
+            if(sum == k){
+                for(int j = i; j <= pathLen; j++){
+                    System.out.print(path[j]+" ");
+                }
+                System.out.println();
+            }
+        }
+        printKPathUtil(root.left, path, pathLen + 1, k);
+        printKPathUtil(root.right, path, pathLen + 1, k);
+    }
+
+
+
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -1300,7 +1344,11 @@ Output: 4 5 3 6 */
         // Node lca = tree.lowestCommonAncestor(tree.root, p, q);
         // System.out.println(lca.data);
 
-        
+
+        // System.out.println("\nPrint all K Sum paths in a Binary tree:");
+        // tree.printKPath(tree.root, 5);
+
+
 
 
 
