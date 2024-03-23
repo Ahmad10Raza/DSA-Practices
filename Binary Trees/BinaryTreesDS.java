@@ -1,5 +1,8 @@
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
@@ -1057,6 +1060,42 @@ Output: 4 5 3 6 */
 
 
 
+    // Function to find all duplicate subtrees in a binary tree
+
+    // Given a binary tree, find all duplicate subtrees. For each duplicate subtrees, we only need to return the root node of any one of them.
+    // Two trees are duplicate if they have the same structure with same node values.
+
+    //       1
+    //     /   \
+    //    2     3
+    //   /     / \
+    //  4     2   4
+    //       /
+    //      4
+
+    // output: 2 4
+    //         4
+
+    public List<Node> findDuplicateSubtrees(Node root) {
+
+        List<Node> res = new ArrayList<>(); // create a list to store the duplicate subtrees
+
+        Map<String, Integer> map = new HashMap<>(); // create a map to store the serial of the subtrees
+        postorder(root, map, res);
+        return res;
+    }
+
+    public String postorder(Node cur, Map<String, Integer> map, List<Node> res) {
+
+        if (cur == null) return "#";
+        // serialize the tree to a string. 
+        String serial = cur.data + "," + postorder(cur.left, map, res) + "," + postorder(cur.right, map, res);
+        map.put(serial, map.getOrDefault(serial, 0) + 1); // store the serial of the subtree in the map
+        if (map.get(serial) == 2) res.add(cur); // if the serial is already present in the map then add the node to the list
+        return serial;
+    }
+
+
 
 
         public static void main(String[] args) {
@@ -1217,6 +1256,15 @@ Output: 4 5 3 6 */
         // root2.left.right = new Node(4);
 
         // System.out.println(tree.isIsomorphic(root1, root2));
+
+
+        System.out.println("\nFind all duplicate subtrees in a binary tree:");
+        List<Node> res = tree.findDuplicateSubtrees(tree.root);
+        for(Node node : res){
+            levelOrder(node);
+            System.out.println();
+        }
+
 
 
 
