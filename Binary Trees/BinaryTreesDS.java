@@ -991,6 +991,7 @@ Output: 4 5 3 6 */
     //    10     3
     //   /  \     \
     //  4    6     3
+    
 
     // output: true
 
@@ -1133,11 +1134,28 @@ Output: 4 5 3 6 */
         // tree.convertToSumTree(tree.root);
         // levelOrder(tree.root);
 
-        System.out.println("\nConstruct a binary tree from inorder and preorder traversal of the tree:");    
-        int in[] = {4, 2, 5, 1, 6, 3, 7};
-        int pre[] = {1, 2, 4, 5, 3, 6, 7};
-        Node root = tree.buildTree(in, pre, 0, in.length - 1);
-        levelOrder(root);
+        // System.out.println("\nConstruct a binary tree from inorder and preorder traversal of the tree:");    
+        // int in[] = {4, 2, 5, 1, 6, 3, 7};
+        // int pre[] = {1, 2, 4, 5, 3, 6, 7};
+        // Node root = tree.buildTree(in, pre, 0, in.length - 1);
+        // levelOrder(root);
+        
+
+        // System.out.println("\nConstruct a binary tree from inorder and postorder traversal of the tree:");
+        // int in[] = {4, 2, 5, 1, 6, 3, 7};
+        // int post[] = {4, 5, 2, 6, 7, 3, 1};
+        // preIndex = post.length - 1;
+        // Node root = tree.buildTree2(in, post, 0, in.length - 1);
+        // levelOrder(root);
+
+        // System.out.println("\nConstruct a binary tree from inorder and level order traversal of the tree:");
+        // int in[] = {4, 8, 10, 12, 14, 20, 22};
+        // int level[] = {20, 8, 22, 4, 12, 14, 10};
+        // Node root = tree.buildTree3(in, level, 0, in.length - 1);
+        // levelOrder(root);
+
+        System.out.println("\nCheck if Binary tree is Sum tree or not:");
+        System.out.println(tree.isSumTree(tree.root));
 
 
 
