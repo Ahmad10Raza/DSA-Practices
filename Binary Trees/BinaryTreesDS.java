@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -1167,6 +1168,75 @@ Output: 4 5 3 6 */
         printKPathUtil(root.left, path, pathLen + 1, k);
         printKPathUtil(root.right, path, pathLen + 1, k);
     }
+
+
+
+    // Function to find Kth Ancestor of node in a Binary tree
+
+    // Given a binary tree in which nodes are numbered from 1 to n. Given a node and a positive integer K,
+    // we have to print the K-th ancestor of the given node in the binary tree. If there does not exist any such ancestor then print -1.
+
+    //       1
+    //     /   \
+    //    2     3
+    //   / \   / \
+    //  4   5 6   7
+
+    // input: N = 5,K = 2
+    // output: 1
+
+    public int kthAncestor(Node root, int node, int k) {
+
+        if(root == null){
+            return -1;
+        }
+        // if the root is the node then return 0 as the kth ancestor of the node is the node itself 
+        if(root.data == node || kthAncestor(root.left, node, k) == 1 || kthAncestor(root.right, node, k) == 1){ // if the node is found then return 1   
+            if(k > 0){
+                k--;
+            } else if(k == 0){
+                System.out.println(root.data);
+                return -1;
+            }
+            return root.data;
+        }
+        return -1;
+    }
+
+
+    private int[][] p;
+
+    public void TreeAncestor(int n, int[] parent) {
+        p = new int[n][18];
+        for (var e : p) {
+            Arrays.fill(e, -1);
+        }
+        for (int i = 0; i < n; ++i) {
+            p[i][0] = parent[i];
+        }
+        for (int j = 1; j < 18; ++j) {
+            for (int i = 0; i < n; ++i) {
+                if (p[i][j - 1] == -1) {
+                    continue;
+                }
+                p[i][j] = p[p[i][j - 1]][j - 1];
+            }
+        }
+    }
+
+    public int getKthAncestor(int node, int k) {
+        for (int i = 17; i >= 0; --i) {
+            if (((k >> i) & 1) == 1) {
+                node = p[node][i];
+                if (node == -1) {
+                    break;
+                }
+            }
+        }
+        return node;
+    }
+
+
 
 
 
