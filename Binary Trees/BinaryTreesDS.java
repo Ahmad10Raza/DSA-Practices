@@ -931,7 +931,90 @@ Output: 4 5 3 6 */
         tNode.left = buildTree2(in, post, inStrt, inIndex - 1);
         return tNode;
     }
-    
+
+
+    // function to build the tree from inorder and level order traversal of the tree    
+
+    //        1
+    //       / \
+    //      2   3
+    //     / \ / \
+    //    4  5 6  7
+
+    // Inorder: 4 2 5 1 6 3 7
+    // Level order: 1 2 3 4 5 6 7
+
+    public Node buildTree3(int in[], int level[], int inStrt, int inEnd){
+
+        if(inStrt > inEnd){
+            return null;
+        }
+        Node tNode = new Node(level[0]);
+        if(inStrt == inEnd){
+            return tNode;
+        }
+        int inIndex = search(in, inStrt, inEnd, tNode.data);
+        int[] lvec = extract(in, level, inStrt, inEnd, inIndex);
+        int[] rvec = extract(in, level, inStrt, inEnd, inIndex);
+        tNode.left = buildTree3(in, lvec, inStrt, inIndex - 1);
+        tNode.right = buildTree3(in, rvec, inIndex + 1, inEnd);
+        return tNode;
+    }
+
+    public int[] extract(int in[], int level[], int inStrt, int inEnd, int inIndex){
+        
+        Vector<Integer> vec = new Vector<>();
+        for(int i = 0; i < level.length; i++){
+            for(int j = inStrt; j <= inEnd; j++){
+                if(level[i] == in[j]){
+                    vec.add(level[i]);
+                    break;
+                }
+            }
+        }
+        int[] arr = new int[vec.size()];
+        for(int i = 0; i < vec.size(); i++){
+            arr[i] = vec.get(i);
+        }
+        return arr;
+    }
+
+
+    // Function Check if Binary tree is Sum tree or not
+
+    // A SumTree is a Binary Tree where the value of a node is equal to sum of the nodes present in its 
+    // left subtree and right subtree. An empty tree is SumTree and sum of an empty tree can be considered as 0. 
+    // A leaf node is also considered as SumTree.
+
+    //       26
+    //     /    \
+    //    10     3
+    //   /  \     \
+    //  4    6     3
+
+    // output: true
+
+    public boolean isSumTree(Node root){
+
+        if(root == null || (root.left == null && root.right == null)){
+            return true;
+        }
+        int ls = sum(root.left);
+        int rs = sum(root.right);
+        if((root.data == ls + rs) && isSumTree(root.left) && isSumTree(root.right)){
+            return true;
+        }
+        return false;
+
+    }
+
+    public int sum(Node root){
+
+        if(root == null){
+            return 0;
+        }
+        return sum(root.left) + root.data + sum(root.right);
+    }
 
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
