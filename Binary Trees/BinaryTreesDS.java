@@ -1096,6 +1096,34 @@ Output: 4 5 3 6 */
     }
 
 
+    // Function to find LCA(Lowest Common Ancestor) in a Binary Tree
+
+    // Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+    //       3
+    //     /   \
+    //    5     1
+    //   / \   / \
+    //  6   2 0   8
+    //     / \
+    //    7   4
+
+    // input: 6,4
+    // output: 5
+
+
+    public Node lowestCommonAncestor(Node root, Node p, Node q) {
+
+        if(root == null || root == p || root == q){
+            return root;
+        }
+        Node left = lowestCommonAncestor(root.left, p, q);
+        Node right = lowestCommonAncestor(root.right, p, q);
+        if(left != null && right != null){
+            return root;
+        }
+        return left != null ? left : right;
+    }
 
 
         public static void main(String[] args) {
@@ -1258,13 +1286,21 @@ Output: 4 5 3 6 */
         // System.out.println(tree.isIsomorphic(root1, root2));
 
 
-        System.out.println("\nFind all duplicate subtrees in a binary tree:");
-        List<Node> res = tree.findDuplicateSubtrees(tree.root);
-        for(Node node : res){
-            levelOrder(node);
-            System.out.println();
-        }
+        // System.out.println("\nFind all duplicate subtrees in a binary tree:");
+        // List<Node> res = tree.findDuplicateSubtrees(tree.root);
+        // for(Node node : res){
+        //     levelOrder(node);
+        //     System.out.println();
+        // }
 
+
+        // System.out.println("\nFind LCA(Lowest Common Ancestor) in a Binary Tree:");
+        // Node p = new Node(6);
+        // Node q = new Node(4);
+        // Node lca = tree.lowestCommonAncestor(tree.root, p, q);
+        // System.out.println(lca.data);
+
+        
 
 
 
