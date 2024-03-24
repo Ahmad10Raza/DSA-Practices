@@ -1512,6 +1512,35 @@ Output: 4 5 3 6 */
         }
 
 
+        public boolean dupSub(Node root) {
+            HashMap<String, Integer> m = new HashMap<>();
+            return dupSubUtil(root, m);
+        }
+
+
+        // Fuction to Check if 2 trees are mirror or not
+
+        // Given two Binary Trees, write a function that returns true if two trees are mirror of each other, else false. For example, the function should return true for following input trees.
+
+        // T1:      1     T2:     1
+        //         / \           / \
+        //        2   3         3   2
+
+        // output: true
+
+        public boolean isMirrorTwo(Node root1, Node root2) {
+            if (root1 == null && root2 == null)
+                return true;
+            if (root1 == null || root2 == null)
+                return false;
+            return root1.data == root2.data && isMirrorTwo(root1.left, root2.right) && isMirrorTwo(root1.right, root2.left);
+        }
+
+
+
+
+
+
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
 
@@ -1715,10 +1744,29 @@ Output: 4 5 3 6 */
         // System.out.println(ma);
 
         
-        System.out.println("\nCheck if all leaf nodes are at same level or not:");
-        System.out.println(tree.checkLevelLeafNode(tree.root));
+        // System.out.println("\nCheck if all leaf nodes are at same level or not:");
+        // System.out.println(tree.checkLevelLeafNode(tree.root));
 
 
+        // System.out.println("\nCheck if a Binary Tree contains duplicate subtrees of size 2 or more:");
+        // System.out.println(tree.dupSub(tree.root));
+
+
+        // System.out.println("\nCheck if 2 trees are mirror or not:");
+        // Node root1 = new Node(1);
+        // root1.left = new Node(2);
+        // root1.right = new Node(3);
+        // root1.left.left = new Node(4);
+        // root1.left.right = new Node(5;
+
+        // Node root2 = new Node(1);
+        // root2.left = new Node(3);
+        // root2.right = new Node(2);
+        // root2.left.left = new Node(5);
+        // root2.left.right = new Node(4);
+        
+        // System.out.println(tree.isMirrorTwo(root1, root2));
+        
         
     }
 }
