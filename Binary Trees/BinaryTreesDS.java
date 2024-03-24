@@ -1431,6 +1431,46 @@ Output: 4 5 3 6 */
  
    
 
+    // Function to get Check if all leaf nodes are at same level or not
+
+    // Given a Binary Tree, check if all leaves are at same level or not.
+
+    //       12
+    //     /    \
+    //    5      7
+
+    // output: true
+
+    //       12
+    //     /    \
+    //    5      7
+    //   /
+    //  3
+
+    // output: false
+
+    public boolean checkLevelLeafNode(Node root) {
+            
+            int level = 0;
+            return checkLevelLeafNodeUtil(root, 0, level);
+    }
+
+    public boolean checkLevelLeafNodeUtil(Node root, int level, int leafLevel) {
+            
+            if(root == null){
+                return true;
+            }
+            if(root.left == null && root.right == null){
+                if(leafLevel == 0){
+                    leafLevel = level;
+                    return true;
+                }
+                return level == leafLevel;
+            }
+            return checkLevelLeafNodeUtil(root.left, level + 1, leafLevel) && 
+                   checkLevelLeafNodeUtil(root.right, level + 1, leafLevel); 
+
+        }
 
 
 
@@ -1636,6 +1676,9 @@ Output: 4 5 3 6 */
         // tree.maxSumSubtree(tree.root);
         // System.out.println(ma);
 
+        
+        System.out.println("\nCheck if all leaf nodes are at same level or not:");
+        System.out.println(tree.checkLevelLeafNode(tree.root));
 
 
         
