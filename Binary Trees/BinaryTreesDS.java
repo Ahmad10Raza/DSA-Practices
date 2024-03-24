@@ -1321,6 +1321,81 @@ Output: 4 5 3 6 */
 
 
 
+    // Function to find Maximum Sum of nodes in Binary tree such that no two are adjacent to each other
+
+    // Given a binary tree with a value associated with each node, we need to choose a subset of these nodes such that the sum of chosen nodes is maximum under a constraint that no two chosen node in the subset should be directly connected that is, if we have taken a node in our sum then we can’t take its any children in consideration and vice versa.
+
+    //       10
+    //     /    \
+    //    1      2
+    //     \    / \
+    //      3  4   5
+
+    // output: 19
+
+    public int maxSum(Node root) {
+
+        int[] res = maxSumUtil(root);
+        return Math.max(res[0], res[1]);
+
+    }
+
+
+    public int[] maxSumUtil(Node root) {
+            
+            if(root == null){
+                return new int[]{0, 0};
+            }
+            int[] left = maxSumUtil(root.left);
+            int[] right = maxSumUtil(root.right);
+            int[] res = new int[2];
+            res[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+            res[1] = root.data + left[0] + right[0];
+            return res;
+    }
+
+    // Maximum sum of nodes in Binary tree such that no two are adjacent to each other using DP
+
+    // declare map /dp array as global
+    static HashMap<Node, Integer> umap = new HashMap<>();
+    static int maxSumDP(Node root)
+    {
+        // base case
+        if (root == null)
+            return 0;
+ 
+        // if the max sum from the node is already in
+        // map,return the value
+        if (umap.containsKey(root))
+            return umap.get(root);
+ 
+        // if the current node(root) is included in result
+        // then find maximum sum
+        int inc = root.data;
+ 
+        // if left of node exists, add their grandchildren
+        if (root.left != null) {
+            inc += maxSumDP(root.left.left) + maxSumDP(root.left.right);
+        }
+        // if right of node exist,add their grandchildren
+        if (root.right != null) {
+            inc += maxSumDP(root.right.left) + maxSumDP(root.right.right);
+        }
+ 
+        // if the current node(root) is excluded, find the
+        // maximum sum
+        int ex = maxSumDP(root.left) + maxSumDP(root.right);
+ 
+        // store the maximum of including & excluding the
+        // node in map
+        umap.put(root, Math.max(inc, ex));
+        return Math.max(inc, ex);
+    }
+ 
+   
+
+
+
 
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
@@ -1501,6 +1576,23 @@ Output: 4 5 3 6 */
         // tree.printKPath(tree.root, 5);
 
 
+        // System.out.println("\nFind Kth Ancestor of node in a Binary tree:");
+        // int k = 2;
+        // int node = 5;
+        // System.out.println(tree.kthAncestor(tree.root, node, k));
+
+
+        // System.out.println("\nFind distance between 2 nodes in a Binary tree:");
+        // int p = 6;
+        // int q = 4;
+        // System.out.println(tree.findDistance(tree.root, p, q));
+
+
+        // System.out.println("\nFind Maximum Sum of nodes in Binary tree such that no two are adjacent to each other:");
+        // System.out.println(tree.maxSum(tree.root));
+
+        // System.out.println("\nMaximum sum of nodes in Binary tree such that no two are adjacent to each other using DP:");
+        // System.out.println(maxSumDP(tree.root));
 
 
 
