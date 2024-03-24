@@ -1238,6 +1238,88 @@ Output: 4 5 3 6 */
 
 
 
+    // Function to Find distance between 2 nodes in a Binary tree
+
+    // Given a binary tree and two node values your task is to find the minimum distance between them.
+
+    //       1
+    //     /   \
+    //    2     3
+    //   / \   / \
+    //  4   5 6   7
+
+    // input: 4,5
+    // output: 2
+    // input: 2,6
+    // output: 3
+
+/*
+    public int lca2(Node root, int val) {
+        if(root == null){
+            return 0;
+        }
+
+        if(root.data == val){
+            return 1;
+        }
+
+        int left = lca2(root.left, val);
+        int right = lca2(root.right, val);
+
+        if(left == 0 && right == 0){
+            return 0;
+        }
+
+        else{
+            return left + right +1 ;
+        }
+    }
+
+    public int findDistance(Node root, int a, int b) {
+
+        Node lca = lowestCommonAncestor(root, a, b);
+        int d1 = lca2(lca, a);
+        int d2 = lca2(lca, b);
+       
+        return d1 + d2 - 2 ;
+    }
+
+    */
+
+
+    // Function to Find distance between 2 nodes in a Binary tree
+
+    public int findDistance(Node root, int p, int q) {
+        if (p == q)
+            return 0;
+        Node ancestor = lowestCommonAncestor2(root, p, q);
+        return getDistance(ancestor, p) + getDistance(ancestor, q);
+    }
+
+    public Node lowestCommonAncestor2(Node root, int p, int q) {
+        if (root == null)
+            return null;
+        if (root.data == p || root.data == q)
+            return root;
+        Node left = lowestCommonAncestor2(root.left, p, q);
+        Node right = lowestCommonAncestor2(root.right, p, q);
+        if (left != null && right != null)
+            return root;
+        return left == null ? right : left;
+    }
+
+    public int getDistance(Node node, int data) {
+        if (node == null)
+            return -1;
+        if (node.data == data)
+            return 0;
+        int leftDistance = getDistance(node.left, data);
+        int rightDistance = getDistance(node.right, data);
+        int subDistance = Math.max(leftDistance, rightDistance);
+        return subDistance >= 0 ? subDistance + 1 : -1;
+    }
+
+
 
 
         public static void main(String[] args) {
