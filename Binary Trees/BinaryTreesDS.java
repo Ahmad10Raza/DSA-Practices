@@ -1473,6 +1473,44 @@ Output: 4 5 3 6 */
         }
 
 
+        // Function to find Check if a Binary Tree contains duplicate subtrees of size 2 or more [ IMP ]
+
+        // Given a binary tree, find out whether it contains a duplicate sub-tree of size two or more, or not.
+
+        //       1
+        //     /   \
+        //    2     3
+        //   /     / \
+        //  4     2   4
+
+        // output: true
+
+        //       1
+        //     /   \
+        //    2     3
+        //         / \
+        //        2   4
+
+        // output: false
+
+        public boolean dupSubUtil(Node root, HashMap<String, Integer> m) {
+            if (root == null)
+                return false;
+            String s = "";
+            if (root.left != null)
+                s += root.left.data;
+            s += " ";
+            s += root.data;
+            s += " ";
+            if (root.right != null)
+                s += root.right.data;
+            if (m.get(s) != null && m.get(s) == 1)
+                return true;
+            else
+                m.put(s, 1);
+            return dupSubUtil(root.left, m) || dupSubUtil(root.right, m);
+        }
+
 
         public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
