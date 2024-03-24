@@ -1538,6 +1538,42 @@ Output: 4 5 3 6 */
 
 
 
+        // Function to Sum of Nodes on the Longest path from root to leaf node 
+
+        // Given a binary tree, we need to find the sum of values of nodes on the longest path from root to leaf node.
+
+        //       4
+        //     /   \
+        //    2     5
+        //   / \   / \
+        //  7   1 2   3
+        //     /     \
+        //    6       9
+
+        // output: 13
+
+        public int sumOfLongRootToLeafPath(Node root) {
+            if (root == null)
+                return 0;
+            int[] max = new int[1];
+            sumOfLongRootToLeafPathUtil(root, 0, 0, max);
+            return max[0];
+        }
+
+        public void sumOfLongRootToLeafPathUtil(Node root, int sum, int len, int[] max) {
+            if (root == null) {
+                if (len > max[0]) {
+                    max[0] = len;
+                    max[0] = sum;
+                } else if (len == max[0] && sum > max[0]) {
+                    max[0] = sum;
+                }
+                return;
+            }
+            sumOfLongRootToLeafPathUtil(root.left, sum + root.data, len + 1, max);
+            sumOfLongRootToLeafPathUtil(root.right, sum + root.data, len + 1, max);
+        }
+
 
 
 
@@ -1752,21 +1788,28 @@ Output: 4 5 3 6 */
         // System.out.println(tree.dupSub(tree.root));
 
 
-        // System.out.println("\nCheck if 2 trees are mirror or not:");
-        // Node root1 = new Node(1);
-        // root1.left = new Node(2);
-        // root1.right = new Node(3);
-        // root1.left.left = new Node(4);
-        // root1.left.right = new Node(5;
+        /*
+        System.out.println("\nCheck if 2 trees are mirror or not:");
+        Node root1 = new Node(1);
+        root1.left = new Node(2);
+        root1.right = new Node(3);
+        root1.left.left = new Node(4);
+        root1.left.right = new Node(5;
 
-        // Node root2 = new Node(1);
-        // root2.left = new Node(3);
-        // root2.right = new Node(2);
-        // root2.left.left = new Node(5);
-        // root2.left.right = new Node(4);
+        Node root2 = new Node(1);
+        root2.left = new Node(3);
+        root2.right = new Node(2);
+        root2.left.left = new Node(5);
+        root2.left.right = new Node(4);
         
-        // System.out.println(tree.isMirrorTwo(root1, root2));
+        System.out.println(tree.isMirrorTwo(root1, root2)); */
+
+
+        // System.out.println("\nSum of Nodes on the Longest path from root to leaf node:");
+        // System.out.println(tree.sumOfLongRootToLeafPath(tree.root));
+
         
+
         
     }
 }
