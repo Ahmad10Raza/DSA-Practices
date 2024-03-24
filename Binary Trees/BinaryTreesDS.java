@@ -1391,6 +1391,43 @@ Output: 4 5 3 6 */
         umap.put(root, Math.max(inc, ex));
         return Math.max(inc, ex);
     }
+
+
+
+    // Function to  Find Largest subtree sum in a tree
+
+    // Given a binary tree, task is to find subtree with maximum sum in tree.
+
+    // T1:   1
+    //     /   \
+    //    2     3
+    //   / \   / \
+    //  4   5 6   7
+
+    // output: 28
+
+    // T2:   1
+    //     /   \
+    //   -2     3
+    //   / \   / \
+    //  4   5 -6   2
+
+    // output: 7
+        static int ma = 0;
+    public int maxSumSubtree(Node root) {
+
+        if(root == null){
+            return 0;
+        }
+
+        int left = maxSumSubtree(root.left);
+        int right = maxSumSubtree(root.right);
+
+        ma = Math.max(ma, left + right + root.data);
+
+        return left + right + root.data;
+        
+    }
  
    
 
@@ -1595,6 +1632,9 @@ Output: 4 5 3 6 */
         // System.out.println(maxSumDP(tree.root));
 
 
+        // System.out.println("\nFind Largest subtree sum in a tree:");
+        // tree.maxSumSubtree(tree.root);
+        // System.out.println(ma);
 
 
 
