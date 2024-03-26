@@ -219,8 +219,12 @@ import java.util.*;
         // System.out.println("\nInorder traversal after deleting 20:");
         // bst.inorder();
 
-        System.out.println("\nFollowing Ouput is the nodes in the range K1 and K2:");
-        bst.printInRange(bst.root, 20, 70);
+        // System.out.println("\nFollowing Ouput is the nodes in the range K1 and K2:");
+        // bst.printInRange(bst.root, 20, 70);
+
+
+        System.out.println("\nFollowing Ouput is the nodes from root to leaf:");
+        bst.printRootToLeaf(bst.root, new ArrayList<>());
 
         
     }
