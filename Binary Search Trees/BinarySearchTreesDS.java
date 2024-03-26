@@ -33,6 +33,28 @@ class BinarySearchTree {
         return root;
     }
 
+    Node insertIterative(Node root, int key) {
+        Node newNode = new Node(key);
+        Node parent = null, current = root;
+
+        while (current != null) {
+            parent = current;
+            if (key < current.key)
+                current = current.left;
+            else
+                current = current.right;
+        }
+
+        if (parent == null)
+            parent = newNode;
+        else if (key < parent.key)
+            parent.left = newNode;
+        else
+            parent.right = newNode;
+
+        return parent;
+    }
+
     void inorder() {
         inorderRec(root);
     }
@@ -119,5 +141,7 @@ public class BinarySearchTreesDS {
         bst.delete(20);
         System.out.println("\nInorder traversal after deleting 20:");
         bst.inorder();
+
+        
     }
 }
