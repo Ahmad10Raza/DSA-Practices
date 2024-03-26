@@ -1,4 +1,6 @@
-class Node {
+
+    public class BinarySearchTreesDS {
+    class Node {
     int key;
     Node left, right;
 
@@ -6,15 +8,13 @@ class Node {
         key = item;
         left = right = null;
     }
-}
-
-class BinarySearchTree {
+    }
     Node root;
 
-    BinarySearchTree() {
+    BinarySearchTreesDS() {
         root = null;
     }
-
+    
     void insert(int key) {
         root = insertRec(root, key);
     }
@@ -115,11 +115,11 @@ class BinarySearchTree {
         }
         return minv;
     }
-}
 
-public class BinarySearchTreesDS {
+
+
     public static void main(String[] args) {
-        BinarySearchTree bst = new BinarySearchTree();
+        BinarySearchTreesDS bst = new BinarySearchTreesDS();
 
         bst.insert(50);
         bst.insert(30);
