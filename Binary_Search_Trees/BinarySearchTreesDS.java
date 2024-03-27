@@ -513,6 +513,52 @@ import java.util.*;
         return root;
     }
 
+    // Function to Construct BST from preorder traversal
+
+    // Input: 10 5 1 7 40 50
+
+    // Output: 10
+    //         /  \
+    //        5    40
+    //       / \     \
+    //      1   7     50
+
+
+    /* Approach
+
+    Follow the below steps to solve the problem:
+
+Initialize the range as {INT_MIN .. INT_MAX}
+The first node will definitely be in range, so create a root node. 
+To construct the left subtree, set the range as {INT_MIN …root->data}. 
+If a value is in the range {INT_MIN .. root->data}, the values are part of the left subtree. 
+To construct the right subtree, set the range as {root->data..max .. INT_MAX}. 
+If a value is in the range {root->data..max .. INT_MAX}, the values are part of the right subtree.
+    
+        */
+
+
+    public Node constructBSTFromPreorder(int[] preorder) {
+        return constructBSTFromPreorder(preorder, new int[] {0}, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    public Node constructBSTFromPreorder(int[] preorder, int[] index, int min, int max) {
+        if (index[0] >= preorder.length)
+            return null;
+
+        int key = preorder[index[0]];
+        if (key < min || key > max)
+            return null;
+
+        Node root = new Node(key);
+        index[0]++;
+
+        root.left = constructBSTFromPreorder(preorder, index, min, key);
+        root.right = constructBSTFromPreorder(preorder, index, key, max);
+
+        return root;
+    }
+
 
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
@@ -605,9 +651,13 @@ import java.util.*;
         // bst.inorder();
 
 
-        int n1 = 20, n2 = 40;
-        Node t = bst.LCA(bst.root, n1, n2);
-        System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
+        // int n1 = 20, n2 = 40;
+        // Node t = bst.LCA(bst.root, n1, n2);
+        // System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
+
+        // Node t = bst.LCAIterative(bst.root, n1, n2);
+        // System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
+
 
 
     }
