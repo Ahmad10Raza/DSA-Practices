@@ -388,6 +388,53 @@ import java.util.*;
     }
 
 
+    // Function to find minimum and maximum element in the BST
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Output: Minimum: 20, Maximum: 80
+
+    public void findMinMax(Node root) {
+        Node current = root;
+        while (current.left != null)
+            current = current.left;
+
+        System.out.println("Minimum: " + current.key);
+
+        current = root;
+        while (current.right != null)
+            current = current.right;
+
+        System.out.println("Maximum: " + current.key);
+    }
+
+    // Function to find get predecessor of the node
+
+    // Inorder predecessor is the rightmost node in the left subtree
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Inorder traversal of the tree: 20 30 40 50 60 70 80
+    // Inorder predecessor of 50: 40
+
+    public int inorderPredecessor(Node root) {
+        int maxv = root.key;
+        while (root.right != null) {
+            maxv = root.right.key;
+            root = root.right;
+        }
+        return maxv;
+    }
+
+
 
 
     public static void main(String[] args) {
@@ -452,6 +499,7 @@ import java.util.*;
         // bst.inorderRec(root);
 
 
+        /*
         BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
         bst1.insert(55);
         bst1.insert(35);
@@ -466,6 +514,13 @@ import java.util.*;
         Node root = bst.mergeBSTs(bst.root, bst1.root);
         System.out.println("\nInorder traversal of the merged BST:");
         bst.inorderRec(root);
+        */
+
+
+        bst.findMinMax(bst.root);    
+
+        // System.out.println("\nInorder predecessor of 50: " + bst.inorderPredecessor(bst.root));
+        // System.out.println("Inorder successor of 50: " + bst.inorderSuccessor(bst.root));
 
 
         
