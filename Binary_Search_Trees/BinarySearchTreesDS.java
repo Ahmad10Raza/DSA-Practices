@@ -306,6 +306,39 @@ import java.util.*;
     }
 
 
+    // Function to convert BST to Balanced BST
+
+   public Node balanceBST(Node root) {
+        List<Node> nodes = new ArrayList<>();
+        inorder(root, nodes);
+
+        return buildBalancedBST(nodes, 0, nodes.size() - 1);
+    }
+    
+    void inorder(Node root, List<Node> nodes) {
+        if (root == null)
+            return;
+
+        inorder(root.left, nodes);
+        nodes.add(root);
+        inorder(root.right, nodes);
+    }
+
+    Node buildBalancedBST(List<Node> nodes, int start, int end) {
+        if (start > end)
+            return null;
+
+        int mid = (start + end) / 2;
+        Node root = nodes.get(mid);
+
+        root.left = buildBalancedBST(nodes, start, mid - 1);
+        root.right = buildBalancedBST(nodes, mid + 1, end);
+
+        return root;
+    }
+
+
+
 
 
 
@@ -367,7 +400,10 @@ import java.util.*;
         // bst.inorderRec(root);
 
 
-
+        // Node root = bst.balanceBST(bst.root);
+        // System.out.println("\nInorder traversal of the Balanced BST:");
+        // bst.inorderRec(root);
+        
         
     }
 }
