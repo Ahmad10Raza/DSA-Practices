@@ -254,6 +254,29 @@ import java.util.*;
 
 
 
+    // Function to print mirror of the tree
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Output: 50 70 80 60 30 40 20
+
+    public void mirror(Node root) {
+        if (root == null)
+            return;
+
+        mirror(root.left);
+        mirror(root.right);
+
+        Node temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
+
+
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
 
@@ -282,8 +305,28 @@ import java.util.*;
         // bst.printInRange(bst.root, 20, 70);
 
 
-        System.out.println("\nFollowing Ouput is the nodes from root to leaf:");
-        bst.printRootToLeaf(bst.root, new ArrayList<>());
+        // System.out.println("\nFollowing Ouput is the nodes from root to leaf:");
+        // bst.printRootToLeaf(bst.root, new ArrayList<>());
+
+        // if (bst.isBST(bst.root))
+        //     System.out.println("Given tree is a BST");
+        // else
+        //     System.out.println("Given tree is not a BST");
+
+
+        // if (bst.isBSTUsingPrev(bst.root))
+        //     System.out.println("Given tree is a BST");
+        // else
+        //     System.out.println("Given tree is not a BST");
+
+
+
+        System.out.println("\nInorder traversal of the BST before mirroring:");
+        bst.inorder();
+        System.out.println("\nInorder traversal of the BST after mirroring:");
+        bst.mirror(bst.root);
+        bst.inorder();
+
 
         
     }
