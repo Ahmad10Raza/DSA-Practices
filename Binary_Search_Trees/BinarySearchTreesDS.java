@@ -277,6 +277,39 @@ import java.util.*;
     }
 
 
+    // function to construct Balanced BST from sorted array
+
+    // Input: 1 2 3 4 5 6 7
+    // Output: 4 2 6 1 3 5 7 (Inorder traversal of the constructed BST)
+    // Tree:        4
+    //            /     \
+    //          2         6
+    //         /  \     /  \
+    //       1   3     5    7
+
+
+    public Node sortedArrayToBST(int[] arr, int start, int end) {
+        if (start > end)
+            return null;
+
+        int mid = (start + end) / 2;
+        Node root = new Node(arr[mid]);
+
+        root.left = sortedArrayToBST(arr, start, mid - 1);
+        root.right = sortedArrayToBST(arr, mid + 1, end);
+
+        return root;
+    }
+
+    public Node sortedArrayToBST(int[] arr) {
+        return sortedArrayToBST(arr, 0, arr.length - 1);
+    }
+
+
+
+
+
+
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
 
@@ -321,11 +354,18 @@ import java.util.*;
 
 
 
-        System.out.println("\nInorder traversal of the BST before mirroring:");
-        bst.inorder();
-        System.out.println("\nInorder traversal of the BST after mirroring:");
-        bst.mirror(bst.root);
-        bst.inorder();
+        // System.out.println("\nInorder traversal of the BST before mirroring:");
+        // bst.inorder();
+        // System.out.println("\nInorder traversal of the BST after mirroring:");
+        // bst.mirror(bst.root);
+        // bst.inorder();
+
+
+        // int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        // Node root = bst.sortedArrayToBST(arr);
+        // System.out.println("\nInorder traversal of the constructed BST:");
+        // bst.inorderRec(root);
+
 
 
         
