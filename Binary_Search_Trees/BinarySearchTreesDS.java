@@ -339,6 +339,53 @@ import java.util.*;
 
 
 
+    // Function to merge two BSTs
+
+    // Tree1:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Tree2:        55
+    //            /     \
+    //          35       75
+    //         /  \     /  \
+    //       25   45   65   85
+
+    // Output: 20 25 30 35 40 45 50 55 60 65 70 75 80 85
+
+    public Node mergeBSTs(Node root1, Node root2) {
+        List<Node> nodes1 = new ArrayList<>();
+        List<Node> nodes2 = new ArrayList<>();
+
+        inorder(root1, nodes1);
+        inorder(root2, nodes2);
+
+        List<Node> merged = merge(nodes1, nodes2);
+
+        return buildBalancedBST(merged, 0, merged.size() - 1);
+    }
+
+    List<Node> merge(List<Node> nodes1, List<Node> nodes2) {
+        List<Node> merged = new ArrayList<>();
+        int i = 0, j = 0;
+
+        while (i < nodes1.size() && j < nodes2.size()) {
+            if (nodes1.get(i).key < nodes2.get(j).key)
+                merged.add(nodes1.get(i++));
+            else
+                merged.add(nodes2.get(j++));
+        }
+
+        while (i < nodes1.size())
+            merged.add(nodes1.get(i++));
+
+        while (j < nodes2.size())
+            merged.add(nodes2.get(j++));
+
+        return merged;
+    }
 
 
 
@@ -403,7 +450,24 @@ import java.util.*;
         // Node root = bst.balanceBST(bst.root);
         // System.out.println("\nInorder traversal of the Balanced BST:");
         // bst.inorderRec(root);
-        
+
+
+        BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
+        bst1.insert(55);
+        bst1.insert(35);
+        bst1.insert(25);
+        bst1.insert(45);
+        bst1.insert(75);
+        bst1.insert(65);
+        bst1.insert(85);
+
+        System.out.println("\nInorder traversal of the BST1:");
+        bst.inorder();
+        Node root = bst.mergeBSTs(bst.root, bst1.root);
+        System.out.println("\nInorder traversal of the merged BST:");
+        bst.inorderRec(root);
+
+
         
     }
 }
