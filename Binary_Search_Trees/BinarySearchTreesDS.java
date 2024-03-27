@@ -472,6 +472,47 @@ import java.util.*;
     }
 
 
+    // Function to  Find LCA  of 2 nodes in a BST
+
+    // LCA means Lowest Common Ancestor 
+
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Input: 20, 40
+    // Output: 30
+
+    public Node LCA(Node root, int n1, int n2) {
+        if (root == null)
+            return null;
+
+        if (root.key > n1 && root.key > n2)
+            return LCA(root.left, n1, n2);
+
+        if (root.key < n1 && root.key < n2)
+            return LCA(root.right, n1, n2);
+
+        return root;
+    }
+
+    // Function to find LCA of 2 nodes in a BST Using Iterative Approach
+
+    public Node LCAIterative(Node root, int n1, int n2) {
+        while (root != null) {
+            if (root.key > n1 && root.key > n2)
+                root = root.left;
+            else if (root.key < n1 && root.key < n2)
+                root = root.right;
+            else
+                break;
+        }
+        return root;
+    }
+
 
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
@@ -564,6 +605,10 @@ import java.util.*;
         // bst.inorder();
 
 
-        
+        int n1 = 20, n2 = 40;
+        Node t = bst.LCA(bst.root, n1, n2);
+        System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
+
+
     }
 }
