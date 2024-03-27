@@ -435,6 +435,42 @@ import java.util.*;
     }
 
 
+   // Function to find Populate Inorder successor of all nodes
+
+   // Given a Binary Tree, write a function to populate next pointer for all nodes. The next pointer for every node should be set
+   //  to point to inorder successor.
+
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Output: 20->30->40->50->60->70->80
+
+    public void populateInorderSuccessor(Node root) {
+        Node next = null;
+        populateInorderSuccessor(root, next);
+    }
+
+    public void populateInorderSuccessor(Node root, Node next) {
+        
+        // The first visited node will be the rightmost node
+        // next of the rightmost node will be NULL
+        if (root != null) {
+            // First set the next pointer in right subtree
+            populateInorderSuccessor(root.right, next);
+
+            // Set the next as previously visited node in
+            // reverse Inorder
+            root.right = next;
+            next = root;
+            // Finally, set the next pointer in left subtree
+            populateInorderSuccessor(root.left, next);
+        }
+    }
+
 
 
     public static void main(String[] args) {
@@ -517,10 +553,15 @@ import java.util.*;
         */
 
 
-        bst.findMinMax(bst.root);    
+        // bst.findMinMax(bst.root);    
 
         // System.out.println("\nInorder predecessor of 50: " + bst.inorderPredecessor(bst.root));
         // System.out.println("Inorder successor of 50: " + bst.inorderSuccessor(bst.root));
+
+
+        // bst.populateInorderSuccessor(bst.root);
+        // System.out.println("\nInorder traversal of the BST after populating inorder successor:");
+        // bst.inorder();
 
 
         
