@@ -85,6 +85,19 @@ import java.util.*;
         return searchRec(root.right, key);
     }
 
+    int searchIterative(Node root, int key) {
+        Node current = root;
+        while (current != null) {
+            if (key == current.key)
+                return current.key;
+            else if (key < current.key)
+                current = current.left;
+            else
+                current = current.right;
+        }
+        return -1;
+    }
+
     void delete(int key) {
         root = deleteRec(root, key);
     }
@@ -190,7 +203,53 @@ import java.util.*;
         printRootToLeaf(root.left, path);
         printRootToLeaf(root.right, path);
 
-        path.remove(path.size() - 1);
+        path.remove(path.size() - 1); // Backtrack to the parent node after printing the path
+    }
+
+
+    // Function to check given tree is BST or not
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Output: Given tree is a BST
+
+    public boolean isBST(Node root, int min, int max) {
+        if (root == null)
+            return true;
+
+        if (root.key < min || root.key > max)
+            return false;
+
+        return isBST(root.left, min, root.key - 1) && isBST(root.right, root.key + 1, max);
+    }
+
+    public boolean isBST(Node root) {
+        return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    // Using prev pointer to check if the tree is BST or not
+
+    public boolean isBSTUsingPrev(Node root) {
+        Node prev = null;
+        return isBSTUsingPrev(root, prev);
+    }
+
+    public boolean isBSTUsingPrev(Node root, Node prev) {
+        if (root != null) {
+            if (!isBSTUsingPrev(root.left, prev))
+                return false;
+
+            if (prev != null && root.key <= prev.key)
+                return false;
+
+            prev = root;
+            return isBSTUsingPrev(root.right, prev);
+        }
+        return true;
     }
 
 
