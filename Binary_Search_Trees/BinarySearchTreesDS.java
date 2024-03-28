@@ -971,8 +971,34 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     }
     
     
+    // Function to Check whether BST contains Dead end
+
+    // Tree:         8
+    //            /     \
+    //          5       9
+    //         /  \
+    //       2    7
+    //            /
+    //          6
     
-    
+    // Output: Yes
+
+    // Approach: The idea is to do an inorder traversal of the BST and keep track of the minimum and maximum values visited so far.
+    // For each node, check if the node value is equal to the minimum value or maximum value. If yes, then it is a dead end.
+
+    public boolean isDeadEnd(Node root, int min, int max) {
+        if (root == null)
+            return false;
+
+        if (min == max)
+            return true;
+
+        return isDeadEnd(root.left, min, root.key - 1) || isDeadEnd(root.right, root.key + 1, max);
+    }
+
+    public boolean isDeadEnd(Node root) {
+        return isDeadEnd(root, 1, Integer.MAX_VALUE);
+    }
     
     
     
@@ -1139,6 +1165,24 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
             root = root.right;
         } */
 
+
+        /*
+        BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        bst2.insert(8);
+        bst2.insert(5);
+        bst2.insert(2);
+        bst2.insert(7);
+        bst2.insert(6);
+        bst2.insert(9);
+        bst2.insert(13);
+        bst2.insert(47);
+        bst2.insert(6);
+
+        if (bst2.isDeadEnd(bst2.root))
+            System.out.println("Yes");
+        else
+            System.out.println("No");
+        */
 
 
 
