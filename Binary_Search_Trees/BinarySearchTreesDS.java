@@ -859,8 +859,52 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         return findMedian(root, (count + 1) / 2, median);
     }
 
+    
+    // Function to Replace every element with the least greater element on its right
 
+    // Tree:        8
+    //            /     \
+    //          58       71
+    //         /  \        \
+    //       13   47       74
 
+    // Output: 13 47 58 71 74
+
+    // Approach: If we traverse the array from backwards, we need  a data structure(ds) to support:
+    // Insert an element into our ds in sorted order (so at any point of time the elements in our ds are sorted)
+    // Finding the upper bound of the current element (upper bound will give just greater element from our ds if present)
+
+    public void replaceWithLeastGreater(Node root, int[] succ) {
+        if (root == null)
+            return;
+
+        replaceWithLeastGreater(root.right, succ);
+        if (succ[0] != -1)
+            root.key = succ[0];
+        succ[0] = root.key;
+        replaceWithLeastGreater(root.left, succ);
+    }
+
+    public void replaceWithLeastGreater(Node root) {
+        int[] succ = new int[] {-1};
+        replaceWithLeastGreater(root, succ);
+    }
+
+    public  void replaceWithLeastGreater2(int[] arr)
+    {
+        TreeSet<Integer> s = new TreeSet<>();
+        for (int i = arr.length - 1; i >= 0;i--) { // traversing the array backwards
+            s.add(arr[i]); // inserting the element into set
+            Integer it = s.higher(arr[i]); // finding upper bound
+                                    // (higher in java)
+            if (it == null)
+                arr[i] = -1; // if upper_bound does not
+                             // exist then -1
+            else
+                arr[i] = it; // if upper_bound exists, lets
+                             // take it
+        }
+    }
 
 
 
@@ -1005,7 +1049,10 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         // System.out.println("\nMedian of the BST: " + bst.findMedian(bst.root));
         
         
-        
+        // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        // bst2.replaceWithLeastGreater2(new int[]{8, 58, 71, 18, 31, 32, 63, 92, 43, 3, 91, 93, 25, 80, 28});
+        // System.out.println("\nInorder traversal of the BST after replacing with least greater element:");
+        // bst2.inorder();
 
 
 
