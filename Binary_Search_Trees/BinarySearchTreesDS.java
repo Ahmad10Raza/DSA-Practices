@@ -1000,6 +1000,56 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         return isDeadEnd(root, 1, Integer.MAX_VALUE);
     }
     
+
+    //  Function to Check preorder is valid or not
+
+    // Tree:         8
+    //            /     \
+    //          5       1
+    //         /  \
+    //       7    6
+
+    // Input: 8 5 1 7 6
+    // Output: False
+
+    // Approach: The idea is to use a stack to simulate the preorder traversal of the BST.
+    // For each node, if the current node value is less than the previous node value, then it is not a valid preorder traversal.
+
+    public boolean isValidPreorder(int[] preorder) {
+        Stack<Integer> stack = new Stack<>();
+        int root = Integer.MIN_VALUE;
+
+        for (int i = 0; i < preorder.length; i++) {
+            if (preorder[i] < root)
+                return false;
+
+            while (!stack.isEmpty() && stack.peek() < preorder[i])
+                root = stack.pop();
+
+            stack.push(preorder[i]);
+        }
+
+        return true;
+    }
+
+    // Using O(1) space
+
+    public boolean isValidPreorder2(int[] preorder) {
+        int root = Integer.MIN_VALUE;
+        int i = -1;
+
+        for (int j = 0; j < preorder.length; j++) {
+            if (preorder[j] < root)
+                return false;
+
+            while (i >= 0 && preorder[j] > preorder[i])
+                root = preorder[i--];
+
+            preorder[++i] = preorder[j];
+        }
+
+        return true;
+    }
     
     
     public static void main(String[] args) {
@@ -1185,6 +1235,12 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         */
 
 
+        BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        int[] preorder = {8, 5, 1, 7, 6};
+        if (bst2.isValidPreorder(preorder))
+            System.out.println("Valid preorder");
+        else
+            System.out.println("Invalid preorder");
 
 
     }
