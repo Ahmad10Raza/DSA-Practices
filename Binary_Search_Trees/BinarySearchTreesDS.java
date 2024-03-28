@@ -818,6 +818,50 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     }
 
 
+    // Function to  Find the median of BST in O(n) time and O(1) space
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Output: 50
+
+    // Approach: The idea is to do a reverse inorder traversal of the BST and keep a count of the number of nodes visited.
+    // The count will be equal to n/2 when the median element is visited.
+
+    public int countNodes(Node root) {
+        if (root == null)
+            return 0;
+
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+
+    public int findMedian(Node root, int count, int[] median) {
+        if (root == null)
+            return 0;
+
+        findMedian(root.left, count, median);
+        count--;
+
+        if (count == 0)
+            median[0] = root.key;
+
+        findMedian(root.right, count, median);
+
+        return median[0];
+    }
+
+    public int findMedian(Node root) {
+        int count = countNodes(root);
+        int[] median = new int[] {0};
+        return findMedian(root, (count + 1) / 2, median);
+    }
+
+
+
+
 
 
     public static void main(String[] args) {
@@ -939,7 +983,7 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         // System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k));
         // System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k, new int[] {0}));
 
-
+        /*
         BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
         bst1.insert(55);
         bst1.insert(35);
@@ -951,7 +995,15 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
         int X = 100;
         System.out.println("\nNumber of pairs from 2 BSTs whose sum is equal to " + X + ": " + bst.countPairs(bst.root, bst1.root, X));
+            */
 
+
+        // int lb = 30, ub = 60;
+        // System.out.println("\nNumber of nodes in the range [" + lb + ", " + ub + "]: " + bst.getCount(bst.root, lb, ub));
+
+
+        // System.out.println("\nMedian of the BST: " + bst.findMedian(bst.root));
+        
         
         
 
