@@ -1050,6 +1050,33 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
         return true;
     }
+
+
+    // Function to Given "n" appointments, find the conflicting appointments
+
+    // Input: 1 5, 3 7, 2 6, 10 15, 5 6
+    // Output: 3 7, 2 6, 5 6
+
+    // Approach: The idea is to use a TreeMap to store the end time of the appointments.
+    // For each appointment, check if the start time is less than the end time of the previous appointment.
+    // If yes, then it is a conflicting appointment.
+
+    public void conflictingAppointments(int[][] appointments) {
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int[] appointment : appointments) {
+            Integer prev = map.floorKey(appointment[0]);
+            if (prev != null && map.get(prev) > appointment[0])
+                System.out.println(prev + " " + map.get(prev));
+
+            Integer next = map.ceilingKey(appointment[0]);
+            if (next != null && next < appointment[1])
+                System.out.println(next + " " + map.get(next));
+
+            map.put(appointment[0], appointment[1]);
+        }
+    }
+
+
     
     
     public static void main(String[] args) {
@@ -1235,12 +1262,26 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         */
 
 
-        BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
-        int[] preorder = {8, 5, 1, 7, 6};
-        if (bst2.isValidPreorder(preorder))
-            System.out.println("Valid preorder");
-        else
-            System.out.println("Invalid preorder");
+        // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        // int[] preorder = {8, 5, 1, 7, 6};
+        // if (bst2.isValidPreorder(preorder))
+        //     System.out.println("Valid preorder");
+        // else
+        //     System.out.println("Invalid preorder");
+
+
+        // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        // int[] preorder = {8, 5, 1, 7, 6};
+        // if (bst2.isValidPreorder2(preorder))
+        //     System.out.println("Valid preorder");
+        // else
+        //     System.out.println("Invalid preorder");
+
+
+        // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        // int[][] appointments = {{1, 5}, {3, 7}, {2, 6}, {10, 15}, {5, 6}};
+        // System.out.println("Conflicting appointments:");
+        // bst2.conflictingAppointments(appointments);
 
 
     }
