@@ -755,7 +755,7 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
     // Approach: Method 1: For each node value a in BST 1, search the value (x – a) in BST 2. 
     // If value found then increment the count. For searching a value in BST.
-    public static int countPairs(Node root1, Node root2, int x)
+    public  int countPairs(Node root1, Node root2, int x)
     {
         Set<Integer> set = new HashSet<>();
         Stack<Node> stack = new Stack<>();
@@ -792,9 +792,30 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
     
     
+    // Function to Count BST nodes that lie in a given range
     
+   // Tree1:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
 
+    // Input: lb = 30, ub = 60
+    //Output: 5
 
+    public int getCount(Node root, int lb, int ub){
+        
+        if(root.key >= lb && root.key <= ub){
+            return 1 + getCount(root.left, lb, ub) + getCount(root.right, lb, ub);
+        }
+
+        else if(root.key < lb){
+            return getCount(root.right, lb, ub);
+        }
+        else{
+            return getCount(root.left, lb, ub);
+        } 
+    }
 
 
 
@@ -931,7 +952,8 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         int X = 100;
         System.out.println("\nNumber of pairs from 2 BSTs whose sum is equal to " + X + ": " + bst.countPairs(bst.root, bst1.root, X));
 
-
+        
+        
 
 
 
