@@ -613,6 +613,129 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     }
 
 
+    // Function to find kth smallest element in the BST
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Input: 3
+    // Output: 40
+
+
+
+    public int kthSmallestNaive(Node root, int k) {
+        List<Integer> nodes = new ArrayList<>();
+        inorder2(root, nodes);
+        return nodes.get(k - 1);
+    }
+
+
+    //Approach: The idea is to do an inorder traversal of the BST and keep a count of the number of nodes visited.
+    // The count will be equal to k when the kth smallest element is visited.
+
+    // Using Iterative Approach
+    public int kthSmallestIterative(Node root, int k) {
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+        int count = 0;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.left;
+            }
+
+            current = stack.pop();
+            count++;
+            if (count == k)
+                return current.key;
+
+            current = current.right;
+        }
+
+        return -1;
+    }
+
+
+    // Using recursive approach to find kth smallest element in the BST
+
+    public int kthSmallest(Node root, int k, int[] count) {
+        if (root == null)
+            return -1;
+
+        int left = kthSmallest(root.left, k, count);
+        if (left != -1)
+            return left;
+
+        count[0]++;
+        if (count[0] == k)
+            return root.key;
+
+        return kthSmallest(root.right, k, count);
+    }
+
+    public int kthSmallest(Node root, int k) {
+        return kthSmallest(root, k, new int[] {0});
+    }
+
+    // Function to find kth largest element in the BST
+
+    // Tree:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Input: 3
+    // Output: 60
+
+    // Approach: The idea is to do a reverse inorder traversal of the BST and keep a count of the number of nodes visited.
+    // The count will be equal to k when the kth largest element is visited.
+    
+
+    public int kthLargest(Node root, int k) {
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+        int count = 0;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                current = current.right;
+            }
+
+            current = stack.pop();
+            count++;
+            if (count == k)
+                return current.key;
+
+            current = current.left;
+        }
+
+        return -1;
+    }
+
+    // Function to find kth largest element in the BST using recursive approach
+
+    public int kthLargest(Node root, int k, int count[]) {
+        if (root == null)
+            return -1;
+
+        int right = kthLargest(root.right, k, count);
+        if (right != -1)
+            return right;
+
+        count[0]++;
+        if (count[0] == k)
+            return root.key;
+
+        return kthLargest(root.left, k, count);
+    }
+
+
 
 
     public static void main(String[] args) {
@@ -714,10 +837,25 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         // System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
 
 
-        int[] preorder = {10, 5, 1, 7, 40, 50};
-        Node root = bst.constructBSTFromPreorder(preorder);
-        System.out.println("\nInorder traversal of the constructed BST:");
-        bst.inorderRec(root);
+        // int[] preorder = {10, 5, 1, 7, 40, 50};
+        // Node root = bst.constructBSTFromPreorder(preorder);
+        // System.out.println("\nInorder traversal of the constructed BST:");
+        // bst.inorderRec(root);
+
+
+        // Node root = bst.binaryTreeToBST(bst.root);
+        // System.out.println("\nInorder traversal of the BST after converting binary tree to BST:");
+        // bst.inorderRec(root);
+
+
+        // int k = 3;
+        // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallestNaive(bst.root, k));
+        // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallestIterative(bst.root, k));
+        // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallest(bst.root, k));
+
+        int k = 3;
+        System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k));
+        System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k, new int[] {0}));
 
 
 
