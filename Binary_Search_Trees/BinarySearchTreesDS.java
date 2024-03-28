@@ -908,6 +908,74 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
 
 
+    // Function to print Flatten BST to sorted list
+
+    // Tree:        5
+    //            /     \
+    //          3       7
+    //         /  \     /  \
+    //       2    4    6    8
+
+    //  Output: 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
+    //            |     |     |     |     |     |
+    //          NULL  NULL  NULL  NULL  NULL  NULL
+    
+
+    // Approach 1: In this approach we will use inorder traversal to flatten the BST when we move to next node just after leaving
+    // the current node we will set the left of current node to null and right of current node to next node.
+    // Time Complexity: O(n) and Space Complexity: O(H)
+
+    public void flattenBST(Node root) {
+        if (root == null)
+            return;
+
+        Node current = root;
+        while (current != null) {
+            if (current.left != null) {
+                Node right = current.left;
+                while (right.right != null)
+                    right = right.right;
+
+                right.right = current.right;
+                current.right = current.left;
+                current.left = null;
+            }
+            current = current.right;
+        }
+    }
+
+    // Approach 2: In this approch we will use inorder traversal to flatten the BST when we move to next node just after leaving
+    // the current node we will set the left of current node to null and right of current node to next node. 
+    public void inorder3(Node root, Node prev) {
+        if (root == null)
+            return;
+
+        inorder3(root.left, prev);
+        root.left = null;
+        prev.right = root;
+        prev = root;
+        inorder3(root.right, prev);
+    }
+
+    public Node flattenBST2(Node root) {
+        Node dummy = new Node(-1);
+        Node prev = dummy;
+        inorder3(root, dummy);
+
+        prev.left = null;
+        prev.right = null;
+        Node ret = dummy.right;
+
+        return ret;
+
+    }
+    
+    
+    
+    
+    
+    
+    
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
 
@@ -1053,6 +1121,25 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         // bst2.replaceWithLeastGreater2(new int[]{8, 58, 71, 18, 31, 32, 63, 92, 43, 3, 91, 93, 25, 80, 28});
         // System.out.println("\nInorder traversal of the BST after replacing with least greater element:");
         // bst2.inorder();
+
+        /*
+        BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+        bst2.insert(5);
+        bst2.insert(3);
+        bst2.insert(2);
+        bst2.insert(4);
+        bst2.insert(7);
+        bst2.insert(6);
+        bst2.insert(8);
+
+        Node root = bst2.flattenBST2(bst2.root);
+        System.out.println("\nFlatten BST to sorted list:");
+        while (root != null) {
+            System.out.print(root.key + " -> ");
+            root = root.right;
+        } */
+
+
 
 
 
