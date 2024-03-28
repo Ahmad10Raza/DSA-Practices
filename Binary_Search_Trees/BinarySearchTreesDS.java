@@ -560,6 +560,61 @@ If a value is in the range {root->data..max .. INT_MAX}, the values are part of 
     }
 
 
+    // Function to Convert Binary tree into BST
+/*
+    Example 1
+Input:
+          10
+         /  \
+        2    7
+       / \
+      8   4
+Output:
+          8
+         /  \
+        4    10
+       / \
+      2   7
+
+Solution:
+
+Following is a 3 step solution for converting Binary tree to Binary Search Tree.
+
+1. Create a temp array arr[] that stores inorder traversal of the tree. This step takes O(n) time.
+2. Sort the temp array arr[]. Time complexity of this step depends upon the sorting algorithm. 
+In the following implementation, Quick Sort is used which takes (n^2) time. This can be done in O(nLogn) time using Heap Sort or Merge Sort.
+3. Again do inorder traversal of tree and copy array elements to tree nodes one by one. This step takes O(n) time. */
+
+    public Node binaryTreeToBST(Node root) {
+        List<Integer> nodes = new ArrayList<>();
+        inorder2(root, nodes);
+        Collections.sort(nodes);
+        return binaryTreeToBST(root, nodes, new int[] {0});
+    }
+
+    public Node binaryTreeToBST(Node root, List<Integer> nodes, int[] index) {
+        if (root == null)
+            return null;
+
+        root.left = binaryTreeToBST(root.left, nodes, index);
+        root.key = nodes.get(index[0]++);
+        root.right = binaryTreeToBST(root.right, nodes, index);
+
+        return root;
+    }
+
+    public void inorder2(Node root, List<Integer> nodes) {
+        if (root == null)
+            return;
+
+        inorder2(root.left, nodes);
+        nodes.add(root.key);
+        inorder2(root.right, nodes);
+    }
+
+
+
+
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
 
@@ -657,6 +712,13 @@ If a value is in the range {root->data..max .. INT_MAX}, the values are part of 
 
         // Node t = bst.LCAIterative(bst.root, n1, n2);
         // System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
+
+
+        int[] preorder = {10, 5, 1, 7, 40, 50};
+        Node root = bst.constructBSTFromPreorder(preorder);
+        System.out.println("\nInorder traversal of the constructed BST:");
+        bst.inorderRec(root);
+
 
 
 
