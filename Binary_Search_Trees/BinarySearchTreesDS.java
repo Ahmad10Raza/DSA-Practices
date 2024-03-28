@@ -694,7 +694,7 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
     // Approach: The idea is to do a reverse inorder traversal of the BST and keep a count of the number of nodes visited.
     // The count will be equal to k when the kth largest element is visited.
-    
+
 
     public int kthLargest(Node root, int k) {
         Stack<Node> stack = new Stack<>();
@@ -734,6 +734,67 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
         return kthLargest(root.left, k, count);
     }
+
+
+    // Function to Count pairs from 2 BST whose sum is equal to given value "X"
+
+    // Tree1:        50
+    //            /     \
+    //          30       70
+    //         /  \     /  \
+    //       20   40   60   80
+
+    // Tree2:        55
+    //            /     \
+    //          35       75
+    //         /  \     /  \
+    //       25   45   65   85
+
+    // Input: X = 100
+    // Output: 3
+
+    // Approach: Method 1: For each node value a in BST 1, search the value (x – a) in BST 2. 
+    // If value found then increment the count. For searching a value in BST.
+    public static int countPairs(Node root1, Node root2, int x)
+    {
+        Set<Integer> set = new HashSet<>();
+        Stack<Node> stack = new Stack<>();
+        Node curr = root2;
+ 
+        while (curr != null || !stack.empty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+ 
+            curr = stack.pop();
+            set.add(curr.key);
+            curr = curr.right;
+        }
+ 
+        // Traverse BST 1 and search for (x-a) in the set
+        int count = 0;
+        curr = root1;
+ 
+        while (curr != null || !stack.empty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            curr = stack.pop();
+            if (set.contains(x - curr.key))
+                count++;
+            curr = curr.right;
+        }
+        return count;
+
+    }
+
+    
+    
+    
+
+
 
 
 
@@ -853,9 +914,23 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallestIterative(bst.root, k));
         // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallest(bst.root, k));
 
-        int k = 3;
-        System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k));
-        System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k, new int[] {0}));
+        // int k = 3;
+        // System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k));
+        // System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k, new int[] {0}));
+
+
+        BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
+        bst1.insert(55);
+        bst1.insert(35);
+        bst1.insert(25);
+        bst1.insert(45);
+        bst1.insert(75);
+        bst1.insert(65);
+        bst1.insert(85);
+
+        int X = 100;
+        System.out.println("\nNumber of pairs from 2 BSTs whose sum is equal to " + X + ": " + bst.countPairs(bst.root, bst1.root, X));
+
 
 
 
