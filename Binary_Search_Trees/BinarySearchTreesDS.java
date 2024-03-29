@@ -957,6 +957,48 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         inorder3(root.right, prev);
     }
 
+
+    static  Node prev;
+    
+// Function to perform 
+// in-order traversal
+public  void Inorder(Node curr)
+{
+  // Base case
+  if (curr == null)
+    return;
+  Inorder(curr.left);
+  prev.left = null;
+  prev.right = curr;
+  prev = curr;
+  Inorder(curr.right);
+}
+/*  
+// Function to flatten binary
+// tree using level order
+// traversal
+public  Node flattenBST(Node parent)
+{
+  // Dummy node
+  Node dummy = new Node(-1);
+  
+  // Pointer to previous
+  // element
+  prev = dummy;
+  
+  // Calling in-order
+  // traversal
+  Inorder(parent);
+  
+  prev.left = null;
+  prev.right = null;
+  Node ret = dummy.right;
+  
+  // Delete dummy node
+  //delete dummy;
+  return ret;
+}
+*/
     public Node flattenBST2(Node root) {
         Node dummy = new Node(-1);
         Node prev = dummy;
@@ -1013,7 +1055,8 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     // Output: False
 
     // Approach: The idea is to use a stack to simulate the preorder traversal of the BST.
-    // For each node, if the current node value is less than the previous node value, then it is not a valid preorder traversal.
+    // For each node, if the current node value is less than the previous node value, 
+    // then it is not a valid preorder traversal.
 
     public boolean isValidPreorder(int[] preorder) {
         Stack<Integer> stack = new Stack<>();
