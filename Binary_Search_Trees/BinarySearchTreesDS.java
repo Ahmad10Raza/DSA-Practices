@@ -217,18 +217,14 @@ import java.util.*;
 
     // Output: Given tree is a BST
 
-    public boolean isBST(Node root, int min, int max) {
-        if (root == null)
-            return true;
-
-        if (root.key < min || root.key > max)
-            return false;
-
-        return isBST(root.left, min, root.key - 1) && isBST(root.right, root.key + 1, max);
+    public boolean isValidBST(Node root) {
+        return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-
-    public boolean isBST(Node root) {
-        return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    
+    public boolean isValidBST(Node root, long minVal, long maxVal) {
+        if (root == null) return true;
+        if (root.key >= maxVal || root.key <= minVal) return false;
+        return isValidBST(root.left, minVal, root.key) && isValidBST(root.right, root.key, maxVal);
     }
 
     // Using prev pointer to check if the tree is BST or not
