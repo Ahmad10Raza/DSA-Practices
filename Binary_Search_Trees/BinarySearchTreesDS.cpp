@@ -300,8 +300,9 @@ public:
         }
     }
 
-    int sumOfNodesInRange(int l, int
-
+    int sumOfNodesInRange(int l, int h) {
+        return sumOfNodesInRange(root, l, h);
+    }
 
 };
 
