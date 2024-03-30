@@ -69,6 +69,38 @@ public:
             inorderTraversalRecursive(root->right);
         }
     }
+
+
+    // function to construct Balanced BST from sorted array
+
+    // Input: 1 2 3 4 5 6 7
+    // Output: 4 2 6 1 3 5 7 (Inorder traversal of the constructed BST)
+    // Tree:        4
+    //            /     \
+    //          2         6
+    //         /  \     /  \
+    //       1   3     5    7
+
+    Node* sortedArrayToBST(int arr[], int start, int end) {
+        if (start > end) {
+            return nullptr;
+        }
+
+        int mid = (start + end) / 2;
+        Node* root = new Node(arr[mid]);
+
+        root->left = sortedArrayToBST(arr, start, mid - 1);
+        root->right = sortedArrayToBST(arr, mid + 1, end);
+
+        return root;
+    }
+
+    Node* sortedArrayToBST(int arr[], int n) {
+       
+        return sortedArrayToBST(arr, 0, n-1);
+    }
+
+
 };
 
 int main() {
@@ -86,12 +118,23 @@ int main() {
     bst.inorderTraversal();
     std::cout << std::endl;
 
-    int searchValue = 40;
-    if (bst.search(searchValue)) {
-        std::cout << searchValue << " found in the tree." << std::endl;
-    } else {
-        std::cout << searchValue << " not found in the tree." << std::endl;
-    }
+    // int searchValue = 40;
+    // if (bst.search(searchValue)) {
+    //     std::cout << searchValue << " found in the tree." << std::endl;
+    // } else {
+    //     std::cout << searchValue << " not found in the tree." << std::endl;
+    // }
+
+
+    int arr[] = {1, 2, 3, 4, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    Node* root = bst.sortedArrayToBST(arr,n);
+    bst.inorderTraversalRecursive(root);
+
+
+
+
+
 
     return 0;
 }
