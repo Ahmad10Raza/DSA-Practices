@@ -174,6 +174,43 @@ import java.util.*;
     }
 
 
+   // Function to count node in given range in a BST
+
+//     Given a Binary Search Tree (BST) and a range l-h(inclusive), count the number of nodes in the BST that lie in the given range.
+
+// The values smaller than root go to the left side
+// The values greater and equal to the root go to the right side
+
+// Input:
+//       10
+//      /  \
+//     5    50
+//    /    /  \
+//   1    40  100
+// l = 5, h = 45
+// Output: 3
+// Explanation: 5 10 40 are the node in the
+// range
+
+    public int getCountOfNode(Node root, int l, int h) {
+        if (root == null)
+            return 0;
+
+        if (root.key == h && root.key == l)
+            return 1;
+
+        if (root.key <= h && root.key >= l)
+            return 1 + getCountOfNode(root.left, l, h) + getCountOfNode(root.right, l, h);
+        else if (root.key < l)
+            return getCountOfNode(root.right, l, h);
+        else
+            return getCountOfNode(root.left, l, h);
+    }
+
+    
+
+
+
     // Function to print node to root node path to leaf node
 
     // Tree:        50
@@ -729,6 +766,10 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
             return root.key;
 
         return kthLargest(root.left, k, count);
+    }
+
+    public int kthLargest2(Node root, int k) {
+        return kthLargest(root, k, new int[] {0});
     }
 
 
