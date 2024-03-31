@@ -57,6 +57,28 @@ public class GreedyDataStructure {
             }
         }
     }
+
+    public static int activitySelectionCount(int start[], int end[], int n)
+    {
+        int mat[][] = new int [n][2];
+        
+        for(int i = 0; i<n; i++){
+            mat[i][0] = start[i];
+            mat[i][1] = end[i];
+        }
+        
+        Arrays.sort(mat , ((a,b) ->  (a[1] - b[1])));
+        
+        int ans=1;
+        int lastEnd = mat[0][1];
+        for(int i = 1; i< n ; i++){
+            if(mat[i][0] > lastEnd){
+                ans++;
+                lastEnd = mat[i][1];
+            }
+        }
+        return ans;
+    }
     
 
     // Main method to test the GreedyDataStructure class
