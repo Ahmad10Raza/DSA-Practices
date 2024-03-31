@@ -82,6 +82,31 @@ public class FractionalKnapSack {
         return totalValue;
     }
 
+
+    double fractionalKnapsack3(int W, Item arr[], int n) 
+    {
+        // Your code here
+        Arrays.sort(arr,(a,b) -> (a.value*b.weight) - (b.value*a.weight));
+        
+        double res = 0;
+        
+        for(int i = n-1;i>=0;i--)
+        {
+            if(arr[i].weight <= W)
+            {
+                res = res + arr[i].value;
+                W = W - arr[i].weight;
+            }
+            else
+            {
+                res = res + arr[i].value *((double)W/(double)arr[i].weight);
+                break;
+            }
+        }
+        return res;
+        
+    }
+
     public static void main(String[] args) {
         FractionalKnapSack fk = new FractionalKnapSack();
         int[][] items = {{60, 10}, {100, 20}, {120, 30}};
