@@ -1,5 +1,5 @@
 import java.util.Arrays;
-public class GreedyDataStructure {
+public class GreedyAlgorithms {
     
     // Function to activity selection problem
 
