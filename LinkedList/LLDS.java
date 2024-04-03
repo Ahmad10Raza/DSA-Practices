@@ -1020,6 +1020,26 @@ public class LLDS {
         return ((num1%N)*(num2%N))%N; 
     } 
   
+    // Q-272. Segregate even and odd nodes in a Linked List
+
+//     Given a Linked List of integers, write a function to modify the linked list
+//      such that all even numbers appear before all the odd numbers in 
+//      the modified linked list. Also, keep the order of even and odd numbers the same.
+
+// Examples: 
+
+// Input: 17->15->8->12->10->5->4->1->7->6->NULL
+// Output: 8->12->10->4->6->17->15->5->1->7->NULL
+// Even nodes in the linked list are 8, 12, 10, 4 and 6
+// Odd Nodes in the linked list are 17, 15, 1 and 7
+// In the output list, we have all the even nodes first (in the same
+// order as input list, then all the odd nodes of the list (in the same
+// order as input list)
+
+// Input: 8->12->10->5->4->1->6->NULL
+// Output: 8->12->10->4->6->5->1->NULL
+
+
 
     // function to segragate even and odd nodes in linked list
 
