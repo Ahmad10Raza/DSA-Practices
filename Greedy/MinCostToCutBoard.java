@@ -60,3 +60,6 @@ public class MinCostToCutBoard {
         return totalCost;
     }
 }
+
+
+// Same Question and same solution for CHOCOLATE  PROBLEM
