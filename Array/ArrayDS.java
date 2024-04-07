@@ -328,9 +328,81 @@ public class ArrayDS {
 
 
 
+    // Q_06: Find the Union and Intersection of two sorted arrays
+
+// Given two sorted arrays, find their union and intersection.
+// Example:
+// Input: arr1[] = {1, 3, 4, 5, 7}
+//         arr2[] = {2, 3, 5, 6} 
+// Output: Union : {1, 2, 3, 4, 5, 6, 7} 
+//          Intersection : {3, 5}
+// Input: arr1[] = {2, 5, 6}
+//         arr2[] = {4, 6, 8, 10} 
+// Output: Union : {2, 4, 5, 6, 8, 10} 
+//          Intersection : {6}
+
+    // Union of Two-Sorted Arrays using Two-Pointers
+// To find union of two sorted arrays using two pointers, follow the following procedure : 
+
+// Use two index variables i and j, initial values i = 0, j = 0 
+// If arr1[i] is smaller than arr2[j] then print arr1[i] and increment i. 
+// If arr1[i] is greater than arr2[j] then print arr2[j] and increment j. 
+// If both are same then print any of them and increment both i and j. 
+// Print remaining elements of the larger array.
 
 
+    public int union(int[] array1, int[] array2) {
+        int i = 0;
+        int j = 0;
+        while (i < array1.length && j < array2.length) {
+            if (array1[i] < array2[j]) {
+                System.out.print(array1[i] + " ");
+                i++;
+            } else if (array1[i] > array2[j]) {
+                System.out.print(array2[j] + " ");
+                j++;
+            } else {
+                System.out.print(array1[i] + " ");
+                i++;
+                j++;
+            }
+        }
+        while (i < array1.length) {
+            System.out.print(array1[i] + " ");
+            i++;
+        }
+        while (j < array2.length) {
+            System.out.print(array2[j] + " ");
+            j++;
+        }
+        return 0;
+    }
 
+
+    // Intersection of Two-Sorted Arrays using Two-Pointers
+//     To find intersection of two sorted arrays using two-pointers, follow the below approach : 
+
+// Use two index variables i and j, initial values i = 0, j = 0 
+// If arr1[i] is smaller than arr2[j] then increment i. 
+// If arr1[i] is greater than arr2[j] then increment j. 
+// If both are same then print any of them and increment both i and j.
+
+    public int intersection(int[] array1, int[] array2) {
+        int i = 0;
+        int j = 0;
+        while (i < array1.length && j < array2.length) {
+            if (array1[i] < array2[j]) {
+                i++;
+            } else if (array1[i] > array2[j]) {
+                j++;
+            } else {
+                System.out.print(array1[i] + " ");
+                i++;
+                j++;
+            }
+        }
+        return 0;
+    }
 
 
 
@@ -385,12 +457,17 @@ public class ArrayDS {
         //     System.out.print(array.get(i) + " ");
         // }
 
-        int[] array1 = {-12, 11, -13, -5, 6, -7, 5, -3, -6};
-        array.moveNegative();
-        for (int i = 0; i < array.getSize(); i++) {
-            System.out.print(array.get(i) + " ");
-        }
+        // int[] array1 = {-12, 11, -13, -5, 6, -7, 5, -3, -6};
+        // array.moveNegative();
+        // for (int i = 0; i < array.getSize(); i++) {
+        //     System.out.print(array.get(i) + " ");
+        // }
         
+        // int[] array1 = {1, 3, 4, 5, 7};
+        // int[] array2 = {2, 3, 5, 6};
+        // array.union(array1, array2);
+        // System.out.println();
+        // array.intersection(array1, array2);
 
     }
 }
