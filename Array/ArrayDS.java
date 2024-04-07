@@ -289,6 +289,42 @@ public class ArrayDS {
     }
 
 
+    // Q_05: Move all the negative elements to one side of the array 
+
+// An array contains both positive and negative numbers in random order. 
+// Rearrange the array elements so that all negative numbers appear before all positive numbers.
+
+// Examples : 
+// Input: -12, 11, -13, -5, 6, -7, 5, -3, -6
+// Output: -12 -13 -5 -7 -3 -6 11 6 5
+
+// Approach: Two-Pointer Technique
+// T.C = O(n), S.C = O(1)
+
+// Initialize two pointers, left and right, pointing to the start and end of the array respectively.
+// Traverse the array from start to end.
+// If the element at the left pointer is negative, increment the left pointer.
+// If the element at the left pointer is positive and the element at the right pointer is negative, swap the elements at the left and right pointers and increment the left pointer and decrement the right pointer.
+// If the element at the left pointer is positive and the element at the right pointer is positive, decrement the right pointer.
+// Print the rearranged array.
+
+
+    public void moveNegative() {
+        int left = 0;
+        int right = size - 1;
+
+        while (left <= right) {
+            if (array[left] < 0) {
+                left++;
+            } else if (array[left] > 0 && array[right] < 0) {
+                swap(left, right);
+                left++;
+                right--;
+            } else if (array[left] > 0 && array[right] > 0) {
+                right--;
+            }
+        }
+    }
 
 
 
@@ -349,6 +385,11 @@ public class ArrayDS {
         //     System.out.print(array.get(i) + " ");
         // }
 
+        int[] array1 = {-12, 11, -13, -5, 6, -7, 5, -3, -6};
+        array.moveNegative();
+        for (int i = 0; i < array.getSize(); i++) {
+            System.out.print(array.get(i) + " ");
+        }
         
 
     }
