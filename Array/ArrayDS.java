@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class ArrayDS {
     private int[] array;
     private int size;
@@ -151,6 +152,151 @@ public class ArrayDS {
     }
 
 
+    // Q_03: Find the kth maximum and minimum element in an array
+//     Given an array arr[] of size N and a number K, where K is smaller than the size of the array. 
+//     Find the K’th smallest element in the given array. Given that all array elements are distinct.
+
+// Examples:  
+// Input: arr[] = {7, 10, 4, 3, 20, 15}, K = 3 
+// Output: 7
+// Input: arr[] = {7, 10, 4, 3, 20, 15}, K = 4 
+// Output: 10 
+
+// Approach: Sorting
+// T.C = O(n log n), S.C = O(1)
+
+// Sort the array in ascending order.
+// Print the K’th(k-1) element of the sorted array.
+
+    public void findKthMaxMin(int k) {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        if (k > size) {
+            System.out.println("K is greater than the size of the array");
+            return;
+        }
+        Arrays.sort(array);
+        System.out.println(k + "th Minimum: " + array[k - 1]);
+        System.out.println(k + "th Maximum: " + array[size - k]);
+    }
+
+    // Others Approach:
+    // Approach 2: Using Priority Queue
+    // T.C = O(n log k), S.C = O(k)
+    // Approach 3: Using Quick Select Algorithm
+    // T.C = O(n), S.C = O(1)
+    // Approach 4: Using Min-Max Heap
+    // T.C = O(n log k), S.C = O(k)
+    // Approach 5: Using Counting Sort
+    // T.C = O(n + k), S.C = O(k)
+    // Approach 6: Using Binary Search
+    // T.C = O(n log n), S.C = O(1)
+
+
+
+    // Q_04: Given an array which consists of only 0, 1 and 2. Sort the array without using any sorting algorithm.
+    // Given an array A[] consisting of only 0s, 1s, and 2s. The task is to write a function 
+    // that sorts the given array. The functions should put all 0s first, then all 1s and all 2s in last.
+
+// Examples:
+// Input: {0, 1, 2, 0, 1, 2}
+// Output: {0, 0, 1, 1, 2, 2}
+
+// Input: {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1}
+// Output: {0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2}
+
+// Approach: Dutch National Flag Algorithm
+// T.C = O(n), S.C = O(1)
+
+// Initialize three variables low, mid, and high to 0, 0, and n-1 respectively.
+// Traverse the array from start to end.
+// If the current element is 0, swap the element at index low with the element at index mid and increment low and mid by 1.
+// If the current element is 1, increment mid by 1.
+// If the current element is 2, swap the element at index mid with the element at index high and decrement high by 1.
+// Repeat the above steps until mid is less than or equal to high.
+
+
+    public void sort012() {
+        int low = 0;
+        int mid = 0;
+        int high = size - 1;
+
+        while (mid <= high) {
+            switch (array[mid]) {
+                case 0:
+                    swap(low, mid);
+                    low++;
+                    mid++;
+                    break;
+                case 1:
+                    mid++;
+                    break;
+                case 2:
+                    swap(mid, high);
+                    high--;
+                    break;
+            }
+        }
+    }
+
+    private void swap(int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    // Approach 2: Counting Sort
+    // T.C = O(n), S.C = O(1)
+
+    // Count the number of 0s, 1s, and 2s in the array.
+    // Fill the array with the count of 0s, 1s, and 2s in the same order.
+    // Print the sorted array.
+
+    public void sort012Counting() {
+        int count0 = 0;
+        int count1 = 0;
+        int count2 = 0;
+
+        for (int i = 0; i < size; i++) {
+            switch (array[i]) {
+                case 0:
+                    count0++;
+                    break;
+                case 1:
+                    count1++;
+                    break;
+                case 2:
+                    count2++;
+                    break;
+            }
+        }
+
+        int i = 0;
+        while (count0 > 0) {
+            array[i++] = 0;
+            count0--;
+        }
+        while (count1 > 0) {
+            array[i++] = 1;
+            count1--;
+        }
+        while (count2 > 0) {
+            array[i++] = 2;
+            count2--;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -189,7 +335,21 @@ public class ArrayDS {
         // }
 
 
-        array.findMaxMin();
+        /// array.findMaxMin();
+
+
+        // array.findKthMaxMin(3);
+        // array.findKthMaxMin(4);
+
+        // int[] array1 = {0, 1, 2, 0, 1, 2};
+        // int[] array2 = {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1};
+        // array.sort012();
+        // array.sort012Counting();
+        // for (int i = 0; i < array.getSize(); i++) {
+        //     System.out.print(array.get(i) + " ");
+        // }
+
         
+
     }
 }
