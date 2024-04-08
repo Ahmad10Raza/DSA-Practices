@@ -2,6 +2,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.Iterator;
+import java.util.Iterator;
 
 
 
@@ -1251,10 +1253,113 @@ class Interval {
   }
 
 
+    // Q_18: find common elements In 3 sorted arrays
+    // Given three Sorted arrays in non-decreasing order, print all common elements in these arrays.
+
+    // Examples:   
+    // Input: 
+    // ar1[] = {1, 5, 10, 20, 40, 80} 
+    // ar2[] = {6, 7, 20, 80, 100} 
+    // ar3[] = {3, 4, 15, 20, 30, 70, 80, 120} 
+    // Output: 20, 80
+    
+    // Input: 
+    // ar1[] = {1, 5, 5} 
+    // ar2[] = {3, 4, 5, 5, 10} 
+    // ar3[] = {5, 5, 10, 20} 
+    // Output: 5, 5 
+
+    // Approach: Three-Pointer Approach
+    // T.C = O(n1 + n2 + n3), S.C = O(1)
+
+    // It is known that the arrays are sorted in a non-decreasing order. When a 
+        // common integer has been found, we want to move forward in each array in
+        // search of another common integer. Otherwise, the smaller integer among the three must not be common.
+
+    // The reason for this is that at least one of the other integers is a larger integer, 
+    // and as we move forward in the array, we only encounter larger integers. 
+    // In this case, we want to proceed with only the array that contains the smaller integer.
+    
+    // Create and initialize three variables i, j, and k with 0, it will point to the indices of the arrays.
+    // Repeat the following steps until we reach the end of any one of the arrays:
+        // Check whether the integers appointed by i, j, and k are equal or not.
+        // If they are equal, print any of the integers and increase i, j, and k by 1.
+        // Otherwise, increase the index that points to the smaller integer by 1.
+
+    public  void findCommon(int ar1[], int ar2[], int ar3[])
+    {
+        // Initialize starting indexes for ar1[], ar2[] and
+        // ar3[]
+        int i = 0, j = 0, k = 0;
+ 
+        // Iterate through three arrays while all arrays
+        // have elements
+        while (i < ar1.length && j < ar2.length
+               && k < ar3.length) {
+            // If x = y and y = z, print any of them and
+            // move ahead in all arrays
+            if (ar1[i] == ar2[j] && ar2[j] == ar3[k]) {
+                System.out.print(ar1[i] + " ");
+                i++;
+                j++;
+                k++;
+            }
+ 
+            // x < y
+            else if (ar1[i] < ar2[j])
+                i++;
+ 
+            // y < z
+            else if (ar2[j] < ar3[k])
+                j++;
+ 
+            // We reach here when x > y and z < y, i.e., z
+            // is smallest
+            else
+                k++;
+        }
+    }
 
 
+    // Approach 2: Using Two-Pointer Approach
+    // T.C = O(n1 + n2 + n3), S.C = O(1)
 
+    // A simple solution is to first find the intersection of two arrays and store 
+    // the intersection in a temporary array, then find the intersection of the third array and temporary array. 
 
+    // Initialize both pointers i and j to 0, and an empty list common.
+    // While both pointers i and j are within the bounds of the two arrays:
+    // If arr1[i] is less than arr2[j], increment i by 1.
+    // If arr2[j] is less than arr1[i], increment j by 1.
+    // If arr1[i] is equal to arr2[j]:
+    // Add arr1[i] to the common list.
+    // Increment both i and j by 1.
+    // Return the common list containing the common elements of the two arrays.
+    
+     // Function to find the intersection of two arrays
+    public void findIntersection(int[] arr1, int[] arr2,int[] temp, int m, int n,int[] k)
+    {
+        int i = 0, j = 0;
+        // Loop to find the intersection of arr1[] and
+        // arr2[]
+        while (i < m && j < n) {
+            // ith element can't be a common element
+            if (arr1[i] < arr2[j]) {
+                i++;
+            }
+            // jth element can't be a common element
+            else if (arr2[j] < arr1[i]) {
+                j++;
+            }
+            // if arr1[i] == arr2[j]
+            else {
+                temp[k[0]] = arr1[i];
+                i++;
+                j++;
+                k[0]++;
+            }
+        }
+    }
 
 
 
@@ -1394,6 +1499,13 @@ class Interval {
         // int k = 6;
         // System.out.println(array.getPairsCount(arr, n, k));
         // System.out.println(array.getPairsCount2(arr, n, k));
+
+
+        // int ar1[] = {1, 5, 10, 20, 40, 80};
+        // int ar2[] = {6, 7, 20, 80, 100};
+        // int ar3[] = {3, 4, 15, 20, 30, 70, 80, 120};
+        // array.findCommon(ar1, ar2, ar3);
+        
 
 
     }
