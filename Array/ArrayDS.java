@@ -651,6 +651,76 @@ public class ArrayDS {
 
 
 
+    // Q_11: Find duplicate in an array of N+1 Integers
+    // Given a constant array of n elements which contains elements from 1 to n-1, 
+    // with any of these numbers appearing any number of times. Find any one of these 
+    // repeating numbers in O(n) and using only constant memory space.
+
+    // Examples: 
+    // Input : arr[] = {1, 2, 3, 4, 5, 6, 3}
+    // Output : 3
+
+    // Approach: Floyd’s Cycle Detection Algorithm
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, slow and fast, to store the current index.
+    // Traverse the array from the first element.
+    // Update the slow variable to the element at the current index.
+    // Update the fast variable to the element at the element at the element at the current index.
+    // If the slow and fast variables are equal, break the loop.
+    // Initialize the slow variable to the first element.
+    // Traverse the array from the first element.
+    // Update the slow variable to the element at the current index.
+    // Update the fast variable to the element at the current index.
+    // If the slow and fast variables are equal, return the slow variable.
+
+    public int findDuplicate(int[] arr) {
+        int slow = arr[0];
+        int fast = arr[0];
+        do {
+            slow = arr[slow];
+            fast = arr[arr[fast]];
+        } while (slow != fast);
+        slow = arr[0];
+        while (slow != fast) {
+            slow = arr[slow];
+            fast = arr[fast];
+        }
+        return slow;
+    }
+
+
+    // Approach 2: We will use the concept that all elements here are between 1 and n-1.
+
+// So we will perform these steps to find the Duplicate element
+
+// Consider a pointer ‘p’ which is currently at index 0.
+// Run a while loop until the pointer p reaches the value n.
+// if the value of a[p] is -1 then increment the pointer by 1 and skip the iteration 
+// Else,go to the position of the element to which the current pointer is pointing i.e. at index a[p].
+// Now if the value at index a[p] i.e. a[a[p]] is -1 then break the loop as the element a[p] is the duplicate one.
+// Otherwise store the value of a[a[p]] in a[p] i.e. a[p]=a[a[p]] and put -1 in a[a[p]] i.e. a[a[p]]=-1.
+
+    public void find_duplicate(int a[], int n)
+    {
+        int p = 0;
+        while (p != n) {
+            if (a[p] == -1) {
+                p++;
+            }
+            else {
+                if (a[a[p] - 1] == -1) {
+                    System.out.println(a[p]);
+                    break;
+                }
+                else {
+                    a[p] = a[a[p] - 1];
+                    a[a[p] - 1] = -1;
+                }
+            }
+        }
+    }
+
 
 
 
@@ -726,6 +796,11 @@ public class ArrayDS {
 
         int arr[] = {1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9};
         System.out.println(array.minJumps(arr));
+
+
+        // int arr[] = {1, 2, 3, 4, 5, 6, 3};
+        // System.out.println(array.findDuplicate(arr));
+        
 
 
 

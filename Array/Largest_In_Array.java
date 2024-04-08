@@ -15,5 +15,6 @@ public class Largest_In_Array {
             }
         }
         System.out.println(max);
+        sc.close();
     }
 } 
