@@ -1,4 +1,9 @@
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Stack;
+
+
+
 public class ArrayDS {
     private int[] array;
     private int size;
@@ -824,17 +829,132 @@ public class ArrayDS {
     }
 
 
+    // Q_13: Merge Overlapping Intervals
+    // Given a set of time intervals in any order, our task is to merge all overlapping
+    // intervals into one and output the result which should have only mutually exclusive intervals.
+
+    // Example:  
+    // Input: Intervals = {{1,3},{2,4},{6,8},{9,10}}
+    // Output: {{1, 4}, {6, 8}, {9, 10}}
+    // Explanation: Given intervals: [1,3],[2,4],[6,8],[9,10], we have only two overlapping 
+    // intervals here,[1,3] and [2,4]. Therefore we will merge these two and return [1,4],[6,8], [9,10]. 
+    // Input: Intervals = {{6,8},{1,9},{2,4},{4,7}}
+    // Output: {{1, 9}} 
+
+    // Approach: Sorting
+    // T.C = O(n log n), S.C = O(n)
+
+//     To solve this problem optimally we have to first sort the intervals according to 
+//     the starting time. Once we have the sorted intervals, we can combine all intervals 
+//     in a linear traversal. The idea is, in sorted array of intervals, if interval[i] 
+//     doesn’t overlap with interval[i-1], then interval[i+1] cannot overlap with interval[i-1] 
+//     because starting time of interval[i+1] must be greater than or equal to interval[i].
+
+// Follow the steps mentioned below to implement the approach:
+
+// Sort the intervals based on the increasing order of starting time.
+// Push the first interval into a stack.
+// For each interval do the following:
+// If the current interval does not overlap with the top of the stack then, push the current interval into the stack.
+// If the current interval overlap with the top of the stack then, update the stack top with the ending time of the current interval.
+// The end stack contains the merged intervals. 
 
 
+class Interval {
+    int start, end;
+    Interval(int start, int end)
+    {
+        this.start = start;
+        this.end = end;
+    }
+}
+        // The main function that takes a set of intervals,
+    // merges overlapping intervals and prints the result
+    public  void mergeIntervals(Interval arr[])
+    {
+        // Test if the given set has at least one interval
+        if (arr.length <= 0)
+            return;
+ 
+        // Create an empty stack of intervals
+        Stack<Interval> stack = new Stack<>();
+ 
+        // sort the intervals in increasing order of start
+        // time
+        Arrays.sort(arr, new Comparator<Interval>() {
+            public int compare(Interval i1, Interval i2)
+            {
+                return i1.start - i2.start;
+            }
+        });
+ 
+        // push the first interval to stack
+        stack.push(arr[0]);
+ 
+        // Start from the next interval and merge if
+        // necessary
+        for (int i = 1; i < arr.length; i++) {
+            // get interval from stack top
+            Interval top = stack.peek();
+ 
+            // if current interval is not overlapping with
+            // stack top, push it to the stack
+            if (top.end < arr[i].start)
+                stack.push(arr[i]);
+ 
+            // Otherwise update the ending time of top if
+            // ending of current interval is more
+            else if (top.end < arr[i].end) {
+                top.end = arr[i].end;
+                stack.pop();
+                stack.push(top);
+            }
+        }
+ 
+        // Print contents of stack
+        System.out.print("The Merged Intervals are: ");
+        while (!stack.isEmpty()) {
+            Interval t = stack.pop();
+            System.out.print("[" + t.start + "," + t.end
+                             + "] ");
+        }
+    }
 
 
+    // Approach 2: Sorting and Merging In Space Efficient Way
+    // T.C = O(n log n), S.C = O(1)
 
+    // Sort the intervals based on the increasing order of starting time.
+    // Initialize a variable, index, to store the index of the current interval.
+    // Traverse the intervals from the second interval to the end.
+    // If the current interval does not overlap with the previous interval, 
+        // increment the index and update the interval at the index to the current interval.
+    // If the current interval overlaps with the previous interval, update the ending time of the
+        // interval at the index to the maximum of the ending time of the interval at the index and the ending time of the current interval.
+    // Print the intervals from the first interval to the index.
 
-
-
-
-
-
+    public void mergeIntervalsOptimized(Interval arr[]) {
+        if (arr.length <= 0) {
+            return;
+        }
+        Arrays.sort(arr, new Comparator<Interval>() {
+            public int compare(Interval i1, Interval i2) {
+                return i1.start - i2.start;
+            }
+        });
+        int index = 0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[index].end < arr[i].start) {
+                index++;
+                arr[index] = arr[i];
+            } else {
+                arr[index].end = Math.max(arr[index].end, arr[i].end);
+            }
+        }
+        for (int i = 0; i <= index; i++) {
+            System.out.print("[" + arr[i].start + "," + arr[i].end + "] ");
+        }
+    }
 
 
 
@@ -926,8 +1046,17 @@ public class ArrayDS {
         // for (int i = 0; i < arr2.length; i++) {
         //     System.out.print(arr2[i] + " ");
         // }
-        
 
+        
+        // Interval arr[] = new Interval[4];
+        // arr[0] = new Interval(1, 3);
+        // arr[1] = new Interval(2, 4);
+        // arr[2] = new Interval(6, 8);
+        // arr[3] = new Interval(9, 10);
+        // array.mergeIntervals(arr);
+        // System.out.println();
+        // array.mergeIntervalsOptimized(arr);
+        
 
     }
 }
