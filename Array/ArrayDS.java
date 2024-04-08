@@ -406,6 +406,119 @@ public class ArrayDS {
 
 
 
+    // Q_07: Write a program to cyclically rotate an array by one.
+
+    // Given an array, the task is to cyclically rotate the array clockwise by one time.
+    // Examples:  
+    // Input: arr[] = {1, 2, 3, 4, 5}
+    // Output: arr[] = {5, 1, 2, 3, 4} 
+    // Input: arr[] = {2, 3, 4, 5, 1}
+    // Output: {1, 2, 3, 4, 5}
+
+    // Approach: Using a Temporary Variable
+    // T.C = O(n), S.C = O(1)
+
+    // Store the last element of the array in a temporary variable.
+    // Shift all the elements of the array to the right by one position.
+    // Store the temporary variable in the first position of the array.
+
+    public void rotateArray() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        int temp = array[size - 1];
+        for (int i = size - 1; i > 0; i--) {
+            array[i] = array[i - 1];
+        }
+        array[0] = temp;
+    }
+
+
+    // Approach 2: Using Two Pointers
+    // T.C = O(n), S.C = O(1)
+
+    /// Follow the steps to solve the problem:
+
+    // Take two pointers i and j which point to first and last element of array respectively.
+    // Start swapping arr[i] and arr[j] and keep j fixed and i moving towards j.
+    // Repeat above step till i is not equal to j.
+
+    public void rotateArray2() {
+        if (size == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        int i = 0;
+        int j = size - 1;
+        while (i != j) {
+            swap(i, j);
+            i++;
+        }
+    }
+
+
+
+    // Q_08: find Largest sum contiguous Subarray [V. IMP]((Kadane’s Algorithm))
+
+    // Write an efficient program to find the sum of contiguous subarray within a one-dimensional array of numbers that has the largest sum.
+    // Examples:
+    // Input: [-2, -3, 4, -1, -2, 1, 5, -3]
+    // Output: 7
+    // Explanation: The contiguous subarray [4, -1, -2, 1, 5] has the largest sum = 7.
+
+    // Approach: Kadane’s Algorithm
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, maxSum and currentSum, to store the maximum sum of the subarray and the sum of the current subarray.
+    // Traverse the array from start to end.
+    // Update the currentSum by adding the current element to it.
+    // If the currentSum is less than 0, update the currentSum to 0.
+    // If the currentSum is greater than the maxSum, update the maxSum to the currentSum.
+    // Print the maxSum.
+
+
+    public int largestSumContiguousSubarray(int arr[]) {
+        int maxSum = Integer.MIN_VALUE;
+        int currentSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            currentSum += arr[i];
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+        }
+        return maxSum;
+    }
+
+    // Approach 2: Using Dynamic Programming
+    // T.C = O(n), S.C = O(n)
+
+    // Create an array dp[] of the same size as the given array to store the maximum sum of the subarray ending at the current index.
+    // Initialize the first element of the dp[] array to the first element of the given array.
+    // Traverse the array from the second element to the end.
+    // Update the dp[i] to the maximum of dp[i-1] + arr[i] and arr[i].
+    // Print the maximum element of the dp[] array.
+
+    public int largestSumContiguousSubarray2(int arr[]) {
+        int dp[] = new int[arr.length];
+        dp[0] = arr[0];
+        int maxSum = dp[0];
+        for (int i = 1; i < arr.length; i++) {
+            dp[i] = Math.max(dp[i - 1] + arr[i], arr[i]);
+            maxSum = Math.max(maxSum, dp[i]);
+        }
+        return maxSum;
+    }
+    
+
+
+
+
+
+
 
 
 
@@ -468,6 +581,18 @@ public class ArrayDS {
         // array.union(array1, array2);
         // System.out.println();
         // array.intersection(array1, array2);
+
+
+        // array.rotateArray();
+        // array.rotateArray2();
+        // for (int i = 0; i < array.getSize(); i++) {
+        //     System.out.print(array.get(i) + " ");
+        // }
+
+
+        // int arr[] = {-2, -3, 4, -1, -2, 1, 5, -3};
+        // System.out.println(array.largestSumContiguousSubarray(arr));
+        // System.out.println(array.largestSumContiguousSubarray2(arr));
 
     }
 }
