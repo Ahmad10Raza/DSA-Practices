@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Stack;
 
 
@@ -1080,17 +1081,174 @@ class Interval {
 
 
 
+    // Q_16: Count Inversions
+    // Inversion Count for an array indicates – how far (or close) the array is 
+    // from being sorted. If the array is already sorted, then the inversion count is 0, 
+    // but if the array is sorted in reverse order, the inversion count is the maximum. 
+
+    // Given an array arr[]. The task is to find the inversion count of arr[]. 
+    // Where two elements arr[i] and arr[j] form an inversion if a[i] > a[j] and i < j.
+    
+    // Examples: 
+    
+    // Input: arr[] = {8, 4, 2, 1}
+    // Output: 6
+    // Explanation: Given array has six inversions: (8, 4), (4, 2), (8, 2), (8, 1), (4, 1), (2, 1).  
 
 
+    // Approach: Merge Sort
+    // T.C = O(n log n), S.C = O(n)
+
+    // Create a recursive function, mergeSortAndCount(arr, l, r), to find the inversion count of the array.
+    // If the left index is greater than or equal to the right index, return 0.
+    // Initialize a variable, count, to store the inversion count.
+    // Calculate the middle index, m, as the sum of the left and right indices divided by 2.
+    // Recursively call the mergeSortAndCount function with the left index and the middle index and add the result to the count.
+    // Recursively call the mergeSortAndCount function with the middle index + 1 and the right index and add the result to the count.
+    // Merge the two sorted halves of the array and add the number of inversions to the count.
+    // Return the count.
+
+    public int mergeSortAndCount(int[] arr, int l, int r) {
+        int count = 0;
+        if (l < r) {
+            int m = l + (r - l) / 2;
+            count += mergeSortAndCount(arr, l, m);
+            count += mergeSortAndCount(arr, m + 1, r);
+            count += mergeAndCount(arr, l, m, r);
+        }
+        return count;
+    }
+
+    public int mergeAndCount(int[] arr, int l, int m, int r) {
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        int left[] = new int[n1];
+        int right[] = new int[n2];
+        for (int i = 0; i < n1; i++) {
+            left[i] = arr[l + i];
+        }
+        for (int i = 0; i < n2; i++) {
+            right[i] = arr[m + 1 + i];
+        }
+        int i = 0, j = 0, k = l, swaps = 0;
+        while (i < n1 && j < n2) {
+            if (left[i] <= right[j]) {
+                arr[k++] = left[i++];
+            } else {
+                arr[k++] = right[j++];
+                swaps += (m + 1) - (l + i);
+            }
+        }
+        while (i < n1) {
+            arr[k++] = left[i++];
+        }
+        while (j < n2) {
+            arr[k++] = right[j++];
+        }
+        return swaps;
+    }
 
 
+    // Q_17: find all pairs on integer array whose sum is equal to given number
+    // Given an array of N integers, and an integer K, the task is to find the number 
+    // of pairs of integers in the array whose sum is equal to K.
 
+    // Examples:  
+    // Input: arr[] = {1, 5, 7, -1}, K = 6
+    // Output:  2
+    // Explanation: Pairs with sum 6 are (1, 5) and (7, -1).   
+    // Input: arr[] = {1, 5, 7, -1, 5}, K = 6
+    // Output:  3
+    // Explanation: Pairs with sum 6 are (1, 5), (7, -1) & (1, 5).    
 
+    // Approach: Hashing
+    // T.C = O(n), S.C = O(n)
 
+    // Initialize a variable, count, to store the number of pairs.
+    // Initialize a HashMap, map, to store the frequency of the elements in the array.
+    // Traverse the array from start to end.
+    // If the element K minus the current element is present in the map and the frequency of the 
+        // element K minus the current element is greater than 0, increment the count by 
+        // the frequency of the element K minus the current element.
+    // Increment the frequency of the current element in the map.
+    // Print the count.
 
+    public int getPairsCount(int[] arr, int n, int k) {
+        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            // Check if pairs exist in map
+            if (map.containsKey(k - arr[i])) {
+                count += map.get(k - arr[i]);
+            }
+            // If element is present in map, increment the count by the frequency of the element
+            if (map.containsKey(arr[i])) {
+                map.put(arr[i], map.get(arr[i]) + 1);
+            } else {
+                map.put(arr[i], 1);
+            }
+        }
+        return count;
+    }
 
+    // Approach 2: Binary Search 
+    // T.C = O(n log n), S.C = O(1)
 
+    // Follow the steps below to solve the given problem:
 
+    // Sort the array arr[] in increasing order.
+    // Loop from i = 0 to N-1.
+    // Find the index of the first element having value same or just greater than (K – arr[i]) using lower bound.
+    // Find the index of the first element having value just greater than (K – arr[i]) using upper bound.
+    // The gap between these two indices is the number of elements with value same as (K – arr[i]).
+    // Add this with the final count of pairs.
+    // Return the final count after the iteration is over.
+    
+        // lowerBound implementation
+  public static int lowerBound(int[] arr, int start,
+                               int end, int key)
+  {
+    while (start < end) {
+      int mid = start + (end - start) / 2;
+      if (arr[mid] < key) {
+        start = mid + 1;
+      }
+      else {
+        end = mid;
+      }
+    }
+    return start;
+  }
+ 
+  // upperBound implementation
+  public static int upperBound(int[] arr, int start,
+                               int end, int key)
+  {
+    while (start < end) {
+      int mid = start + (end - start) / 2;
+      if (arr[mid] <= key) {
+        start = mid + 1;
+      }
+      else {
+        end = mid;
+      }
+    }
+    return start;
+  }
+ 
+  // Function to find the count of pairs
+  public static int getPairsCount2(int[] arr, int n, int k)
+  {
+    Arrays.sort(arr);
+    int c = 0;
+    for (int i = 0; i < n - 1; i++) {
+      int x = k - arr[i];
+      int y = lowerBound(arr, i + 1, n, x);
+      int z = upperBound(arr, i + 1, n, x);
+      c = c + z - y;
+    }
+    return c;
+  }
 
 
 
@@ -1186,8 +1344,8 @@ class Interval {
         // System.out.println(array.getMinDiff(arr, n, k));
 
 
-        int arr[] = {1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9};
-        System.out.println(array.minJumps(arr));
+        // int arr[] = {1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9};
+        // System.out.println(array.minJumps(arr));
 
 
         // int arr[] = {1, 2, 3, 4, 5, 6, 3};
@@ -1218,8 +1376,25 @@ class Interval {
 
         // int arr[] = {5, 3, 7, 10};
         // System.out.println(array.optimalStrategy(arr, arr.length));
+
         
-        
+        // int arr[] = {1, 2, 3, 6, 5, 4};
+        // array.nextPermutation(arr);
+        // for (int i = 0; i < arr.length; i++) {
+        //     System.out.print(arr[i] + " ");
+        // }
+
+
+        // int arr[] = {8, 4, 2, 1};
+        // System.out.println(array.mergeSortAndCount(arr, 0, arr.length - 1));
+
+
+        // int arr[] = {1, 5, 7, -1};
+        // int n = arr.length;
+        // int k = 6;
+        // System.out.println(array.getPairsCount(arr, n, k));
+        // System.out.println(array.getPairsCount2(arr, n, k));
+
 
     }
 }
