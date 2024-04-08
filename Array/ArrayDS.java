@@ -1362,7 +1362,68 @@ class Interval {
     }
 
 
+    // Q_19: Rearrange the array in alternating positive and negative items with O(1) extra space
+    // Given an array having positive and negative numbers, our task is to arrange them in an alternate 
+    // fashion such that every positive number is followed by a negative number and vice-versa maintaining 
+    // the order of appearance. The number of positive and negative numbers need not to be equal. 
+    // If there are more positive numbers then they have to appear at the end of the array , same condition for negative numbers also .
 
+    // Examples:   
+    // Input:  arr[] = {1, 2, 3, -4, -1, 4}
+    // Output: arr[] = {-4, 1, -1, 2, 3, 4}
+    
+    // Input:  arr[] = {-5, -2, 5, 2, 4, 7, 1, 8, 0, -8}
+    // Output: arr[] = {-5, 5, -2, 2, -8, 4, 7, 1, 8, 0}
+
+    // Approach: Two-Pointer Approach
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, i and j((arr.length-1)), to store the indices of the elements to be swapped.
+    // Traverse the array from the start to the end.
+    // If i is negative, increment i by 1 and swap to j or if j is positive increment j by one and swap otherwise increment i and j one by one.
+    // Now first half have positive and second half have negative elements.
+    // Inilize pointer k to 0 and swap the elements at the index k and j or i.
+    // Find the index of the first positive element after the current element.
+    // If the index is found, swap the elements at the current index and the index found.   
+    // increment k by 2.
+    // Print the array.
+
+    public void rearrangePosNeg(int a[],int n){
+
+        int i = 0;
+        int j = n-1;
+
+        // Shift all negative values to the end
+        while(i<j){
+            while(i<=n-1 && a[i]>0){
+                i++;
+            }
+            while(j>=0 && a[j]<0){
+                j--;
+            }
+            if(i<j){
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+
+            if(i == 0 || i == n){
+                return;
+            }
+
+            // Swap alternate negative and positive values
+            int k = 0;
+            while(k<n && i<n){
+                int temp = a[k];
+                a[k] = a[i];
+                a[i] = temp;
+                i++;
+                k+=2;
+            }
+        }
+    }
+    
+      
 
 
 
@@ -1505,7 +1566,14 @@ class Interval {
         // int ar2[] = {6, 7, 20, 80, 100};
         // int ar3[] = {3, 4, 15, 20, 30, 70, 80, 120};
         // array.findCommon(ar1, ar2, ar3);
+
         
+        int arr[] = {1, 2, 3, -4, -1, 4};
+        int n = arr.length;
+        array.rearrangePosNeg(arr, n);
+        for (int i = 0; i < n; i++) {
+            System.out.print(arr[i] + " ");
+        }
 
 
     }
