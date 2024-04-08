@@ -723,6 +723,120 @@ public class ArrayDS {
 
 
 
+    // Q_12: Merge two sorted arrays with O(1) extra space
+    // We are given two sorted arrays. We need to merge these 
+    // two arrays such that the initial numbers (after complete sorting) 
+    // are in the first array and the remaining numbers are in the second array
+
+    // Examples: 
+    // Input: ar1[] = {10}, ar2[] = {2, 3}
+    // Output: ar1[] = {2}, ar2[] = {3, 10}    
+    // Input: ar1[] = {1, 5, 9, 10, 15, 20}, ar2[] = {2, 3, 8, 13}
+    // Output: ar1[] = {1, 2, 3, 5, 8, 9}, ar2[] = {10, 13, 15, 20}
+    
+    // Approach: Gap Algorithm
+    // T.C = O((n+m) log(n+m)), S.C = O(1)
+
+    // Initialize a variable, gap, to store the sum of the sizes of the two arrays.
+    // Initialize two variables, i and j, to store the starting indices of the two arrays.
+    // Initialize a variable, temp, to store the temporary value.
+    // Run a while loop until the gap is greater than 0.
+    // Traverse the first array from start to end.  
+    // If the current element is greater than the element at the index gap, swap the elements.
+    // Traverse the second array from the minimum of the current index and the gap to the end.
+    // If the current element is greater than the element at the index gap, swap the elements.
+    // Update the gap to the ceiling value of the gap divided by 2.
+    // Print the first and second arrays.
+
+    public void merge(int[] arr1, int[] arr2) {
+        int n = arr1.length;
+        int m = arr2.length;
+        int gap = (n + m + 1) / 2;
+        int i, j;
+        while (gap > 0) {
+            for (i = 0; i + gap < n; i++) {
+                if (arr1[i] > arr1[i + gap]) {
+                    int temp = arr1[i];
+                    arr1[i] = arr1[i + gap];
+                    arr1[i + gap] = temp;
+                }
+            }
+            for (j = gap > n ? gap - n : 0; i < n && j < m; i++, j++) {
+                if (arr1[i] > arr2[j]) {
+                    int temp = arr1[i];
+                    arr1[i] = arr2[j];
+                    arr2[j] = temp;
+                }
+            }
+            if (j < m) {
+                for (j = 0; j + gap < m; j++) {
+                    if (arr2[j] > arr2[j + gap]) {
+                        int temp = arr2[j];
+                        arr2[j] = arr2[j + gap];
+                        arr2[j + gap] = temp;
+                    }
+                }
+            }
+            gap = gap == 1 ? 0 : (gap + 1) / 2;
+        }
+    }
+
+
+    // Approach 2: To solve the problem follow the below idea:
+
+// We can compare the last element of array one with first element of 
+// array two and if the last element is greater than first element the 
+// swap the elements and sort the second array as the elements of first array should be less than or equal to elements in second array. Repeating this process while this condition holds true will give us two sorted arrays 
+
+// Follow the below steps to solve the problem:
+
+// Initialize i with 0
+// Iterate while loop until the last element of array 1 is greater than the first element of array 2
+// if arr1[i] greater than first element of arr2
+// swap arr1[i] with arr2[0]
+// sort arr2
+// Incrementing i by 1
+// Print the arrays
+
+    public void merge(int[] arr1, int[] arr2, int n, int m)
+    {
+        int i = 0;
+        int temp = 0;
+ 
+        // While loop till last element
+        // of array 1(sorted)
+        // is greater than first element
+        // of array 2(sorted)
+        while (arr1[n - 1] > arr2[0]) {
+            if (arr1[i] > arr2[0]) {
+ 
+                // Swap arr1[i] with first element
+                // of arr2 and sorting the updated
+                // arr2(arr1 is already sorted)
+                // swap(arr1[i],arr2[0]);
+                temp = arr1[i];
+                arr1[i] = arr2[0];
+                arr2[0] = temp;
+                Arrays.sort(arr2);
+            }
+            i++;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
         ArrayDS array = new ArrayDS(5);
@@ -800,8 +914,19 @@ public class ArrayDS {
 
         // int arr[] = {1, 2, 3, 4, 5, 6, 3};
         // System.out.println(array.findDuplicate(arr));
-        
 
+        
+        // int arr1[] = {1, 5, 9, 10, 15, 20};
+        // int arr2[] = {2, 3, 8, 13};
+        // array.merge(arr1, arr2);
+        // for (int i = 0; i < arr1.length; i++) {
+        //     System.out.print(arr1[i] + " ");
+        // }
+        // System.out.println();
+        // for (int i = 0; i < arr2.length; i++) {
+        //     System.out.print(arr2[i] + " ");
+        // }
+        
 
 
     }
