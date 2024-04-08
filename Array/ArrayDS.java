@@ -957,6 +957,164 @@ class Interval {
     }
 
 
+    // Q_14: Optimal Strategy For A Game
+    // You are given an array arr of size n. The elements of the array represent n 
+    // coin of values v1, v2, ....vn. You play against an opponent in an alternating way.
+    // In each turn, a player selects either the first or last coin from the row, 
+    // removes it from the row permanently, and receives the value of the coin.
+    // You need to determine the maximum possible amount of money you can win if you go first.
+    // Note: Both the players are playing optimally.   
+    // Example 1: 
+    // Input:
+    // n = 4
+    // arr[] = {5, 3, 7, 10}
+    // Output: 15
+    // Explanation: The user collects maximum
+    // value as 15(10 + 5). It is guarantee that we cannot get more than 15 by any possible moves.
+
+    // Approach: Dynamic Programming
+
+    // Create a 2D array dp[][] of size n x n to store the maximum possible amount of money that can be won by the first player.
+    // Initialize the diagonal elements of the dp[][] array to the values of the coins.
+    // Traverse the array from the second diagonal to the first diagonal.
+    // For each element dp[i][j], update it to the maximum of the sum of the value of the coin at 
+        //the ith index and the minimum of the value of the coin at the (i+2)th index and the value 
+        //  of the coin at the jth index and the sum of the value of the coin at the (i+1)th index and 
+        // the minimum of the value of the coin at the (i+1)th index and the value of the coin at the (j-1)th index.
+    // Print the value of dp[0][n-1].
+
+
+    public int optimalStrategy(int arr[], int n) {
+        int dp[][] = new int[n][n];
+        for (int gap = 0; gap < n; gap++) {
+            for (int i = 0, j = gap; j < n; i++, j++) {
+                int x = ((i + 2) <= j) ? dp[i + 2][j] : 0;
+                int y = ((i + 1) <= (j - 1)) ? dp[i + 1][j - 1] : 0;
+                int z = (i <= (j - 2)) ? dp[i][j - 2] : 0;
+                dp[i][j] = Math.max(arr[i] + Math.min(x, y), arr[j] + Math.min(y, z));
+            }
+        }
+        return dp[0][n - 1];
+    }
+
+    // Approach 2: Recursive Approach
+
+    // Create a recursive function, solve(arr, i, j), to find the maximum possible amount of money that can be won by the first player.
+    // If the starting index is greater than or equal to the ending index, return 0.
+    // If the value of the coin at the starting index is greater than the value of the coin at the ending index, 
+        // return the maximum of the sum of the value of the coin at the starting index and the result of the recursive function 
+        // called with the starting index incremented by 1 and the ending index, and the sum of the value of the coin at the 
+        // starting index and the result of the recursive function called with the starting index and the ending index decremented by 1.
+    // If the value of the coin at the starting index is less than or equal to the value of the coin at the ending index,
+        // return the maximum of the sum of the value of the coin at the ending index and the result of the recursive function 
+        // called with the starting index incremented by 1 and the ending index decremented by 1, and the sum of the value of the 
+        // coin at the starting index and the result of the recursive function called with the starting index and the ending index decremented by 1.
+
+    public int solve(int arr[], int i, int j) {
+        if (i >= j) {
+            return 0;
+        }
+        int x = arr[i] + Math.min(solve(arr, i + 2, j), solve(arr, i + 1, j - 1));
+        int y = arr[j] + Math.min(solve(arr, i + 1, j - 1), solve(arr, i, j - 2));
+        return Math.max(x, y);
+    }
+
+
+    // Q_15: Next Permutation
+//     Given an array arr[] of size N, the task is to print the lexicographically 
+//     next greater permutation of the given array. If there does not exist any greater 
+//     permutation, then print the lexicographically smallest permutation of the given array.
+
+// Examples:
+
+// Input: N = 6, arr = {1, 2, 3, 6, 5, 4}
+// Output: {1, 2, 4, 3, 5, 6}
+// Explanation: The next permutation of the given array is {1, 2, 4, 3, 5, 6}.
+
+// Input: N = 3, arr = {3, 2, 1}
+// Output: {1, 2, 3}
+// Explanation: As arr[] is the last permutation. 
+// So, the next permutation is the lowest one.
+
+    // Approach: Two-Pointer Approach
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, i and j, to store the indices of the elements to be swapped.
+    // Traverse the array from the second last element to the first element.
+    // Find point of change i.e. the element at the index i such that the element at the 
+        // index i is less than the element at the index i+1.(First deacreasing sequence)
+    // Find number to be swapped with i.e. the element at the index j such that the element 
+        // at the index j is greater than the element at the index i.(Just first greater element than i)
+    // Swap the elements at the indices i and j.
+    // Reverse/Sort rest of the array from the index i+1 to the end.
+    // Print the array.
+
+    public void nextPermutation(int[] arr) {
+        int i = arr.length - 2;
+        while (i >= 0 && arr[i] >= arr[i + 1]) {
+            i--;
+        }
+        if (i >= 0) {
+            int j = arr.length - 1;
+            while (j >= 0 && arr[j] <= arr[i]) {
+                j--;
+            }
+            swap2(i, j, arr);
+        }
+        reverse2(i + 1, arr.length - 1, arr);
+    }
+
+    public void swap2(int i, int j, int[] arr) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public void reverse2(int i, int j, int[] arr) {
+        while (i < j) {
+            swap2(i, j, arr);
+            i++;
+            j--;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
         ArrayDS array = new ArrayDS(5);
@@ -1056,6 +1214,11 @@ class Interval {
         // array.mergeIntervals(arr);
         // System.out.println();
         // array.mergeIntervalsOptimized(arr);
+
+
+        // int arr[] = {5, 3, 7, 10};
+        // System.out.println(array.optimalStrategy(arr, arr.length));
+        
         
 
     }
