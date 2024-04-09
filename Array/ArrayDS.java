@@ -1,3 +1,4 @@
+//import java.util.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -5,6 +6,8 @@ import java.util.HashSet;
 import java.util.Stack;
 // import java.util.Iterator;
 import java.util.Set;
+//import java.util.Iterator;
+import java.util.Map;
 
 
 
@@ -1644,7 +1647,109 @@ class Interval {
          }
          return ans;
      }
+     
+
+     // Approach 2: Sorting
+    // T.C = O(n log n), S.C = O(1)
+
+    // Sort the array.
+    // Initialize a variable, count, to store the count of the longest subsequence.
+    // Initialize a variable, max_count, to store the maximum count of the longest subsequence.
+    // Traverse the array from the second element to the end.
+    // If the current element is equal to the previous element plus 1, increment the count.
+    // Otherwise, update the max_count with the maximum of the count and max_count and reset the count to 1.
+    // Print the max_count.
+
+
+    public int findLongestConseqSubseq2(int arr[], int n)
+    {
+        Arrays.sort(arr);
+        int count = 1;
+        int max_count = 1;
+        for (int i = 1; i < n; i++) {
+            if (arr[i] == arr[i - 1] + 1) {
+                count++;
+            } else if (arr[i] != arr[i - 1]) {
+                max_count = Math.max(count, max_count);
+                count = 1;
+            }
+        }
+        return Math.max(count, max_count);
+    }
+
+
+    // Q_23: Given an array of size n and a number k, fin all elements that appear more than " n/k " times.
+    // Given an array of size n and an integer k, find all elements in the array that appear more than n/k times. 
+
+    // Examples:
+    // Input: arr[] = {3, 1, 2, 2, 1, 2, 3, 3}, k = 4
+    // Output: {2, 3}
+    // Explanation: Here n/k is 8/4 = 2, therefore 2 appears 3 times in the array that is 
+    //     greater than 2 and 3 appears 3 times in the array that is greater than 2    
+    // Input: arr[] = {9, 8, 7, 9, 2, 9, 7}, k = 3
+    // Output: {9}
+    // Explanation: Here n/k is 7/3 = 2, therefore 9 appears 3 times in the array that is greater than 2.
+
+
+    // Approach: Hashing
+    // T.C = O(n), S.C = O(n)
+
+    // Create a HashMap, map, to store the frequency of the elements in the array.
+    // Traverse the array from start to end.
+    // If the element is present in the map, increment the frequency of the element.
+    // Otherwise, add the element to the map with a frequency of 1.
+    // Traverse the map and print the elements with a frequency greater than n/k.
+
+    
+    public  void morethanNdK(int a[], int n, int k)
+    {
+        int x = n / k;
  
+        // Hash map initialization
+        HashMap<Integer, Integer> y = new HashMap<>();
+ 
+        // count the frequency of each element.
+        for (int i = 0; i < n; i++) {
+            // is element doesn't exist in hash table
+            if (!y.containsKey(a[i]))
+                y.put(a[i], 1);
+ 
+            // if element does exist in the hash table
+            else {
+                int count = y.get(a[i]);
+                y.put(a[i], count + 1);
+            }
+        }
+ 
+        // iterate over each element in the hash table
+        // and check their frequency, if it is more than
+        // n/k, print it.
+        for (@SuppressWarnings("rawtypes") Map.Entry m : y.entrySet()) {
+            Integer temp = (Integer)m.getValue();
+            if (temp > x)
+                System.out.println(m.getKey());
+        }
+    }
+
+    public void morethanNdK2(int a[], int n , int k){
+        int x = n/k;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            if (map.containsKey(a[i])) {
+                map.put(a[i], map.get(a[i]) + 1);
+            } else {
+                map.put(a[i], 1);
+            }
+        }
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > x) {
+                System.out.println(entry.getKey());
+            }
+        }
+    }
+ 
+
+
 
 
 
@@ -1798,9 +1903,18 @@ class Interval {
         // array.factorial(N);
 
 
+        // int arr[] = {1, 9, 3, 10, 4, 20, 2};
+        // int n = arr.length;
+        // System.out.println(array.findLongestConseqSubseq(arr, n));
+
+
         int arr[] = {1, 9, 3, 10, 4, 20, 2};
         int n = arr.length;
-        System.out.println(array.findLongestConseqSubseq(arr, n));
+        int k = 4;
+        array.morethanNdK2(arr, n, k);
+
+
+
 
 
       
