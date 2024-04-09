@@ -1936,6 +1936,161 @@ class Interval {
     }
 
 
+    // Q_27: Trapping Rain water problem
+    // Given an array of N non-negative integers arr[] representing an elevation 
+    // map where the width of each bar is 1, compute how much water it is able to trap after raining.
+
+    // Examples:  
+    // Input: arr[] = {2, 0, 2}
+    // Output: 2
+    // Explanation: The structure is like below.
+    // We can trap 2 units of water in the middle gap.  
+    // Input: arr[]   = {3, 0, 2, 0, 4}
+    // Output: 7
+    // Explanation: Structure is like below.
+    // We can trap “3 units” of water between 3 and 2,
+    // “1 unit” on top of bar 2 and “3 units” between 2 and 4.
+
+
+    // Approach: Two-Pointer Technique
+    // T.C = O(n), S.C = O(1)
+    // At every index, The amount of rainwater stored is the difference between the current 
+    // index height and a minimum of left max height and right max-height.
+
+    // Here we can use the two-pointer approach to find the minimum among the left-max and
+    // right-max of the probable outermost boundary for any index and iterate likewise.
+    
+    // For example: 
+    
+    // Say we have indices i, j and a boundary of (left, right). where i is the left pointer and j is the right pointer.
+    // If the minimum is arr[left], we can say that i is bounded in one side by left and no matter whatever the values 
+    // are in between (i, right), the rightmost boundary of i will at  least have height arr[right] which is the 
+    // probable outermost boundary for i. 
+    // So the water height of water column at index i is arr[left] – arr[i] and we can increment i then.
+    // Similar things happen for j also.
+
+    // Follow the steps mentioned below to implement the idea:
+
+    // Take two pointers l and r. Initialize l to the starting index 0 and r to the last index N-1.
+    // Since l is the first element, left_max would be 0, and right_max for r would be 0.
+    // While l ? r, iterate the array. We have two possible conditions
+    // Condition1 : left_max <= right max
+    // Consider Element at index l
+    // Since we have traversed all elements to the left of l, left_max is known 
+    // For the right max of l, We can say that the right max would  always be >= current r_max here
+    // So, min(left_max,right_max) would always equal to left_max in this case
+    // Increment l.
+    // Condition2 : left_max > right max
+    // Consider Element at index r
+    // Since we have traversed all elements to the right of r, right_max is known
+    // For the left max of l, We can say that the left max would  always be >= current l_max here
+    // So, min(left_max,right_max) would always equal to right_max in this case
+    // Decrement r.
+    
+
+    public int maxWater(int[] arr, int n) 
+    { 
+  
+        // Indices to traverse the array 
+        int left = 0; 
+        int right = n - 1; 
+  
+        // To store Left max and right max 
+        // for two pointers left and right 
+        int l_max = 0; 
+        int r_max = 0; 
+  
+        // To store the total amount 
+        // of rain water trapped 
+        int result = 0; 
+        while (left <= right) { 
+  
+            // We need check for minimum of left 
+            // and right max for each element 
+            if (r_max <= l_max) { 
+  
+                // Add the difference between 
+                // current value and right max at index r 
+                result += Math.max(0, r_max - arr[right]); 
+  
+                // Update right max 
+                r_max = Math.max(r_max, arr[right]); 
+  
+                // Update right pointer 
+                right -= 1; 
+            } 
+            else { 
+                
+                // Add the difference between 
+                // current value and left max at index l 
+                result += Math.max(0, l_max - arr[left]); 
+  
+                // Update left max 
+                l_max = Math.max(l_max, arr[left]); 
+  
+                // Update left pointer 
+                left += 1; 
+            } 
+        } 
+        return result; 
+    } 
+
+
+    // Approach 2: Pre-compute left and right max
+    // T.C = O(n), S.C = O(n)
+
+    // The above approach can be optimized by pre-computing the left and right max for each element.
+    // Follow the steps below to solve the problem:
+    // Follow the steps mentioned below to implement the approach:
+
+    // Create two arrays left[] and right[] of size N. Create a variable (say max) 
+    // to store the maximum found till a certain index during traversal.
+    // Run one loop from start to end: 
+    // In each iteration update max and also assign left[i] = max.
+    // Run another loop from end to start: 
+    // In each iteration update max found till now and also assign right[i] = max.
+    // Traverse the array from start to end.
+    // The amount of water that will be stored in this column is min(left[i], right[i]) – array[i]
+    // Add this value to the total amount of water stored
+    // Print the total amount of water stored.
+    // Below is the implementation of the above approach.
+
+    public int findWater(int arr[],int n) 
+    { 
+        // left[i] contains height of tallest bar to the 
+        // left of i'th bar including itself 
+        int left[] = new int[n]; 
+  
+        // Right [i] contains height of tallest bar to 
+        // the right of ith bar including itself 
+        int right[] = new int[n]; 
+  
+        // Initialize result 
+        int water = 0; 
+  
+        // Fill left array 
+        left[0] = arr[0]; 
+        for (int i = 1; i < n; i++) 
+            left[i] = Math.max(left[i - 1], arr[i]); 
+  
+        // Fill right array 
+        right[n - 1] = arr[n - 1]; 
+        for (int i = n - 2; i >= 0; i--) 
+            right[i] = Math.max(right[i + 1], arr[i]); 
+  
+        // Calculate the accumulated water element by 
+        // element consider the amount of water on i'th bar, 
+        // the amount of water accumulated on this 
+        // particular bar will be equal to min(left[i], 
+        // right[i]) - arr[i] . 
+        for (int i = 0; i < n; i++) 
+            water += Math.min(left[i], right[i]) - arr[i]; 
+  
+        return water; 
+    } 
+  
+
+
 
 
     public static void main(String[] args) {
@@ -2110,11 +2265,17 @@ class Interval {
         // System.out.println(array.isSubset(arr1, arr2, m, n));
 
 
-        int A[] = {12, 3, 4, 1, 6, 9};
-        int sum = 24;
-        int arr_size = A.length;
-        System.out.println(array.find3Numbers(A, arr_size, sum));
+        // int A[] = {12, 3, 4, 1, 6, 9};
+        // int sum = 24;
+        // int arr_size = A.length;
+        // System.out.println(array.find3Numbers(A, arr_size, sum));
 
+
+        // int arr[] = {3, 0, 2};
+        // int n = arr.length;
+        // System.out.println(array.maxWater(arr, n));
+        // System.out.println(array.findWater(arr, n));
+        
 
 
 
