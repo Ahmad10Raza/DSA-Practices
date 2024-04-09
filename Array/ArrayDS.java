@@ -1,8 +1,10 @@
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Stack;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Iterator;
 
 
@@ -1430,10 +1432,44 @@ class Interval {
  
 
 
+    // Q_20: Find if there is any subarray with sum equal to 0
+    // Given an array of positive and negative numbers, the task is to find if there 
+    // is a subarray (of size at least one) with 0 sum.
 
-    // Approach 2: Two-Pointer Approach
-    // T.C = O(n), S.C = O(1)
+    // Examples:  
+    // Input: {4, 2, -3, 1, 6}
+    // Output: true 
+    // Explanation:
+    // There is a subarray with zero sum from index 1 to 3.
+    
+    // Input: {4, 2, 0, 1, 6}
+    // Output: true
+    // Explanation: The third element is zero. A single element is also a sub-array.
 
+
+    // Approach: Hashing
+    // T.C = O(n), S.C = O(n)
+
+    // Initialize a variable, sum, to store the sum of the elements.
+    // Initialize a HashSet, set, to store the prefix sum of the elements.
+    // Traverse the array from start to end.
+    // If the sum is equal to 0 or the sum is already present in the set, return true.
+    // Add the sum to the set.
+    // Print false.
+
+    public boolean subArrayExists(int arr[], int n) {
+        Set<Integer> set = new HashSet<>();
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            if (sum == 0 || set.contains(sum)) {
+                return true;
+            }
+            set.add(sum);
+        }
+        return false;
+    }
+    
     
     
     
@@ -1582,12 +1618,17 @@ class Interval {
         // array.findCommon(ar1, ar2, ar3);
 
         
-        int arr[] = {1, 2, 3, -4, -1, 4};
+        // int arr[] = {1, 2, 3, -4, -1, 4};
+        // int n = arr.length;
+        // array.rearrangePosNeg(arr, n);
+        // for (int i = 0; i < n; i++) {
+        //     System.out.print(arr[i] + " ");
+        // }
+
+
+        int arr[] = {4, 2, -3, 1, 6};
         int n = arr.length;
-        array.rearrangePosNeg(arr, n);
-        for (int i = 0; i < n; i++) {
-            System.out.print(arr[i] + " ");
-        }
+        System.out.println(array.subArrayExists(arr, n));
 
 
     }
