@@ -1387,41 +1387,55 @@ class Interval {
     // If the index is found, swap the elements at the current index and the index found.   
     // increment k by 2.
     // Print the array.
-
-    public void rearrangePosNeg(int a[],int n){
-
-        int i = 0;
-        int j = n-1;
-
-        // Shift all negative values to the end
-        while(i<j){
-            while(i<=n-1 && a[i]>0){
-                i++;
-            }
-            while(j>=0 && a[j]<0){
-                j--;
-            }
-            if(i<j){
-                int temp = a[i];
-                a[i] = a[j];
-                a[j] = temp;
-            }
-
-            if(i == 0 || i == n){
-                return;
-            }
-
-            // Swap alternate negative and positive values
-            int k = 0;
-            while(k<n && i<n){
-                int temp = a[k];
-                a[k] = a[i];
-                a[i] = temp;
-                i++;
-                k+=2;
-            }
+    public void rearrangePosNeg(int arr[], int n)
+    {
+        int i = 0, j = n - 1;
+ 
+        // shift all negative values to the end
+        while (i < j) {
+            while (i <= n - 1 && arr[i] > 0)
+                i += 1;
+            while (j >= 0 && arr[j] < 0)
+                j -= 1;
+            if (i < j)
+                swap3(arr, i, j);
+        }
+ 
+        // i has index of leftmost negative element
+        if (i == 0 || i == n)
+            return;
+ 
+        // start with first positive
+        // element at index 0
+ 
+        // Rearrange array in alternating positive &
+        // negative items
+        int k = 0;
+        while (k < n && i < n) {
+            // swap next positive element
+            // at even position
+            // from next negative element.
+            swap3(arr, k, i);
+            i = i + 1;
+            k = k + 2;
         }
     }
+
+    static void swap3(int arr[], int index1, int index2)
+    {
+        int c = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = c;
+    }
+ 
+
+
+
+    // Approach 2: Two-Pointer Approach
+    // T.C = O(n), S.C = O(1)
+
+    
+    
     
       
 
