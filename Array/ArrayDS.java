@@ -1839,6 +1839,52 @@ class Interval {
     }
 
 
+    // Q_25: Find whether an array is a subset of another array
+    // Given two arrays: arr1[0..m-1] and arr2[0..n-1]. Find whether arr2[] is 
+    // a subset of arr1[] or not. Both arrays are not in sorted order. 
+    // It may be assumed that elements in both arrays are distinct.
+    // Examples:     
+    // Input: arr1[] = {11, 1, 13, 21, 3, 7}, arr2[] = {11, 3, 7, 1} 
+    // Output: arr2[] is a subset of arr1[]
+    // Input: arr1[] = {1, 2, 3, 4, 5, 6}, arr2[] = {1, 2, 4} 
+    // Output: arr2[] is a subset of arr1[]
+
+    // Approach: Hashing
+    // The idea is to insert all the elements of the first array in a HashSet, 
+    // and then iterate on the second array and find if the element exists in the HashSet, 
+    // if the HashSet doesn’t contain any particular value then the second array is not the subset of the first array.
+    // Note: This approach works perfectly if there are no duplicate elements.
+
+    // Algorithm:
+    // The algorithm is pretty straightforward. 
+    // Store the first array arr1[] in a HashSet.
+    // Look for the elements of arr2[] in the HashSet.
+    // If we encounter a particular value that is present in arr2[] but not in the HashSet, 
+    //     the code will terminate, arr2[] can never be the subset of arr1[].
+    // Else arr2[] is the subset of arr1[].
+
+    public boolean isSubset(int arr1[], int arr2[], int m,int n)
+    {
+        HashSet<Integer> hset = new HashSet<>();
+
+        // hset stores all the values of arr1
+        for (int i = 0; i < m; i++) {
+            if (!hset.contains(arr1[i]))
+                hset.add(arr1[i]);
+        }
+
+        // loop to check if all elements
+        //  of arr2 also lies in arr1
+        for (int i = 0; i < n; i++) {
+            if (!hset.contains(arr2[i]))
+                return false;
+        }
+        return true;
+    }
+
+
+
+
 
 
 
@@ -2006,6 +2052,12 @@ class Interval {
         // int m = arr.length;
         // System.out.println(array.maxtwobuysell(arr, m));
 
+
+        int arr1[] = {11, 1, 13, 21, 3, 7};
+        int arr2[] = {11, 3, 7, 1};
+        int m = arr1.length;
+        int n = arr2.length;
+        System.out.println(array.isSubset(arr1, arr2, m, n));
 
 
 
