@@ -8,6 +8,7 @@ import java.util.Stack;
 import java.util.Set;
 //import java.util.Iterator;
 import java.util.Map;
+import java.util.Iterator;
 
 
 
@@ -1749,10 +1750,93 @@ class Interval {
     }
  
 
+    // Q_24: Maximum profit by buying and selling a share atmost twice
+    // In daily share trading, a buyer buys shares in the morning and sells them on 
+    // the same day. If the trader is allowed to make at most 2 transactions in a day, 
+    // the second transaction can only start after the first one is complete (Buy->sell->Buy->sell). 
+    // Given stock prices throughout the day, find out the maximum profit that a share trader could have made.
+
+    // Examples: 
+    // Input:   price[] = {10, 22, 5, 75, 65, 80}
+    // Output:  87
+    // Trader earns 87 as sum of 12, 75 
+    // Buy at 10, sell at 22, 
+    // Buy at 5 and sell at 80
+    // Input:   price[] = {2, 30, 15, 10, 8, 25, 80}
+    // Output:  100
+    // Trader earns 100 as sum of 28 and 72
+    // Buy at price 2, sell at 30, buy at 8 and sell at 80
+    
+    // Approach: Dynamic Programming
+    // T.C = O(n), S.C = O(n)
+
+    // Create two arrays, profit1 and profit2, to store the maximum profit for the first and second transactions.
+    // Initialize the profit1 and profit2 arrays with 0.
+    // Initialize two variables, min_price1 and min_price2, to store the minimum price for the first and second transactions.
+    // Traverse the array from the start to the end.
+    // Update the min_price1 with the minimum of the current element and min_price1.
+    // Update the profit1 with the maximum of the current element minus min_price1 and profit1.
+    // Update the min_price2 with the minimum of the current element minus profit1 and min_price2.
+    // Update the profit2 with the maximum of the current element minus min_price2 and profit2.
+    // Print the maximum of profit1 and profit2.
 
 
+    public int maxProfit(int price[], int n)
+    {
+        int profit1[] = new int[n];
+        for (int i = 0; i < n; i++)
+            profit1[i] = 0;
+ 
+        int profit2[] = new int[n];
+        for (int i = 0; i < n; i++)
+            profit2[i] = 0;
+ 
+        int min_price1 = price[0];
+        for (int i = 1; i < n; i++) {
+            min_price1 = Math.min(min_price1, price[i]);
+            profit1[i] = Math.max(profit1[i - 1], price[i] - min_price1);
+        }
+ 
+        int min_price2 = price[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            min_price2 = Math.max(min_price2, price[i]);
+            profit2[i] = Math.max(profit2[i + 1], min_price2 - price[i]);
+        }
+ 
+        int max_profit = 0;
+        for (int i = 0; i < n; i++)
+            max_profit = Math.max(max_profit, profit1[i] + profit2[i]);
+ 
+        return max_profit;
+    }
 
 
+    // Approach 2: Efficient Approach 
+    // T.C = O(n), S.C = O(1)
+
+    // Follow the steps below to solve the problem:
+
+    // Initialize four variables for taking care of the first buy, first sell, 
+    // second buy, second sell. Set first buy and second buy as INT_MIN and 
+    // first and second sell as 0. This is to ensure to get profit from transactions. 
+    // Iterate through the array and return the second sell as it will store maximum profit.
+
+    public int maxtwobuysell(int arr[],int size) {
+        int first_buy = Integer.MIN_VALUE;
+          int first_sell = 0;
+          int second_buy = Integer.MIN_VALUE;
+          int second_sell = 0;
+           
+          for(int i = 0; i < size; i++) {
+             
+              first_buy = Math.max(first_buy,-arr[i]); 
+              first_sell = Math.max(first_sell,first_buy+arr[i]); 
+              second_buy = Math.max(second_buy,first_sell-arr[i]);
+              second_sell = Math.max(second_sell,second_buy+arr[i]);
+           
+        }
+         return second_sell;
+    }
 
 
 
@@ -1908,10 +1992,19 @@ class Interval {
         // System.out.println(array.findLongestConseqSubseq(arr, n));
 
 
-        int arr[] = {1, 9, 3, 10, 4, 20, 2};
-        int n = arr.length;
-        int k = 4;
-        array.morethanNdK2(arr, n, k);
+        // int arr[] = {1, 9, 3, 10, 4, 20, 2};
+        // int n = arr.length;
+        // int k = 4;
+        // array.morethanNdK2(arr, n, k);
+
+
+        // int price[] = {10, 22, 5, 75, 65, 80};
+        // int n = price.length;
+        // System.out.println(array.maxProfit(price, n));
+
+        // int arr[] = {2, 30, 15, 10, 8, 25, 80};
+        // int m = arr.length;
+        // System.out.println(array.maxtwobuysell(arr, m));
 
 
 
