@@ -1883,7 +1883,57 @@ class Interval {
     }
 
 
+    // Q_26: Find the triplet that sum to a given value
+    // Given an array arr[] of size n and an integer X. Find if there’s a 
+    // triplet in the array which sums up to the given integer X.
+    // Examples: 
+    // Input: array = {12, 3, 4, 1, 6, 9}, sum = 24; 
+    // Output: 12, 3, 9 
+    // Explanation: There is a triplet (12, 3 and 9) present 
+    // in the array whose sum is 24.     
+    // Input: array = {1, 2, 3, 4, 5}, sum = 9 
+    // Output: 5, 3, 1 
+    // Explanation: There is a triplet (5, 3 and 1) present 
+    // in the array whose sum is 9
 
+    // Approach: Sorting and Two-Pointer Technique
+    // By Sorting the array the efficiency of the algorithm can be improved. 
+    // This efficient approach uses the two-pointer technique. Traverse the array 
+    // and fix the first element of the triplet. Now use the Two Pointers algorithm to 
+    // find if there is a pair whose sum is equal to x – array[i]. Two pointers algorithm 
+    // take linear time so it is better than a nested loop.
+
+    // Algorithm:
+    // Sort the given array.
+    // Iterate over the array and fix the first element of the possible triplet, arr[i].
+    // Then fix two pointers, one at i + 1 and the other at n – 1. And look at the sum,
+    // If the sum is smaller than the required sum, increment the first pointer.
+    // If the sum is bigger, decrements the end pointer to reduce the sum.
+    // If the sum of elements at two-pointer is equal to the required sum then print the triplet and return.
+    // The implementation of the above approach is as follows:
+
+    public boolean find3Numbers(int A[], int arr_size, int sum)
+    {
+        int l, r;
+ 
+        // Fix the first element as A[i]
+        for (int i = 0; i < arr_size - 2; i++) {
+ 
+            // Fix the second element as A[j]
+            l = i + 1; // Initialize the left pointer
+            r = arr_size - 1; // Initialize the right pointer
+            while (l < r) {
+                if (A[i] + A[l] + A[r] == sum) {
+                    System.out.println("Triplet is " + A[i] + ", " + A[l] + ", " + A[r]);
+                    return true;
+                } else if (A[i] + A[l] + A[r] < sum)
+                    l++;
+                else // A[i] + A[l] + A[r] > sum
+                    r--;
+            }
+        }
+        return false;
+    }
 
 
 
@@ -2053,11 +2103,17 @@ class Interval {
         // System.out.println(array.maxtwobuysell(arr, m));
 
 
-        int arr1[] = {11, 1, 13, 21, 3, 7};
-        int arr2[] = {11, 3, 7, 1};
-        int m = arr1.length;
-        int n = arr2.length;
-        System.out.println(array.isSubset(arr1, arr2, m, n));
+        // int arr1[] = {11, 1, 13, 21, 3, 7};
+        // int arr2[] = {11, 3, 7, 1};
+        // int m = arr1.length;
+        // int n = arr2.length;
+        // System.out.println(array.isSubset(arr1, arr2, m, n));
+
+
+        int A[] = {12, 3, 4, 1, 6, 9};
+        int sum = 24;
+        int arr_size = A.length;
+        System.out.println(array.find3Numbers(A, arr_size, sum));
 
 
 
