@@ -1472,9 +1472,118 @@ class Interval {
     
     
     
-    
-      
+    // Q_21: Find factorial of a large number
+    // Given an integer N, the task is to find the factorial of the number.
 
+    // Examples:
+    // Input: N = 10
+    // Output: 3628800
+
+    // Input: N = 100
+    // Output: 933262154439441526816992388562667004907159682
+                // 6438162146859296389521759999322991560894146397615651828
+                // 6253697920827223758251185210916864000000000000000000000000
+
+
+    // Approach: Array Implementation
+    // T.C = O(n), S.C = O(n)
+
+    // Create an array, res[], of size 5000 to store the result.
+    // Initialize the result with 1 and the size of the result with 1.  
+    // Traverse the array from 2 to N.
+    // To store single digit in each cell use modulo 10 and rest of digit as carry.
+        // 
+    // Multiply the current element with the result and update the result.
+    // Print the result.
+
+    public void factorial(int N) {
+        int res[] = new int[5000];
+        res[0] = 1;
+        int res_size = 1;
+        for (int x = 2; x <= N; x++) {
+            res_size = multiply(x, res, res_size);
+        }
+        for (int i = res_size - 1; i >= 0; i--) {
+            System.out.print(res[i]);
+        }
+    }
+
+    public int multiply(int x, int res[], int res_size) {
+        int carry = 0;
+        for (int i = 0; i < res_size; i++) {
+            int prod = res[i] * x + carry;
+            res[i] = prod % 10;
+            carry = prod / 10;
+        }
+        // Put carry in res and increase result size
+        while (carry != 0) {
+            // increase result size
+            res[res_size] = carry % 10;
+            // make carry 0
+            carry = carry / 10;
+            res_size++;
+        }
+        return res_size;
+    }
+
+
+    // Approach 2: LinkedList Implementation
+    // T.C = O(n), S.C = O(n)
+
+    // Create a LinkedList, res, to store the result.
+    // Add 1 to the LinkedList.
+    // Traverse the array from 2 to N.
+    // Initialize a variable, carry, to store the carry.
+    // Traverse the LinkedList from the start to the end.
+    // Multiply the current element with the current number and add the carry.
+    // Update the current element with the modulo 10 of the product.
+    // Update the carry with the division of the product by 10.
+    // If the carry is not equal to 0, add the carry to the LinkedList.
+    // Print the LinkedList.
+
+    public class Node {
+        public Node prev;
+        public int data;
+
+        
+            Node(int data) {
+                this.data = data;
+                this.prev = null;
+            }
+        }
+        
+    
+
+    public  void Multiply(Node head, int i) {
+        Node temp = head;
+        Node prevPtr = head; // Temp variable for keeping head
+        int carry = 0;
+ 
+        //* Perform operation until temp becomes null
+        while (temp != null) {
+            int prod = temp.data * i + carry;
+            temp.data = prod % 10; //* Stores the last digit
+            carry = prod / 10;
+            prevPtr = temp; //* Change Links
+            temp = temp.prev; //* Moving temp to next node
+        }
+ 
+        //* If carry is greater than 0 then we create new nodes
+        //* to store remaining digits.
+        while (carry != 0) {
+            prevPtr.prev = new Node( (carry % 10));
+            carry /= 10;
+            prevPtr = prevPtr.prev;
+        }
+    }
+ 
+    //* Using head recursion to print the linked list's data in reverse
+    public  void print(Node head) {
+        if (head == null)
+            return;
+        print(head.prev);
+        System.out.print(head.data); // Print linked list in reverse order
+    }
 
 
 
@@ -1626,9 +1735,16 @@ class Interval {
         // }
 
 
-        int arr[] = {4, 2, -3, 1, 6};
-        int n = arr.length;
-        System.out.println(array.subArrayExists(arr, n));
+        // int arr[] = {4, 2, -3, 1, 6};
+        // int n = arr.length;
+        // System.out.println(array.subArrayExists(arr, n));
+
+
+        int N = 100;
+        array.factorial(N);
+
+      
+
 
 
     }
