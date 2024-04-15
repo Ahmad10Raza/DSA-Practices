@@ -2294,6 +2294,229 @@ class Interval {
     }
 
 
+    // Q_31: Median of 2 sorted arrays of equal size
+    // There are 2 sorted arrays A and B of size n each. Write an algorithm to find the 
+    // median of the array obtained after merging the above 2 arrays(i.e. array of length 2n). 
+    // The complexity should be O(log(n))
+
+    // Example:
+    // Input: ar1[] = {1, 12, 15, 26, 38}
+    //        ar2[] = {2, 13, 17, 30, 45}
+    // Output: 16
+    // Explanation: After merging two arrays, we get 1 2 12 13 15 17 26 30 38 45
+    // The median of the merged array is 15 (average of 15 and 17)
+
+
+    // Approach: Simply Count while Merging
+    // T.C = O(n), S.C = O(1)
+
+    // The idea is to use the merge procedure of the merge sort.
+    // Keep track of count while comparing elements of two arrays.
+    // If count is equal to n1, we have reached the median. Take the average of the elements at the last index and last-1 index in the merged array.
+    // Below is the implementation of the above approach:
+
+    public int getMedian2(int ar1[], int ar2[], int n)
+    {
+        int i = 0; /* Current index of i/p array ar1[] */
+        int j = 0; /* Current index of i/p array ar2[] */
+        int count;
+        int m1 = -1, m2 = -1;
+     
+        /* Since there are 2n elements, median will be average
+        of elements at index n-1 and n in the array obtained after
+        merging ar1 and ar2 */
+        for (count = 0; count <= n; count++) {
+            /* Below is to handle case where all elements of ar1[] are
+            smaller than smallest(or first) element of ar2[] */
+            if (i == n) {
+                m1 = m2;
+                m2 = ar2[0];
+                break;
+            }
+     
+            /* Below is to handle case where all elements of ar2[] are
+            smaller than smallest(or first) element of ar1[] */
+            else if (j == n) {
+                m1 = m2;
+                m2 = ar1[0];
+                break;
+            }
+            /* equals sign because if two
+            arrays have some common elements */
+            if (ar1[i] <= ar2[j]) {
+                /* Store the prev median */
+                m1 = m2;
+                m2 = ar1[i];
+                i++;
+            }
+            else {
+                /* Store the prev median */
+                m1 = m2;
+                m2 = ar2[j];
+                j++;
+            }
+        }
+     
+        return (m1 + m2) / 2;
+    }
+
+
+    // Approach 2: Binary Search
+    // We can find the kth element by using binary search on whole range of constraints of elements.
+
+    // Initialize ans = 0.0
+    // Initialize low = -10^9, high = 10^9 and pos = n
+    // Run a loop while(low <= high):
+        // Calculate mid = (low + (high – low)>>1)
+        // Find total elements less or equal to mid in the given arrays
+        // If the count is less or equal to pos
+            // Update low = mid + 1
+            // Else high = mid – 1
+    // Store low in ans, i.e., ans = low.
+    // Again follow step3 with pos as n – 1
+    // Return (sum + low * 1.0)/2
+
+    public  double getMedian(int[] nums1, int[] nums2,
+                                   int n)
+    {
+        // according to given constraints all numbers are in
+        // this range
+        int low = (int)-1e9, high = (int)1e9;
+ 
+        int pos = n;
+        double ans = 0.0;
+        // binary search to find the element which will be
+        // present at pos = totalLen/2 after merging two
+        // arrays in sorted order
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1); // same as (low + high)/2
+ 
+            // total number of elements in arrays which are
+            // less than mid
+            int ub = upperBound(nums1, mid) + upperBound(nums2, mid);
+ 
+            if (ub <= pos)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+ 
+        ans = low;
+ 
+        // As there are even number of elements, we will
+        // also have to find element at pos = totalLen/2 - 1
+        pos--;
+        low = (int)-1e9;
+        high = (int)1e9;
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            int ub = upperBound(nums1, mid)
+                     + upperBound(nums2, mid);
+ 
+            if (ub <= pos)
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+ 
+        // average of two elements in case of even
+        // number of elements
+        ans = (ans + low * 1.0) / 2;
+ 
+        return ans;
+    }
+ 
+    // a function which returns the index of smallest
+    // element which is strictly greater than key (i.e. it
+    // returns number of elements which are less than or
+    // equal to key)
+    public static int upperBound(int[] arr, int key)
+    {
+        int low = 0, high = arr.length;
+ 
+        while (low < high) {
+            int mid = low + ((high - low) >> 1);
+ 
+            if (arr[mid] <= key)
+                low = mid + 1;
+            else
+                high = mid;
+        }
+ 
+        return low;
+    }
+
+
+    // Q_32: Median of 2 sorted arrays of different size
+    // Given two sorted arrays, a[] and b[], the task is to find the median of these sorted arrays, 
+    // where N is the number of elements in the first array, and M is the number of elements in the second array. 
+
+    // This is an extension of Median of two sorted arrays of equal size problem. 
+    // Here we handle arrays of unequal size also.
+    
+    // Examples: 
+    
+    // Input: a[] = {-5, 3, 6, 12, 15}, b[] = {-12, -10, -6, -3, 4, 10}
+    // Output: The median is 3.
+    // Explanation: The merged array is: ar3[] = {-12, -10, -6, -5 , -3, 3, 4, 6, 10, 12, 15}.
+    // So the median of the merged array is 3
+
+
+    // Approach: Binary Search
+    // T.C = O(log(min(n, m))), S.C = O(1)
+
+    // The idea is to use the binary search approach to find the partition of the arrays.
+    // The partition should be such that the elements on the left side should be less than the elements on the right side.
+    // The partition should be such that the number of elements on the left side should be equal to the number of elements on the right side.
+    // The implementation of the above approach is as follows:
+
+//     The given two arrays are sorted, so we can utilize the ability of Binary Search to divide 
+//     the array and find the median. 
+
+// Median means the point at which the whole array is divided into two parts. 
+// Hence since the two arrays are not merged so to get the median we require merging which is costly. 
+
+// Hence instead of merging, we will use a modified binary search algorithm to efficiently find the median.
+
+// The idea is to divide the two arrays into two halves such that the number of elements in the left half is equal to the number of elements in the right half.
+
+
+    public double MedianOfTwoSortedArray(int[] A, int[] B)
+    {
+        int n = A.length;
+        int m = B.length;
+        if (n > m)
+            return MedianOfTwoSortedArray(B,A); // Swapping to make A smaller
+ 
+        int start = 0;
+        int end = n;
+        int realmidinmergedarray = (n + m + 1) / 2;
+ 
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            int leftAsize = mid;
+            int leftBsize = realmidinmergedarray - mid;
+            int leftA = (leftAsize > 0) ? A[leftAsize - 1] : Integer.MIN_VALUE; // checking overflow
+                                        // of indices
+            int leftB = (leftBsize > 0) ? B[leftBsize - 1]: Integer.MIN_VALUE;
+            int rightA = (leftAsize < n) ? A[leftAsize] : Integer.MAX_VALUE;
+            int rightB = (leftBsize < m) ? B[leftBsize] : Integer.MAX_VALUE;
+ 
+            // if correct partition is done
+            if (leftA <= rightB && leftB <= rightA) {
+                if ((m + n) % 2 == 0)
+                    return (Math.max(leftA, leftB) + Math.min(rightA, rightB)) / 2.0;
+                return Math.max(leftA, leftB);
+            }
+            else if (leftA > rightB) {
+                end = mid - 1;
+            }
+            else
+                start = mid + 1;
+        }
+        return 0.0;
+    }
+
     public static void main(String[] args) {
         ArrayDS array = new ArrayDS(5);
         array.add(1);
@@ -2495,7 +2718,17 @@ class Interval {
         // System.out.println(array.findMinOps(arr, n));
             
 
+        // int arr[] = {1, 12, 15, 26, 38};
+        // int arr2[] = {2, 13, 17, 30, 45};
+        // int n = arr.length;
+        // System.out.println(array.getMedian2(arr, arr2, n));
+        // System.out.println(array.getMedian(arr, arr2, n));
 
+
+        // int ar1[] = {1, 12, 15, 26, 38};
+        // int ar2[] = {2, 13, 17, 30, 45};
+        // System.out.println(array.MedianOfTwoSortedArray(ar1, ar2));
+        
 
 
     }
