@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 class Array {
 private:
@@ -153,6 +154,25 @@ public:
             }
         }
 
+        return ans;
+    }
+
+    // Using Converting into string
+    int palinArray(int a[], int n){
+        int ans=1;
+        for( int i = 0; i<n;i++){
+            
+            String s = String.valueOf(a[i]);
+            if(ans==0){
+                break;
+            }
+            for(int j=0; j<s.length(); j++){
+                if(s.charAt(j)!=s.charAt(s.length()-1-j)){
+                    ans=1;
+                    break;
+                }
+            }
+        }
         return ans;
     }
 };
