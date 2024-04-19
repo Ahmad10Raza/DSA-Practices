@@ -2258,40 +2258,58 @@ class Interval {
     // pointing to start of the array and second pointer pointing to the last element 
     // of the array) method and keeping count of total merging operations done till now.
 
-    public int findMinOps(int[] arr, int n)
-    {
+    public int findMinOps(int[] arr, int n) {
         int ans = 0; // Initialize result
-     
-        // Start from leftmost and rightmost corners of
-        // arr[]
+
+        // Start from leftmost and rightmost corners of arr[]
         for (int i = 0, j = n - 1; i <= j;) {
-     
-            // If corner elements are same, problem
-            // reduces arr[i+1..j-1]
+
+            // If corner elements are same, problem reduces arr[i+1..j-1]
             if (arr[i] == arr[j]) {
                 i++;
                 j--;
             }
-     
-            // If left element is greater, then we merge
-            // right two elements
+
+            // If left element is greater, then we merge right two elements
             else if (arr[i] > arr[j]) {
-                // need to merge from tail.
-                j--;
-                arr[j] += arr[j + 1];
-                ans++;
-            }
-     
-            // Else we merge left two elements
-            else {
+                // need to merge from head.
                 i++;
                 arr[i] += arr[i - 1];
                 ans++;
             }
+
+            // Else we merge right two elements
+            else {
+                j--;
+                arr[j] += arr[j + 1];
+                ans++;
+            }
         }
-     
+
         return ans;
     }
+
+    public static int palinArray(int[] a, int n)
+           {
+                  //add code here.
+                  int ans = 1;
+                  for(int i = 0 ; i < n ; i++){  
+                      String str = Integer.toString(a[i]);
+                      if(ans == 0){
+                          break;
+                      }   
+                      for(int j = 0 ; j <= str.length()-1-j ; j++){
+                          if(str.charAt(j) == str.charAt(str.length()-1-j)){
+                             ans = 1;
+                          }
+                          else{
+                              ans = 0;
+                             break; 
+                          }    
+                      }
+                  }
+                  return ans;  
+           }
 
 
     // Q_31: Median of 2 sorted arrays of equal size
