@@ -159,19 +159,62 @@ public:
 
     // Using Converting into string
     int palinArray(int a[], int n){
-        int ans=1;
-        for( int i = 0; i<n;i++){
-            
-            String s = String.valueOf(a[i]);
-            if(ans==0){
+        
+
+        int ans = 1; // Change the data type of "ans" to "int"
+
+        for (int i = 0; i < n; i++) {
+            std::string s = std::to_string(a[i]); // Convert integer to string
+            if (ans == 0) {
                 break;
             }
-            for(int j=0; j<s.length(); j++){
-                if(s.charAt(j)!=s.charAt(s.length()-1-j)){
-                    ans=1;
+            for (int j = 0; j < s.length(); j++) {
+                if (s[j] != s[s.length() - 1 - j]) {
+                    ans = 1;
                     break;
                 }
             }
+        }
+        return ans;
+    }
+
+    // Function for  Minimum swaps required bring elements less equal K together
+    int minSwap(int arr[], int n, int k){
+        int count = 0;
+        // Find count of elements which are less than
+        // equals to k
+        for(int i=0; i<n; i++){
+            if(arr[i] <= k){
+                count++;
+            }
+        }
+
+        // Find unwanted elements in current window of
+        // size 'count'
+        int bad = 0;
+        for(int i=0; i<count; i++){
+            if(arr[i] > k){
+                bad++;
+            }
+        }
+
+        // Initialize answer with 'bad' value of current
+        // window
+        int ans = bad;
+        for(int i=0, j=count; j<n; i++, j++){
+            // Decrement count of previous window
+            if(arr[i] > k){
+                bad--;
+            }
+
+            // Increment count of current window
+            if(arr[j] > k){
+                bad++;
+            }
+
+            // Update ans if count of 'bad' is less in
+            // current window
+            ans = std::min(ans, bad);
         }
         return ans;
     }
