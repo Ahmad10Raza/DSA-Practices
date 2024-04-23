@@ -231,6 +231,45 @@ public:
             high--;
         }
     }
+
+    // Using Recursion
+    void reverseArray(int arr[], int start, int end){
+        if(start >= end){
+            return;
+        }
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        reverseArray(arr, start + 1, end - 1);
+    }
+
+
+     // Q_02: Find the maximum and minimum element in an array
+    // Input: [2, 4, 1, 6, 8, 5]
+    // Output: Maximum: 8, Minimum: 1
+
+    // Approach: Linear Search
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, max and min, to store the maximum and minimum elements of the array.
+    // Traverse the array from start to end.
+    // If the current element is greater than the max element, update the max element.
+    // If the current element is less than the min element, update the min element.
+    // Print the maximum and minimum elements.
+
+    void findMaxMin(int arr[], int n){
+        int max = arr[0];
+        int min = arr[0];
+        for(int i=1; i<n; i++){
+            if(arr[i] > max){
+                max = arr[i];
+            }
+            if(arr[i] < min){
+                min = arr[i];
+            }
+        }
+        std::cout << "Maximum: " << max << ", Minimum: " << min << std::endl;
+    }
 };
 
 int main() {
