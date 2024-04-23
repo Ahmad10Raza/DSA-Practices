@@ -248,7 +248,7 @@ public:
     // Input: [2, 4, 1, 6, 8, 5]
     // Output: Maximum: 8, Minimum: 1
 
-    // Approach: Linear Search
+   // Approach: Linear Search
     // T.C = O(n), S.C = O(1)
 
     // Initialize two variables, max and min, to store the maximum and minimum elements of the array.
@@ -270,6 +270,28 @@ public:
         }
         std::cout << "Maximum: " << max << ", Minimum: " << min << std::endl;
     }
+
+    // Q_03: Find the kth maximum and minimum element in an array
+//     Given an array arr[] of size N and a number K, where K is smaller than the size of the array. 
+//     Find the K’th smallest element in the given array. Given that all array elements are distinct.
+
+// Examples:  
+// Input: arr[] = {7, 10, 4, 3, 20, 15}, K = 3 
+// Output: 7
+// Input: arr[] = {7, 10, 4, 3, 20, 15}, K = 4 
+// Output: 10 
+
+// Approach: Sorting
+// T.C = O(n log n), S.C = O(1)
+
+// Sort the array in ascending order.
+// Print the K’th(k-1) element of the sorted array.
+
+        void findKthMaxMin(int arr[], int n, int k){
+            std::sort(arr, arr + n);
+            std::cout << k << "th Minimum: " << arr[k - 1] << ", " << k << "th Maximum: " << arr[n - k] << std::endl;
+        }
+
 };
 
 int main() {
@@ -286,5 +308,9 @@ int main() {
     arr.print();
     arr.reverse();
     arr.print();
+
+
+
+
     return 0;
 }
