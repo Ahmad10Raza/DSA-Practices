@@ -452,7 +452,35 @@ public:
             }
         }
 
-        
+
+
+    // Intersection of Two-Sorted Arrays using Two-Pointers
+//     To find intersection of two sorted arrays using two-pointers, follow the below approach : 
+
+// Use two index variables i and j, initial values i = 0, j = 0 
+// If arr1[i] is smaller than arr2[j] then increment i. 
+// If arr1[i] is greater than arr2[j] then increment j. 
+// If both are same then print any of them and increment both i and j.
+
+
+        void intersectionOfArrays(int arr1[], int n, int arr2[], int m){
+            int i = 0;
+            int j = 0;
+            while(i < n && j < m){
+                if(arr1[i] < arr2[j]){
+                    i++;
+                }
+                else if(arr1[i] > arr2[j]){
+                    j++;
+                }
+                else{
+                    std::cout << arr1[i] << " ";
+                    i++;
+                    j++;
+                }
+            }
+        }
+
 };
 
 int main() {
