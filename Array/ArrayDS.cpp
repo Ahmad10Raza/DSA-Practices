@@ -413,6 +413,46 @@ public:
                 }
             }
         }
+
+        // Union of Two-Sorted Arrays using Two-Pointers
+// To find union of two sorted arrays using two pointers, follow the following procedure : 
+
+// Use two index variables i and j, initial values i = 0, j = 0 
+// If arr1[i] is smaller than arr2[j] then print arr1[i] and increment i. 
+// If arr1[i] is greater than arr2[j] then print arr2[j] and increment j. 
+// If both are same then print any of them and increment both i and j. 
+// Print remaining elements of the larger array.
+
+
+        void unionOfArrays(int arr1[], int n, int arr2[], int m){
+            int i = 0;
+            int j = 0;
+            while(i < n && j < m){
+                if(arr1[i] < arr2[j]){
+                    std::cout << arr1[i] << " ";
+                    i++;
+                }
+                else if(arr1[i] > arr2[j]){
+                    std::cout << arr2[j] << " ";
+                    j++;
+                }
+                else{
+                    std::cout << arr1[i] << " ";
+                    i++;
+                    j++;
+                }
+            }
+            while(i < n){
+                std::cout << arr1[i] << " ";
+                i++;
+            }
+            while(j < m){
+                std::cout << arr2[j] << " ";
+                j++;
+            }
+        }
+
+        
 };
 
 int main() {
