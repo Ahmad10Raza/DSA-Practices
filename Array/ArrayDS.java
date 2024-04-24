@@ -315,7 +315,7 @@ public class ArrayDS {
 // T.C = O(n), S.C = O(1)
 
 // Initialize two pointers, left and right, pointing to the start and end of the array respectively.
-// Traverse the array from start to end.
+// Traverse the array from start to en d.
 // If the element at the left pointer is negative, increment the left pointer.
 // If the element at the left pointer is positive and the element at the right pointer is negative, swap the elements at the left and right pointers and increment the left pointer and decrement the right pointer.
 // If the element at the left pointer is positive and the element at the right pointer is positive, decrement the right pointer.

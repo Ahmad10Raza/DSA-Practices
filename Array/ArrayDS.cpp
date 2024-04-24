@@ -375,6 +375,44 @@ public:
                 count2--;
             }
         }
+
+
+        // Q_05: Move all the negative elements to one side of the array 
+
+// An array contains both positive and negative numbers in random order. 
+// Rearrange the array elements so that all negative numbers appear before all positive numbers.
+
+// Examples : 
+// Input: -12, 11, -13, -5, 6, -7, 5, -3, -6
+// Output: -12 -13 -5 -7 -3 -6 11 6 5
+
+// Approach: Two-Pointer Technique
+// T.C = O(n), S.C = O(1)
+
+// Initialize two pointers, left and right, pointing to the start and end of the array respectively.
+// Traverse the array from start to en d.
+// If the element at the left pointer is negative, increment the left pointer.
+// If the element at the left pointer is positive and the element at the right pointer is negative, swap the elements at the left and right pointers and increment the left pointer and decrement the right pointer.
+// If the element at the left pointer is positive and the element at the right pointer is positive, decrement the right pointer.
+// Print the rearranged array.
+
+        void moveNegative(int arr[], int n){
+            int left = 0;
+            int right = n - 1;
+            while(left <= right){
+                if(arr[left] < 0){
+                    left++;
+                }
+                else if(arr[left] > 0 && arr[right] < 0){
+                    std::swap(arr[left], arr[right]);
+                    left++;
+                    right--;
+                }
+                else if(arr[left] > 0 && arr[right] > 0){
+                    right--;
+                }
+            }
+        }
 };
 
 int main() {
