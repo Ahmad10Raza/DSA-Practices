@@ -338,6 +338,43 @@ public:
             *a = *b;
             *b = temp;
         }
+
+
+        // Approach2: Counting Sort
+        // T.C = O(n), S.C = O(1)
+
+        // Count the number of 0s, 1s, and 2s in the array.
+        // Fill the array with 0s, then 1s, and then 2s.
+
+        void sort012(int arr[], int n){
+            int count0 = 0;
+            int count1 = 0;
+            int count2 = 0;
+            for(int i=0; i<n; i++){
+                if(arr[i] == 0){
+                    count0++;
+                }
+                else if(arr[i] == 1){
+                    count1++;
+                }
+                else{
+                    count2++;
+                }
+            }
+            int i = 0;
+            while(count0 > 0){
+                arr[i++] = 0;
+                count0--;
+            }
+            while(count1 > 0){
+                arr[i++] = 1;
+                count1--;
+            }
+            while(count2 > 0){
+                arr[i++] = 2;
+                count2--;
+            }
+        }
 };
 
 int main() {
