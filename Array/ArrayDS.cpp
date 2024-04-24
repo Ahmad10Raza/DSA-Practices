@@ -292,6 +292,52 @@ public:
             std::cout << k << "th Minimum: " << arr[k - 1] << ", " << k << "th Maximum: " << arr[n - k] << std::endl;
         }
 
+    // Q_04: Given an array which consists of only 0, 1 and 2. Sort the array without using any sorting algorithm.
+    // Given an array A[] consisting of only 0s, 1s, and 2s. The task is to write a function 
+    // that sorts the given array. The functions should put all 0s first, then all 1s and all 2s in last.
+
+// Examples:
+// Input: {0, 1, 2, 0, 1, 2}
+// Output: {0, 0, 1, 1, 2, 2}
+
+// Input: {0, 1, 1, 0, 1, 2, 1, 2, 0, 0, 0, 1}
+// Output: {0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2}
+
+// Approach: Dutch National Flag Algorithm
+// T.C = O(n), S.C = O(1)
+
+// Initialize three variables low, mid, and high to 0, 0, and n-1 respectively.
+// Traverse the array from start to end.
+// If the current element is 0, swap the element at index low with the element at index mid and increment low and mid by 1.
+// If the current element is 1, increment mid by 1.
+// If the current element is 2, swap the element at index mid with the element at index high and decrement high by 1.
+// Repeat the above steps until mid is less than or equal to high.
+
+        void sort012(int arr[], int n){
+            int low = 0;
+            int mid = 0;
+            int high = n - 1;
+            while(mid <= high){
+                if(arr[mid] == 0){
+                    std::swap(arr[low], arr[mid]);
+                    low++;
+                    mid++;
+                }
+                else if(arr[mid] == 1){
+                    mid++;
+                }
+                else{
+                    std::swap(arr[mid], arr[high]); 
+                    high--;
+                }
+            }
+        }
+
+        void swap(int* a, int* b){
+            int temp = *a;
+            *a = *b;
+            *b = temp;
+        }
 };
 
 int main() {
