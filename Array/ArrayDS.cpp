@@ -481,6 +481,99 @@ public:
             }
         }
 
+
+    // Q_07: Write a program to cyclically rotate an array by one.
+
+    // Given an array, the task is to cyclically rotate the array clockwise by one time.
+    // Examples:  
+    // Input: arr[] = {1, 2, 3, 4, 5}
+    // Output: arr[] = {5, 1, 2, 3, 4} 
+    // Input: arr[] = {2, 3, 4, 5, 1}
+    // Output: {1, 2, 3, 4, 5}
+
+    // Approach: Using a Temporary Variable
+    // T.C = O(n), S.C = O(1)
+
+    // Store the last element of the array in a temporary variable.
+    // Shift all the elements of the array to the right by one position.
+    // Store the temporary variable in the first position of the array.
+
+    void rotateArray(int arr[], int n){
+        int temp = arr[n - 1];
+        for(int i=n-1; i>0; i--){
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = temp;
+    }
+
+    // Approach 2: Using Two Pointers
+    // T.C = O(n), S.C = O(1)
+
+    /// Follow the steps to solve the problem:
+
+    // Take two pointers i and j which point to first and last element of array respectively.
+    // Start swapping arr[i] and arr[j] and keep j fixed and i moving towards j.
+    // Repeat above step till i is not equal to j.
+
+    void rotateArray(int arr[], int n){
+        int i = 0;
+        int j = n - 1;
+        while(i != j){
+            std::swap(arr[i], arr[j]);
+            i++;
+        }
+    }
+
+    // Q_08: find Largest sum contiguous Subarray [V. IMP]((Kadane’s Algorithm))
+
+    // Write an efficient program to find the sum of contiguous subarray within a one-dimensional array of numbers that has the largest sum.
+    // Examples:
+    // Input: [-2, -3, 4, -1, -2, 1, 5, -3]
+    // Output: 7
+    // Explanation: The contiguous subarray [4, -1, -2, 1, 5] has the largest sum = 7.
+
+    // Approach: Kadane’s Algorithm
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, maxSum and currentSum, to store the maximum sum of the subarray and the sum of the current subarray.
+    // Traverse the array from start to end.
+    // Update the currentSum by adding the current element to it.
+    // If the currentSum is less than 0, update the currentSum to 0.
+    // If the currentSum is greater than the maxSum, update the maxSum to the currentSum.
+    // Print the maxSum.
+
+    int maxSubarraySum(int arr[], int n){
+        int maxSum = INT_MIN;
+        int currentSum = 0;
+        for(int i=0; i<n; i++){
+            currentSum += arr[i];
+            if(currentSum < 0){
+                currentSum = 0;
+            }
+            maxSum = std::max(maxSum, currentSum);
+        }
+        return maxSum;
+    }
+
+    // Approach 2: Using Dynamic Programming
+    // T.C = O(n), S.C = O(n)
+
+    // Create an array dp[] of the same size as the given array to store the maximum sum of the subarray ending at the current index.
+    // Initialize the first element of the dp[] array to the first element of the given array.
+    // Traverse the array from the second element to the end.
+    // Update the dp[i] to the maximum of dp[i-1] + arr[i] and arr[i].
+    // Print the maximum element of the dp[] array.
+
+    int maxSubarraySum(int arr[], int n){
+        int dp[n];
+        dp[0] = arr[0];
+        int maxSum = dp[0];
+        for(int i=1; i<n; i++){
+            dp[i] = std::max(dp[i - 1] + arr[i], arr[i]);
+            maxSum = std::max(maxSum, dp[i]);
+        }
+        return maxSum;
+    }
 };
 
 int main() {
