@@ -615,6 +615,83 @@ public:
             }
             return result;
         }
+
+        // Q_10: Minimum number of Jumps to reach end of an array
+//     Given an array arr[] where each element represents the max number of steps 
+//     that can be made forward from that index. The task is to find the minimum 
+//     number of jumps to reach the end of the array starting from index 0.
+
+// Examples: 
+// Input: arr[] = {1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9}
+// Output: 3 (1-> 3 -> 9 -> 9)
+// Explanation: Jump from 1st element to 2nd element as there is only 1 step.
+// Now there are three options 5, 8 or 9. If 8 or 9 is chosen then the end node 9 can be reached. So 3 jumps are made.
+
+// Input:  arr[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+// Output: 10
+// Explanation: In every step a jump is needed so the count of jumps is 10.
+
+
+    // Approach: Greedy Algorithm
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize three variables, maxReach, steps, and jumps, to store the maximum reachable index, 
+        // the number of steps that can be taken from the current index, and the number of jumps made so far.
+    // Traverse the array from start to end.
+    // Update the maxReach to the maximum of maxReach and the sum of the current index and the 
+        //number of steps that can be taken from the current index.
+    // Decrement the steps by 1.
+    // If steps becomes 0, increment the jumps by 1 and update the steps to the difference between 
+        //the current index and maxReach.
+    // Print the number of jumps.
+
+    int minJumps(int arr[], int n){
+        int maxReach = arr[0];
+        int steps = arr[0];
+        int jumps = 1;
+        for(int i=1; i<n; i++){
+            if(i == n - 1){
+                return jumps;
+            }
+            maxReach = std::max(maxReach, i + arr[i]);
+            steps--;
+            if(steps == 0){
+                jumps++;
+                if(i >= maxReach){
+                    return -1;
+                }
+                steps = maxReach - i;
+            }
+        }
+        return -1;
+    }
+
+
+    // Approach 2: Dynamic Programming
+
+    // Create an array dp[] of the same size as the given array to store the minimum number of
+        // jumps required to reach the end of the array starting from the current index.
+    // Initialize the first element of the dp[] array to 0.
+    // Traverse the array from the second element to the end.
+    // Initialize the current element of the dp[] array to a large value.
+    // Traverse the array from the start to the current index.
+    // If the current element is greater than or equal to the difference between the current
+        //  index and the start index, update the current element of the dp[] array to the minimum of the current element and the sum of the element at the start index and 1.
+    // Print the last element of the dp[] array.
+
+    int minJumps(int arr[], int n){
+        int dp[n];
+        dp[0] = 0;
+        for(int i=1; i<n; i++){
+            dp[i] = INT_MAX;
+            for(int j=0; j<i; j++){
+                if(i <= j + arr[j]){
+                    dp[i] = std::min(dp[i], dp[j] + 1);
+                }
+            }
+        }
+        return dp[n - 1];
+    }
 };
 
 int main() {
