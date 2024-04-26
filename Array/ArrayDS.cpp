@@ -574,6 +574,47 @@ public:
         }
         return maxSum;
     }
+
+
+    // Q_09: Minimise the maximum difference between heights [V.IMP]
+//     Given the heights of N towers and a value of K, Either increase or decrease the 
+//     height of every tower by K (only once) where K > 0. After modifications, 
+//     the task is to minimize the difference between the heights of the longest 
+//     and the shortest tower and output its difference.
+
+// Examples: 
+// Input: arr[] = {1, 15, 10}, k = 6
+// Output:  Maximum difference is 5.
+// Explanation: Change 1 to 7, 15 to 9 and 10 to 4. Maximum difference is 5 (between 4 and 9). We can’t get a lower difference.
+// Input: arr[] = {1, 5, 15, 10}, k = 3   
+// Output: Maximum difference is 8, arr[] = {4, 8, 12, 7}
+
+// Approach: Sorting
+// T.C = O(n log n), S.C = O(1)
+
+// Sort the array in ascending order.
+// Initialize two variables, smallest and largest, to store the smallest and largest elements of the array. 
+// Initialize a variable, result, to store the difference between the largest and smallest elements.
+// Traverse the array from start to end.
+// Update the smallest element by adding K and the largest element by subtracting K.
+// Update the result to the minimum of the current result and the difference between the updated largest and smallest elements.
+// Print the result.
+
+        int getMinDiff(int arr[], int n, int k){
+            std::sort(arr, arr + n);
+            int smallest = arr[0] + k;
+            int largest = arr[n - 1] - k;
+            int result = arr[n - 1] - arr[0];
+            for(int i=0; i<n-1; i++){
+                int minEle = std::min(smallest, arr[i + 1] - k);
+                int maxEle = std::max(largest, arr[i] + k);
+                if(minEle < 0){
+                    continue;
+                }
+                result = std::min(result, maxEle - minEle);
+            }
+            return result;
+        }
 };
 
 int main() {
