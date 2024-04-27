@@ -730,6 +730,92 @@ public:
         }
         return slow;
     }
+
+    // Q_12: Merge two sorted arrays with O(1) extra space
+    // We are given two sorted arrays. We need to merge these 
+    // two arrays such that the initial numbers (after complete sorting) 
+    // are in the first array and the remaining numbers are in the second array
+
+    // Examples: 
+    // Input: ar1[] = {10}, ar2[] = {2, 3}
+    // Output: ar1[] = {2}, ar2[] = {3, 10}    
+    // Input: ar1[] = {1, 5, 9, 10, 15, 20}, ar2[] = {2, 3, 8, 13}
+    // Output: ar1[] = {1, 2, 3, 5, 8, 9}, ar2[] = {10, 13, 15, 20}
+
+    // Approach 2: To solve the problem follow the below idea:
+    
+
+// We can compare the last element of array one with first element of 
+// array two and if the last element is greater than first element the 
+// swap the elements and sort the second array as the elements of first array should be less than or equal to elements in second array. Repeating this process while this condition holds true will give us two sorted arrays 
+
+// Follow the below steps to solve the problem:
+
+// Initialize i with 0
+// Iterate while loop until the last element of array 1 is greater than the first element of array 2
+// if arr1[i] greater than first element of arr2
+// swap arr1[i] with arr2[0]
+// sort arr2
+// Incrementing i by 1
+// Print the arrays
+
+
+    void merge(int arr1[], int arr2[], int n, int m){
+        int i = 0;
+        while(arr1[n - 1] > arr2[0]){
+            if(arr1[i] > arr2[0]){
+                std::swap(arr1[i], arr2[0]);
+                std::sort(arr2, arr2 + m);
+            }
+            i++;
+        }
+    }
+
+    // Q_13: Kadane’s Algorithm [V.V.V.V.V IMP]
+    // Given an array arr of N integers. Find the contiguous sub-array with maximum sum.
+
+    // Example 1:
+    // Input:
+    // N = 5
+    // arr[] = {1,2,3,-2,5}
+    // Output:
+    // 9
+    // Explanation:
+    // Max subarray sum is 1 + 2 + 3 - 2 + 5 = 9
+
+    // Example 2:
+    // Input:
+    // N = 4
+    // arr[] = {-1,-2,-3,-4}
+    // Output:
+    // -1
+    // Explanation:
+    // Max subarray sum is -1
+
+    // Approach: Kadane’s Algorithm
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, maxSum and currentSum, to store the maximum sum of the subarray and the sum of the current subarray.
+    // Traverse the array from start to end.
+    // Update the currentSum by adding the current element to it.
+    // If the currentSum is less than 0, update the currentSum to 0.
+    // If the currentSum is greater than the maxSum, update the maxSum to the currentSum.
+    // Print the maxSum.
+
+    int maxSubarraySum(int arr[], int n){
+        int maxSum = INT_MIN;
+        int currentSum = 0;
+        for(int i=0; i<n; i++){
+            currentSum += arr[i];
+            if(currentSum < 0){
+                currentSum = 0;
+            }
+            maxSum = std::max(maxSum, currentSum);
+        }
+        return maxSum;
+    }
+
+    
 };
 
 int main() {
