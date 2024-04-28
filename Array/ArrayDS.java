@@ -923,8 +923,7 @@ class Interval {
         System.out.print("The Merged Intervals are: ");
         while (!stack.isEmpty()) {
             Interval t = stack.pop();
-            System.out.print("[" + t.start + "," + t.end
-                             + "] ");
+            System.out.print("[" + t.start + "," + t.end + "] ");
         }
     }
 
