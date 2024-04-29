@@ -11,7 +11,7 @@ public:
         arr = new int[size];
     }
 
-    ~Array() {
+    Array() {
         delete[] arr;
     }
 
@@ -874,6 +874,52 @@ public:
         return result;
     }
 
+
+
+    // Q_15: Next Permutation
+//     Given an array arr[] of size N, the task is to print the lexicographically 
+//     next greater permutation of the given array. If there does not exist any greater 
+//     permutation, then print the lexicographically smallest permutation of the given array.
+
+// Examples:
+
+// Input: N = 6, arr = {1, 2, 3, 6, 5, 4}
+// Output: {1, 2, 4, 3, 5, 6}
+// Explanation: The next permutation of the given array is {1, 2, 4, 3, 5, 6}.
+
+// Input: N = 3, arr = {3, 2, 1}
+// Output: {1, 2, 3}
+// Explanation: As arr[] is the last permutation. 
+// So, the next permutation is the lowest one.
+
+    // Approach: Two-Pointer Approach
+    // T.C = O(n), S.C = O(1)
+
+    // Initialize two variables, i and j, to store the indices of the elements to be swapped.
+    // Traverse the array from the second last element to the first element.
+    // Find point of change i.e. the element at the index i such that the element at the 
+        // index i is less than the element at the index i+1.(First deacreasing sequence)
+    // Find number to be swapped with i.e. the element at the index j such that the element 
+        // at the index j is greater than the element at the index i.(Just first greater element than i)
+    // Swap the elements at the indices i and j.
+    // Reverse/Sort rest of the array from the index i+1 to the end.
+    // Print the array.
+
+
+    void nextPermutation(int arr[], int n){
+        int i = n - 2;
+        while(i >= 0 && arr[i] >= arr[i + 1]){
+            i--;
+        }
+        if(i >= 0){
+            int j = n - 1;
+            while(j >= 0 && arr[j] <= arr[i]){
+                j--;
+            }
+            std::swap(arr[i], arr[j]);
+        }
+        std::reverse(arr + i + 1, arr + n);
+    }
     
 };
 

@@ -986,7 +986,7 @@ class Interval {
     // Traverse the array from the second diagonal to the first diagonal.
     // For each element dp[i][j], update it to the maximum of the sum of the value of the coin at 
         //the ith index and the minimum of the value of the coin at the (i+2)th index and the value 
-        //  of the coin at the jth index and the sum of the value of the coin at the (i+1)th index and 
+        //  of the coin at the jth index and the fsum of the value of the coin at the (i+1)th index and 
         // the minimum of the value of the coin at the (i+1)th index and the value of the coin at the (j-1)th index.
     // Print the value of dp[0][n-1].
 
@@ -1007,7 +1007,7 @@ class Interval {
     // Approach 2: Recursive Approach
 
     // Create a recursive function, solve(arr, i, j), to find the maximum possible amount of money that can be won by the first player.
-    // If the starting index is greater than or equal to the ending index, return 0.
+    // If the starting index is greater than or equal to the ending index, retur n 0.
     // If the value of the coin at the starting index is greater than the value of the coin at the ending index, 
         // return the maximum of the sum of the value of the coin at the starting index and the result of the recursive function 
         // called with the starting index incremented by 1 and the ending index, and the sum of the value of the coin at the 
