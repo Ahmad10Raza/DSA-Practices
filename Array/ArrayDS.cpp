@@ -920,6 +920,76 @@ public:
         }
         std::reverse(arr + i + 1, arr + n);
     }
+
+
+// Q_16: Count Inversions
+    // Inversion Count for an array indicates – how far (or close) the array is 
+    // from being sorted. If the array is already sorted, then the inversion count is 0, 
+    // but if the array is sorted in reverse order, the inversion count is the maximum. 
+
+    // Given an array arr[]. The task is to find the inversion count of arr[]. 
+    // Where two elements arr[i] and arr[j] form an inversion if a[i] > a[j] and i < j.
+    
+    // Examples: 
+    
+    // Input: arr[] = {8, 4, 2, 1}
+    // Output: 6
+    // Explanation: Given array has six inversions: (8, 4), (4, 2), (8, 2), (8, 1), (4, 1), (2, 1).  
+
+
+    // Approach: Merge Sort
+    // T.C = O(n log n), S.C = O(n)
+
+    // Create a recursive function, mergeSortAndCount(arr, l, r), to find the inversion count of the array.
+    // If the left index is greater than or equal to the right index, return 0.
+    // Initialize a variable, count, to store the inversion count.
+    // Calculate the middle index, m, as the sum of the left and right indices divided by 2.
+    // Recursively call the mergeSortAndCount function with the left index and the middle index and add the result to the count.
+    // Recursively call the mergeSortAndCount function with the middle index + 1 and the right index and add the result to the count.
+    // Merge the two sorted halves of the array and add the number of inversions to the count.
+    // Return the count.
+
+
+    int mergeAndCount(int arr[], int l, int m, int r){
+        int n1 = m - l + 1;
+        int n2 = r - m;
+        int left[n1], right[n2];
+        for(int i=0; i<n1; i++){
+            left[i] = arr[l + i];
+        }
+        for(int i=0; i<n2; i++){
+            right[i] = arr[m + 1 + i];
+        }
+        int i = 0, j = 0, k = l, count = 0;
+        while(i < n1 && j < n2){
+            if(left[i] <= right[j]){
+                arr[k++] = left[i++];
+            }
+            else{
+                arr[k++] = right[j++];
+                count += (n1 - i);
+            }
+        }
+        while(i < n1){
+            arr[k++] = left[i++];
+        }
+        while(j < n2){
+            arr[k++] = right[j++];
+        }
+        return count;
+    }
+
+    int mergeSortAndCount(int arr[], int l, int r){
+        int count = 0;
+        if(l < r){
+            int m = l + (r - l) / 2;
+            count += mergeSortAndCount(arr, l, m);
+            count += mergeSortAndCount(arr, m + 1, r);
+            count += mergeAndCount(arr, l, m, r);
+        }
+        return count;
+    }
+
     
 };
 
