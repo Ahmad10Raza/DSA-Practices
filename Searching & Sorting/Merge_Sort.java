@@ -22,6 +22,7 @@ public class Merge_Sort {
 
         int i = low, j = mid + 1, k = 0;
 
+        // Merge the two parts into temp[] array in sorted order
         while (i <= mid && j <= high) {
             if (arr[i] < arr[j])
                 temp[k++] = arr[i++];
@@ -29,12 +30,15 @@ public class Merge_Sort {
                 temp[k++] = arr[j++];
         }
 
+        // Insert all the remaining values from i to mid into temp[]
         while (i <= mid)
             temp[k++] = arr[i++];
 
+            // Insert all the remaining values from j to high into temp[]
         while (j <= high)
             temp[k++] = arr[j++];
 
+            // Assign sorted data stored in temp[] to a[] array
         for (i = low; i <= high; i++)
             arr[i] = temp[i - low];
     }
