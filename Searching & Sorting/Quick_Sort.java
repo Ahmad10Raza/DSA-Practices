@@ -19,12 +19,14 @@ public class Quick_Sort {
         int pivot = arr[high];
         int i = low;
 
+        // Move all elements smaller than pivot to the left of the pivot
         for (int j = low; j < high; j++) {
             if (arr[j] < pivot) {
                 swap(arr, i++, j);
             }
         }
 
+        // Move the pivot to its correct position in the sorted array
         swap(arr, i, high);
         return i;
     }
