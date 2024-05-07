@@ -28,12 +28,29 @@ public class LLDS {
         return count;
     }
 
+    
+
     public int sizeRecursive(Node current) {
         if (current == null) {
             return 0;
         }
         return 1 + sizeRecursive(current.next);
     }
+
+    // Function to insert a new Node at front of the list
+
+// Input: LinkedList = 2->3->4->5, NewNode = 1
+// Output: LinkedList = 1->2->3->4->5
+
+// Input: LinkedList = , NewNode = 1
+// Output: LinkedList = 1
+
+        // Approach: The new node is always added before the head of the given Linked List. And newly 
+        // added node will become the new head of the Linked List. 
+        // For example if the given Linked List is 10->15->20->25 and we add an item 5 at the front, 
+        // then the Linked List becomes 5->10->15->20->25. Let us call the function that adds at the 
+        // front of the list is push(). The push() must receive a pointer to the head pointer, 
+        // because push must change the head pointer to point to the new node
 
     public void insertAtBeginning(int data) {
         Node newNode = new Node(data);
@@ -43,6 +60,17 @@ public class LLDS {
             tail = newNode;
         }
     }
+
+    // Function to insert a new node at the end of the list
+
+// Input: LinkedList = 1->2->3->4->5, NewNode = 6
+// Output: LinkedList = 1->2->3->4->5->6
+
+       // Approach: The new node is always added after the last node of the given Linked List.
+         // For example if the given Linked List is 5->10->15->20->25 and we add an item 30 at the end,
+            // then the Linked List becomes 5->10->15->20->25->30. Since a Linked List is typically
+            // represented by the head of it, we have to traverse the list till end and then change the next of last node to new node.
+
 
     public void insertAtEnd(int data) {
         Node newNode = new Node(data);
@@ -54,6 +82,14 @@ public class LLDS {
         tail.next = newNode;
         tail = newNode;
     }
+
+    // Function to insert a new node after a given node
+
+// Input: LinkedList = 1->2->3->4, NewNode = 8, PrevNode = 3
+// Output: LinkedList = 1->2->3->8->4
+
+// Approach: The new node is always added after the given prev_node. For example if the given 
+// Linked List is 5->10->15->20->25 and we add an item 30 after 15, the Linked List looks like 5->10->15->30->20->25.
 
     public void insertAtPosition(int data, int position) {
         if (position < 0) {
@@ -84,6 +120,14 @@ public class LLDS {
         }
     }
 
+    // Function to delete a node at the beginning of the list
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: LinkedList = 2->3->4->5
+
+// Approach: The linked list can be traversed and the head can be changed to the next node in the list.
+// The previous head node will be garbage collected by Java Garbage Collector.
+
     public void deleteAtBeginning() {
         if (isEmpty()) {
             return;
@@ -95,6 +139,15 @@ public class LLDS {
         }
         deletedNode.next = null; // for garbage collection
     }
+
+    // Function to delete a node at the end of the list
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: LinkedList = 1->2->3->4
+
+// Approach: The linked list can be traversed and the second last node can be found.
+// The next of the second last node will be null and the last node will be garbage collected by Java Garbage Collector.
+
 
     public void deleteAtEnd() {
         if (isEmpty()) {
@@ -113,6 +166,14 @@ public class LLDS {
         prev.next = null;
         tail = prev;
     }
+
+    // Function to delete a node after a given node
+
+// Input: LinkedList = 1->2->3->4, Node = 3
+// Output: LinkedList = 1->2->3
+
+// Approach: The linked list can be traversed and the node after the given node can be found.
+// The next of the given node will be changed to the next of the next node and the next node will be garbage collected by Java Garbage Collector.
 
     public void deleteAtPosition(int position) {
         if (position < 0) {
@@ -142,6 +203,15 @@ public class LLDS {
         current.next = null; // for garbage collection
     }
 
+    // Function to get the data of a node at a given position
+
+// Input: LinkedList = 1->2->3->4->5, Position = 2
+// Output: 3
+
+// Approach: The linked list can be traversed and the data of the node at the given position can be returned.
+// If the position is less than 0, an IllegalArgumentException is thrown.
+// If the position is greater than the size of the linked list, an IndexOutOfBoundsException is thrown.
+
     public int get(int index) {
         if (index < 0) {
             throw new IllegalArgumentException("Invalid index");
@@ -158,6 +228,16 @@ public class LLDS {
         return current.data;
     }
 
+    // Function to get the data of a node at a given position using recursion
+
+// Input: LinkedList = 1->2->3->4->5, Position = 2
+// Output: 3
+
+// Approach: The linked list can be traversed recursively and the data of the node at the given position can be returned.
+// If the position is less than 0, an IllegalArgumentException is thrown.
+// If the position is greater than the size of the linked list, an IndexOutOfBoundsException is thrown.
+
+
     public int getRecursive(Node current, int index) {
         if (current == null) {
             throw new IndexOutOfBoundsException("Index out of bounds");
@@ -168,6 +248,15 @@ public class LLDS {
         return getRecursive(current.next, index - 1);
     }
 
+    // Function to traverse the list
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: 1 -> 2 -> 3 -> 4 -> 5 -> null
+
+// Approach: The linked list can be traversed and the data of each node can be printed.
+// The traversal can be done iteratively or recursively.
+
+
     public void traverse() {
         Node current = head;
         while (current != null) {
@@ -176,6 +265,14 @@ public class LLDS {
         }
         System.out.println("null");
     }
+
+    // Function to traverse the list using recursion
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: 1 -> 2 -> 3 -> 4 -> 5 -> null
+
+// Approach: The linked list can be traversed recursively and the data of each node can be printed.
+// The traversal can be done iteratively or recursively.
 
     public void traverseRecursive(Node current) {
         if (current == null) {
@@ -187,6 +284,19 @@ public class LLDS {
     }
 
     // Additional functionalities:
+
+
+    // Function to search for an element in the list
+
+// Input: LinkedList = 1->2->3->4->5, Element = 3
+// Output: Element found at index: 2
+
+// Input: LinkedList = 1->2->3->4->5, Element = 6
+// Output: Element not found
+
+// Approach: The linked list can be traversed and the element can be searched.
+// If the element is found, the index of the element can be returned.
+// If the element is not found, a message can be printed.
 
     public void search(int data) {
         Node current = head;
