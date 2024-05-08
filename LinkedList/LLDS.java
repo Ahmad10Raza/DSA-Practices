@@ -326,6 +326,14 @@ public class LLDS {
         searchRecursive(current.next, data, index + 1);
     }
 
+    // Function to reverse the list
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: LinkedList = 5->4->3->2->1
+
+// Approach: The linked list can be reversed by changing the next of each node to the previous node.
+// The head of the linked list will be the last node after reversing the linked list.
+
     public Node reverse(Node head) {
         Node prev = null;
         Node current = head;
@@ -340,6 +348,15 @@ public class LLDS {
 
     }
 
+
+    // Function to reverse the list using recursion
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: LinkedList = 5->4->3->2->1
+
+// Approach: The linked list can be reversed recursively by changing the next of each node to the previous node.
+// The head of the linked list will be the last node after reversing the linked list.
+
     public Node reverseRecursive(Node current) {
         if (current == null || current.next == null) {
             return current;
@@ -349,6 +366,14 @@ public class LLDS {
         current.next = null;
         return newHead;
     }
+
+    // Function to clear the list
+
+// Input: LinkedList = 1->2->3->4->5
+// Output: LinkedList = null
+
+// Approach: The linked list can be traversed and the next of each node can be set to null.
+// The head of the linked list will be null after clearing the linked list.
 
     public void clear() {
         Node current = head;
@@ -360,7 +385,7 @@ public class LLDS {
         head = tail = null;
     }
 
-
+    
     public void DeleteNodeItselfAsParameter(Node node){
 
 
