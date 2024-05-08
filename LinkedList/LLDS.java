@@ -385,7 +385,15 @@ public class LLDS {
         head = tail = null;
     }
 
-    
+    // Function to delete node as parameter
+
+// Input: LinkedList = 1->2->3->4->5, Node = 3
+// Output: LinkedList = 1->2->4->5
+
+// Approach: The linked list can be traversed and the node can be deleted by 
+// changing the next of the previous node to the next of the current node.
+// The deleted node will be garbage collected by Java Garbage Collector.
+
     public void DeleteNodeItselfAsParameter(Node node){
 
 
@@ -394,6 +402,13 @@ public class LLDS {
     }
 
 
+    // Function to get Nth node from the end of the linked list
+
+// Input: LinkedList = 1->2->3->4->5, N = 2
+// Output: 4
+
+// Approach: The linked list can be traversed to find the size of the linked list.
+// The Nth node from the end can be found by traversing the linked list again to the Nth node from the start.
 
     public int getNthNode(Node node, int n){
         int size=0;
@@ -414,7 +429,15 @@ public class LLDS {
     }
 
 
-    // function for get Nth node from the end using one iteration
+    // Function for get Nth node from the end using one iteration
+
+// Input: LinkedList = 1->2->3->4->5, N = 2
+// Output: 4
+
+// Approach: The linked list can be traversed using two pointers.
+// The first pointer can be moved N nodes ahead.
+// Then both pointers can be moved one node at a time until the first pointer reaches the end.
+// The second pointer will be at the Nth node from the end.
 
     public  int getNthNodeSingle(Node node,int n){
 
