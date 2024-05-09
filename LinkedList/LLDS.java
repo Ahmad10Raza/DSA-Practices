@@ -457,7 +457,17 @@ public class LLDS {
     }
 
 
-    // delete he Nth Node from end of the linked list
+    // Function to  delete he Nth Node from end of the linked list
+
+// Input: LinkedList = 1->2->3->4->5, N = 2
+// Output: LinkedList = 1->2->3->5
+
+// Approach: The linked list can be traversed using two pointers.
+// The first pointer can be moved N nodes ahead.
+// Then both pointers can be moved one node at a time until the first pointer reaches the end.
+// The second pointer will be at the Nth node from the end.
+// The next of the second pointer can be changed to the next of the next of the second pointer.
+
 
     public Node deleteNthNode(Node node, int n){
         Node slow=head;
@@ -482,7 +492,26 @@ public class LLDS {
     }
     
 
-    // function to find inersection of two linkedlist
+    // Function to find inersection of two linkedlist
+
+// Input: LinkedList1 = 1->2->3->4->5, LinkedList2 = 6->7->8->3->4->5
+// Output: 3
+
+// Approach: In this algorithm, we make the first list circular by connecting the last node to the first node. 
+// Then we take the size of the loop and move the first pointer in the second linked list by that number of nodes. 
+// Then take another pointer from the beginning of the second list and increment first and second pointer 
+// simultaneously to find the intersection point.
+
+// Steps to solve the problem:
+
+// Traverse the first linked list (count the elements) and make a circular linked list. 
+//     (Remember the last node so that we can break the circle later on). 
+// Now view the problem as finding the loop in the second linked list. So the problem is solved. 
+// Since we already know the length of the loop (size of the first linked list) we can traverse 
+//     those many numbers of nodes in the second list, and then start another pointer from the 
+//     beginning of the second list. we have to traverse until they are equal, and that is the required intersection point. 
+// Remove the circle from the linked list. 
+// Please write comments if you find any bug in the above algorithm or a better way to solve the same problem.
 
     public Node intersectionOfTwoLL(Node headA,Node headB){
         Node tempA = headA;
