@@ -550,7 +550,15 @@ public class LLDS {
     }
 
 
-    // function to get middle element
+    // Function to get middle element
+
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: 3
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+
 
     public Node getMiddleNode(Node head){
         Node slow=head;
@@ -565,7 +573,16 @@ public class LLDS {
     }
 
 
-    // function to delete middle element of the linked list
+    // Function to delete middle element of the linked list
+
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 1->2->4->5
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The middle node can be deleted by changing the next of the previous node of the middle node to the next of the middle node.
+    
 
     public Node deleteMiddleNode2(Node head){
         Node slow=head;
