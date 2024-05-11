@@ -605,6 +605,16 @@ public class LLDS {
 
 
 
+    // Function for de;ete a middle node from LL
+
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 1->2->4->5
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The middle node can be deleted by changing the next of the previous node of the middle node to the next of the middle node.
+
 
     public Node deleteMiddleNode(Node head){
         Node slow=head;
@@ -626,7 +636,16 @@ public class LLDS {
     }
 
 
-    // function to detect cycle in linked list
+    // Function to detect cycle in linked list
+
+    // Input: LinkedList = 1->2->3->4->5->3
+    // Output: true
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // If there is a cycle in the linked list, the slow and fast pointers will meet at some point.
+    // If there is no cycle in the linked list, the fast pointer will reach the end of the linked list.
+    
 
     public boolean detectCycle(Node head){
         Node slow=head;
