@@ -664,7 +664,18 @@ public class LLDS {
         return false;
     }
 
-    // function to get node where cycle starts
+    // Function to get node where cycle starts
+
+    // Input: LinkedList = 1->2->3->4->5->3
+    // Output: 3
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // If there is a cycle in the linked list, the slow and fast pointers will meet at some point.
+    // If there is no cycle in the linked list, the fast pointer will reach the end of the linked list.
+    // The slow pointer can be moved to the head of the linked list and both pointers can be moved one node at a time.
+    // The point where the slow and fast pointers meet is the node where the cycle starts.
+
 
     public Node getNodewhereCycleStarts(Node head){
         Node slow=head;
@@ -688,7 +699,16 @@ public class LLDS {
         return null;
     }
 
-    // function to merge two sorted linked list
+    // Function to merge two sorted linked list
+
+    // Input: LinkedList1 = 1->2->4, LinkedList2 = 1->3->4
+    // Output: LinkedList = 1->1->2->3->4->4
+
+    // Approach: The two linked lists can be merged by comparing the data of the nodes of the two linked lists.
+    // The node with the smaller data can be added to the merged linked list.
+    // The node with the smaller data can be moved to the next node.
+    // The process can be repeated until all the nodes of the two linked lists are added to the merged linked list.
+    
 
     public Node mergeTwoList(Node headA,Node headB){ // T.C = O(n+m) and S.C = O(n+m)
         Node tempA = headA;
