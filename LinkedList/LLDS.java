@@ -735,6 +735,10 @@ public class LLDS {
         return dummy.next;
     }
 
+    // Function to merge two list in optimized way
+
+    // Approach: The two linked lists can be merged by comparing the data of the nodes of the two linked lists.
+    // The node with the smaller data can be added to the merged linked list.
 
     public Node mergeTwoListOptimized(Node headA,Node headB){ // T.C = O(n+m) and S.C = O(1)
         Node tempA = headA;
@@ -764,7 +768,15 @@ public class LLDS {
     }
 
 
-    // function to delete duplicate node from ll
+    // Function to delete duplicate node from ll
+
+    // Input: LinkedList = 1->2->2->3->4->4->5
+    // Output: LinkedList = 1->2->3->4->5
+
+    // Approach: The linked list can be traversed and the duplicate nodes can be deleted.
+    // The next of the previous node of the duplicate node can be changed to the next of the next of the duplicate node.
+    // The duplicate node will be garbage collected by Java Garbage Collector.
+
     
     public Node deleteDuplicate(Node head){
         Node temp=head;
@@ -780,6 +792,14 @@ public class LLDS {
     }
 
     // second method to delete duplicate node from ll
+
+    // Input: LinkedList = 1->2->2->3->4->4->5
+    // Output: LinkedList = 1->3->5
+
+    // Approach: The linked list can be traversed and the duplicate nodes can be deleted.
+    // The next of the previous node of the duplicate node can be changed to the next of the next of the duplicate node.
+    // The duplicate node will be garbage collected by Java Garbage Collector.
+    
 
     public Node deleteDuplicate2(Node head){
         if (head == null || head.next == null) {
