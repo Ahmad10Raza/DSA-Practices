@@ -837,7 +837,19 @@ public class LLDS {
 
 
 
-    // function to check palindrome linked list
+    // Function to check palindrome linked list
+
+    // Input: LinkedList = 1->2->3->2->1
+    // Output: true
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The second half of the linked list can be reversed.
+    // The first half of the linked list and the reversed second half of the linked list can be compared.
+    // If the data of the nodes of the first half and the reversed second half are the same, the linked list is a palindrome.
+    // If the data of the nodes of the first half and the reversed second half are not the same, the linked list is not a palindrome.
+    
 
     public boolean isPalindrome(Node head){
         Node slow=head;
