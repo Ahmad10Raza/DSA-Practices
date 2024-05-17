@@ -883,7 +883,17 @@ public class LLDS {
         return true;
     }
 
-    // function to check palindrome linked list using deep copy
+    // Function to check palindrome linked list using deep copy
+
+    // Input: LinkedList = 1->2->3->2->1
+    // Output: true
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The second half of the linked list can be reversed.
+    // The first half of the linked list and the reversed second half of the linked list can be compared.
+
 
     public boolean isPalindrome2(Node head){
         Node temp=head;
@@ -905,7 +915,14 @@ public class LLDS {
     }
 
 
-    // function to odd even linked list
+    // Function to odd even linked list
+
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 1->3->5->2->4
+
+    // Approach: The linked list can be traversed using two pointers.
+    // The odd nodes can be added to the odd linked list and the even nodes can be added to the even linked list.
+    
 
     public Node oddEvenList(Node head){
         Node odd = new Node(0);
