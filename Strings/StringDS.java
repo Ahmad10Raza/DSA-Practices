@@ -41,6 +41,16 @@ public class StringDS {
         return new String(chars);
     }
 
+
+    // Function to reverse a string
+
+    // A string is given as input, we need to reverse the string
+    // and return the reversed string
+
+    // Example:
+    // Input: "hello"
+    // Output: "olleh"
+
     
 
 
