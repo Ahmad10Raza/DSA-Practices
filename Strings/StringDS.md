@@ -1138,3 +1138,761 @@ public class NetworkEncodingExample {
 - **Java strings** use UTF-16 internally, but you can encode and decode using various charsets.
 - Use the `String`, `Charset`, and I/O classes to handle encoding correctly in Java.
 - Properly managing character encoding ensures that text data is correctly represented and interpreted across different systems and applications.
+
+
+# 6. String Conversion:
+
+### String Conversion in Java
+
+Converting between strings and other data types is a common task in Java. Here’s how you can convert various data types to strings and vice versa:
+
+### Converting Other Data Types to Strings
+
+1. **Using `String.valueOf()`:**
+
+   - Converts different data types to their string representation.
+
+   ```java
+   int num = 10;
+   String str = String.valueOf(num); // "10"
+   ```
+2. **Using `toString()` Method:**
+
+   - Most Java objects have a `toString()` method that provides a string representation.
+
+   ```java
+   double d = 3.14;
+   String str = Double.toString(d); // "3.14"
+   ```
+3. **Using `String.format()`:**
+
+   - Formats a string using specified format specifiers.
+
+   ```java
+   int num = 10;
+   String str = String.format("%d", num); // "10"
+   ```
+4. **Using `+` Operator:**
+
+   - Concatenates the value with an empty string, implicitly calling `toString()`.
+
+   ```java
+   boolean bool = true;
+   String str = bool + ""; // "true"
+   ```
+
+### Converting Strings to Other Data Types
+
+1. **Using `Integer.parseInt()` and `Integer.valueOf()`:**
+
+   - Converts a string to an integer.
+
+   ```java
+   String str = "123";
+   int num = Integer.parseInt(str); // 123
+   int num = Integer.valueOf(str); // 123
+   ```
+2. **Using `Double.parseDouble()` and `Double.valueOf()`:**
+
+   - Converts a string to a double.
+
+   ```java
+   String str = "3.14";
+   double d = Double.parseDouble(str); // 3.14
+   double d = Double.valueOf(str); // 3.14
+   ```
+3. **Using `Boolean.parseBoolean()` and `Boolean.valueOf()`:**
+
+   - Converts a string to a boolean.
+
+   ```java
+   String str = "true";
+   boolean bool = Boolean.parseBoolean(str); // true
+   boolean bool = Boolean.valueOf(str); // true
+   ```
+4. **Using `Long.parseLong()` and `Long.valueOf()`:**
+
+   - Converts a string to a long.
+
+   ```java
+   String str = "123456789";
+   long l = Long.parseLong(str); // 123456789L
+   long l = Long.valueOf(str); // 123456789L
+   ```
+5. **Using `Float.parseFloat()` and `Float.valueOf()`:**
+
+   - Converts a string to a float.
+
+   ```java
+   String str = "3.14";
+   float f = Float.parseFloat(str); // 3.14f
+   float f = Float.valueOf(str); // 3.14f
+   ```
+6. **Using `Byte.parseByte()` and `Byte.valueOf()`:**
+
+   - Converts a string to a byte.
+
+   ```java
+   String str = "10";
+   byte b = Byte.parseByte(str); // 10
+   byte b = Byte.valueOf(str); // 10
+   ```
+7. **Using `Short.parseShort()` and `Short.valueOf()`:**
+
+   - Converts a string to a short.
+
+   ```java
+   String str = "10";
+   short s = Short.parseShort(str); // 10
+   short s = Short.valueOf(str); // 10
+   ```
+
+### Example Code for String Conversion
+
+```java
+public class StringConversionExample {
+    public static void main(String[] args) {
+        // Converting other data types to String
+        int num = 10;
+        double d = 3.14;
+        boolean bool = true;
+      
+        String strNum = String.valueOf(num);
+        String strDouble = Double.toString(d);
+        String strBool = Boolean.toString(bool);
+      
+        System.out.println("String representations:");
+        System.out.println("Integer: " + strNum);
+        System.out.println("Double: " + strDouble);
+        System.out.println("Boolean: " + strBool);
+
+        // Converting String to other data types
+        String str = "123";
+        int parsedNum = Integer.parseInt(str);
+        double parsedDouble = Double.parseDouble("3.14");
+        boolean parsedBool = Boolean.parseBoolean("true");
+
+        System.out.println("Parsed values:");
+        System.out.println("Integer: " + parsedNum);
+        System.out.println("Double: " + parsedDouble);
+        System.out.println("Boolean: " + parsedBool);
+
+        // Using try-catch to handle NumberFormatException
+        try {
+            String invalidStr = "abc";
+            int invalidNum = Integer.parseInt(invalidStr); // This will throw NumberFormatException
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format: " + e.getMessage());
+        }
+    }
+}
+```
+
+### Handling Exceptions
+
+When converting strings to numeric types, it is crucial to handle `NumberFormatException` for invalid inputs.
+
+```java
+try {
+    String invalidStr = "abc";
+    int invalidNum = Integer.parseInt(invalidStr); // This will throw NumberFormatException
+} catch (NumberFormatException e) {
+    System.out.println("Invalid number format: " + e.getMessage());
+}
+```
+
+### Summary
+
+- **Converting to Strings:** Use `String.valueOf()`, `toString()`, `String.format()`, or concatenation with `+`.
+- **Converting from Strings:** Use `parseXXX()` or `valueOf()` methods for each primitive type and handle possible exceptions for invalid input formats.
+
+
+# 7. String Search Algorithms:
+
+### String Search Algorithms in Java
+
+String search algorithms are used to find a substring (pattern) within another string (text). Here we will cover three popular string search algorithms: Knuth-Morris-Pratt (KMP), Boyer-Moore, and Rabin-Karp.
+
+### 1. Knuth-Morris-Pratt (KMP) Algorithm
+
+The KMP algorithm preprocesses the pattern to create a partial match table (also known as the "longest prefix suffix" table), which is used to skip unnecessary comparisons during the search phase.
+
+#### KMP Algorithm Steps
+
+1. **Preprocess the Pattern:**
+   - Create the partial match table for the pattern.
+2. **Search the Text:**
+   - Use the partial match table to skip characters in the text.
+
+#### Complexity
+
+- **Preprocessing Time:** O(m), where m is the length of the pattern.
+- **Search Time:** O(n), where n is the length of the text.
+- **Overall Time Complexity:** O(n + m).
+
+#### Implementation
+
+```java
+public class KMPAlgorithm {
+    public static int[] computeLPSArray(String pattern) {
+        int length = 0;  // length of the previous longest prefix suffix
+        int i = 1;
+        int[] lps = new int[pattern.length()];
+        lps[0] = 0; // lps[0] is always 0
+
+        while (i < pattern.length()) {
+            if (pattern.charAt(i) == pattern.charAt(length)) {
+                length++;
+                lps[i] = length;
+                i++;
+            } else {
+                if (length != 0) {
+                    length = lps[length - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return lps;
+    }
+
+    public static void KMPsearch(String text, String pattern) {
+        int n = text.length();
+        int m = pattern.length();
+        int[] lps = computeLPSArray(pattern);
+
+        int i = 0; // index for text
+        int j = 0; // index for pattern
+        while (i < n) {
+            if (pattern.charAt(j) == text.charAt(i)) {
+                i++;
+                j++;
+            }
+
+            if (j == m) {
+                System.out.println("Found pattern at index " + (i - j));
+                j = lps[j - 1];
+            } else if (i < n && pattern.charAt(j) != text.charAt(i)) {
+                if (j != 0) {
+                    j = lps[j - 1];
+                } else {
+                    i++;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String text = "ABABDABACDABABCABAB";
+        String pattern = "ABABCABAB";
+        KMPsearch(text, pattern);
+    }
+}
+```
+
+### 2. Boyer-Moore Algorithm
+
+The Boyer-Moore algorithm uses two heuristics to improve search efficiency: the bad character rule and the good suffix rule.
+
+#### Boyer-Moore Algorithm Steps
+
+1. **Preprocess the Pattern:**
+   - Create the bad character table and the good suffix table.
+2. **Search the Text:**
+   - Use the tables to skip sections of the text.
+
+#### Complexity
+
+- **Preprocessing Time:** O(m + k), where m is the length of the pattern and k is the size of the alphabet.
+- **Search Time:** O(n), where n is the length of the text in the best case.
+- **Overall Time Complexity:** O(n + m).
+
+#### Implementation
+
+```java
+public class BoyerMooreAlgorithm {
+    public static void preprocessBadChar(String pattern, int[] badChar) {
+        int m = pattern.length();
+        for (int i = 0; i < 256; i++) {
+            badChar[i] = -1;
+        }
+        for (int i = 0; i < m; i++) {
+            badChar[(int) pattern.charAt(i)] = i;
+        }
+    }
+
+    public static void BoyerMooreSearch(String text, String pattern) {
+        int n = text.length();
+        int m = pattern.length();
+        int[] badChar = new int[256];
+
+        preprocessBadChar(pattern, badChar);
+
+        int s = 0; // s is the shift of the pattern with respect to text
+        while (s <= (n - m)) {
+            int j = m - 1;
+
+            while (j >= 0 && pattern.charAt(j) == text.charAt(s + j)) {
+                j--;
+            }
+
+            if (j < 0) {
+                System.out.println("Found pattern at index " + s);
+                s += (s + m < n) ? m - badChar[text.charAt(s + m)] : 1;
+            } else {
+                s += Math.max(1, j - badChar[text.charAt(s + j)]);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String text = "ABAAABCD";
+        String pattern = "ABC";
+        BoyerMooreSearch(text, pattern);
+    }
+}
+```
+
+### 3. Rabin-Karp Algorithm
+
+The Rabin-Karp algorithm uses hashing to find patterns in the text. It computes a hash for the pattern and checks the hash of substrings of the text.
+
+#### Rabin-Karp Algorithm Steps
+
+1. **Compute the Hash:**
+   - Compute the hash of the pattern and the initial hash of the text substring.
+2. **Slide the Pattern:**
+   - Slide the pattern over the text and recompute the hash for the next substring.
+   - Compare the hashes, and if they match, check the actual substrings.
+
+#### Complexity
+
+- **Average and Best Case Time Complexity:** O(n + m).
+- **Worst Case Time Complexity:** O(n * m) due to hash collisions.
+
+#### Implementation
+
+```java
+public class RabinKarpAlgorithm {
+    public static final int d = 256; // Number of characters in the input alphabet
+    public static final int q = 101; // A prime number
+
+    public static void RabinKarpSearch(String text, String pattern) {
+        int n = text.length();
+        int m = pattern.length();
+        int p = 0; // hash value for pattern
+        int t = 0; // hash value for text
+        int h = 1;
+
+        // The value of h would be "pow(d, m-1) % q"
+        for (int i = 0; i < m - 1; i++) {
+            h = (h * d) % q;
+        }
+
+        // Calculate the hash value of pattern and first window of text
+        for (int i = 0; i < m; i++) {
+            p = (d * p + pattern.charAt(i)) % q;
+            t = (d * t + text.charAt(i)) % q;
+        }
+
+        // Slide the pattern over text one by one
+        for (int i = 0; i <= n - m; i++) {
+            // Check the hash values of current window of text and pattern
+            if (p == t) {
+                // Check for characters one by one
+                boolean match = true;
+                for (int j = 0; j < m; j++) {
+                    if (text.charAt(i + j) != pattern.charAt(j)) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) {
+                    System.out.println("Found pattern at index " + i);
+                }
+            }
+
+            // Calculate hash value for next window of text
+            if (i < n - m) {
+                t = (d * (t - text.charAt(i) * h) + text.charAt(i + m)) % q;
+                if (t < 0) {
+                    t = (t + q);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        String text = "GEEKS FOR GEEKS";
+        String pattern = "GEEK";
+        RabinKarpSearch(text, pattern);
+    }
+}
+```
+
+### Summary
+
+- **KMP Algorithm:**
+
+  - **Complexity:** O(n + m).
+  - **Use Cases:** Efficient for patterns with repeating sub-patterns.
+- **Boyer-Moore Algorithm:**
+
+  - **Complexity:** O(n) in the best case.
+  - **Use Cases:** Efficient for longer patterns and a larger alphabet.
+- **Rabin-Karp Algorithm:**
+
+  - **Complexity:** O(n + m) on average, O(n * m) in the worst case.
+  - **Use Cases:** Suitable for multiple pattern searches and simple hash implementations.
+
+These algorithms are essential tools for string searching tasks, each with its strengths and best use cases. Choose the algorithm based on the specific requirements of your problem, such as the pattern length, text length, and the need for handling large alphabets.
+
+
+# 8. Regular Expressions:
+
+### Regular Expressions in Java
+
+Regular expressions (regex) are sequences of characters that form a search pattern, often used for string matching, searching, and replacing operations. In Java, regular expressions are supported by the `Pattern` and `Matcher` classes in the `java.util.regex` package.
+
+### What are Regular Expressions?
+
+Regular expressions are patterns that describe sets of strings. They are used to:
+
+- Match strings
+- Search within strings
+- Replace parts of strings
+- Split strings
+
+### Using Regular Expressions in Java
+
+To use regular expressions in Java, you need to work with the `Pattern` and `Matcher` classes.
+
+#### `Pattern` Class
+
+- Compiles a regular expression into a pattern.
+- Provides no public constructors; you use the `compile()` method.
+
+#### `Matcher` Class
+
+- An engine that performs match operations on a character sequence by interpreting a `Pattern`.
+- You get a `Matcher` object by calling the `matcher()` method on a `Pattern` object.
+
+### Basic Operations
+
+#### 1. Compiling a Regular Expression
+
+```java
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class RegexExample {
+    public static void main(String[] args) {
+        // Compile a regular expression
+        Pattern pattern = Pattern.compile("a*b");
+      
+        // Create a matcher for a given input string
+        Matcher matcher = pattern.matcher("aaaaab");
+      
+        // Check if the pattern matches the input string
+        boolean matchFound = matcher.matches();
+        System.out.println("Match found: " + matchFound);
+    }
+}
+```
+
+#### 2. Searching with Regular Expressions
+
+```java
+public class RegexSearchExample {
+    public static void main(String[] args) {
+        String text = "This is a sample text.";
+        Pattern pattern = Pattern.compile("\\bsample\\b");
+        Matcher matcher = pattern.matcher(text);
+      
+        if (matcher.find()) {
+            System.out.println("Found at: " + matcher.start() + " to " + matcher.end());
+        } else {
+            System.out.println("No match found.");
+        }
+    }
+}
+```
+
+#### 3. Replacing with Regular Expressions
+
+```java
+public class RegexReplaceExample {
+    public static void main(String[] args) {
+        String text = "This is a sample text.";
+        Pattern pattern = Pattern.compile("\\bsample\\b");
+        Matcher matcher = pattern.matcher(text);
+      
+        String replacedText = matcher.replaceAll("example");
+        System.out.println("Replaced text: " + replacedText);
+    }
+}
+```
+
+### Writing Regular Expressions
+
+Regular expressions consist of literals and metacharacters. Here are some basic components:
+
+- **Literals:** Characters like `a`, `b`, `1`, `2`.
+- **Metacharacters:** Special characters like `.` (any character), `*` (zero or more), `+` (one or more), `?` (zero or one), `\d` (digit), `\w` (word character), etc.
+
+#### Examples of Regular Expressions
+
+- `a*b`: Matches any number of `a` followed by `b`.
+- `\d{3}`: Matches exactly three digits.
+- `[A-Z]`: Matches any uppercase letter.
+- `\bword\b`: Matches the word "word" as a whole word.
+
+### Testing Regular Expressions
+
+To test regular expressions, you can use online tools like [regex101](https://regex101.com/) or write test cases in Java.
+
+#### Example: Matching Email Addresses
+
+```java
+public class EmailValidator {
+    public static void main(String[] args) {
+        String emailPattern = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern = Pattern.compile(emailPattern);
+      
+        String email1 = "example@test.com";
+        String email2 = "invalid-email";
+      
+        Matcher matcher1 = pattern.matcher(email1);
+        Matcher matcher2 = pattern.matcher(email2);
+      
+        System.out.println(email1 + ": " + matcher1.matches());
+        System.out.println(email2 + ": " + matcher2.matches());
+    }
+}
+```
+
+### Summary
+
+- **Regular Expressions:** Patterns for matching, searching, and replacing strings.
+- **Pattern Class:** Compiles the regex pattern.
+- **Matcher Class:** Applies the pattern to strings for matching, searching, and replacing.
+- **Common Operations:** Matching (`matches()`), searching (`find()`), and replacing (`replaceAll()`).
+
+By mastering these concepts, you can effectively use regular expressions for a variety of text-processing tasks in Java.
+
+
+# 9. String Tokenization:
+
+### String Tokenization in Java
+
+String tokenization is the process of splitting a string into a sequence of tokens, typically based on a set of delimiters. In Java, tokenization can be done using several methods, including the `String.split()` method and the `StringTokenizer` class.
+
+### Methods of Tokenization
+
+1. **Using `String.split()` Method**
+2. **Using `StringTokenizer` Class**
+
+### 1. Using `String.split()` Method
+
+The `String.split()` method is a convenient way to split a string into an array of substrings based on a regular expression delimiter.
+
+#### Example
+
+```java
+public class SplitExample {
+    public static void main(String[] args) {
+        String text = "Java,Python,C++,JavaScript";
+        String delimiter = ",";
+        String[] tokens = text.split(delimiter);
+      
+        for (String token : tokens) {
+            System.out.println(token);
+        }
+    }
+}
+```
+
+#### Output
+
+```
+Java
+Python
+C++
+JavaScript
+```
+
+#### Details
+
+- **Syntax:** `String[] split(String regex)`
+- **Parameters:**
+  - `regex`: The regular expression used to match the delimiters.
+- **Returns:** An array of strings computed by splitting the input string around matches of the given regular expression.
+
+### 2. Using `StringTokenizer` Class
+
+The `StringTokenizer` class is a legacy class that provides methods for splitting a string into tokens. It is retained for compatibility with older code.
+
+#### Example
+
+```java
+import java.util.StringTokenizer;
+
+public class StringTokenizerExample {
+    public static void main(String[] args) {
+        String text = "Java|Python|C++|JavaScript";
+        String delimiter = "|";
+        StringTokenizer tokenizer = new StringTokenizer(text, delimiter);
+      
+        while (tokenizer.hasMoreTokens()) {
+            System.out.println(tokenizer.nextToken());
+        }
+    }
+}
+```
+
+#### Output
+
+```
+Java
+Python
+C++
+JavaScript
+```
+
+#### Details
+
+- **Constructor:** `StringTokenizer(String str, String delim)`
+- **Methods:**
+  - `boolean hasMoreTokens()`: Checks if there are more tokens.
+  - `String nextToken()`: Returns the next token from the string.
+
+### Comparing `String.split()` and `StringTokenizer`
+
+- **Flexibility:** `String.split()` is more flexible since it accepts regular expressions for delimiters.
+- **Usage:** `StringTokenizer` is simpler and faster for basic tokenization but lacks the flexibility of `String.split()`.
+- **Thread Safety:** `StringTokenizer` is not thread-safe. For thread-safe tokenization, use `String.split()` or other modern methods.
+
+### Advanced Tokenization with Regular Expressions
+
+Using regular expressions with `String.split()` allows for more advanced tokenization scenarios.
+
+#### Example: Splitting by Multiple Delimiters
+
+```java
+public class AdvancedSplitExample {
+    public static void main(String[] args) {
+        String text = "Java;Python|C++:JavaScript";
+        String delimiters = "[;|:]";
+        String[] tokens = text.split(delimiters);
+      
+        for (String token : tokens) {
+            System.out.println(token);
+        }
+    }
+}
+```
+
+#### Output
+
+```
+Java
+Python
+C++
+JavaScript
+```
+
+### Summary
+
+- **String Tokenization:** The process of splitting a string into tokens based on delimiters.
+- **`String.split()` Method:** Flexible, uses regular expressions, and returns an array of tokens.
+- **`StringTokenizer` Class:** Simple and fast for basic tokenization, but less flexible and a legacy class.
+- **Advanced Tokenization:** Can be achieved using regular expressions with the `String.split()` method.
+
+By understanding and using these methods, you can effectively tokenize strings in Java for various applications.
+
+
+# 10. String Pooling:
+
+### String Pooling in Java
+
+String pooling is a memory optimization technique in Java where all string literals are stored in a special memory area called the "string pool." This technique helps to save memory and improve performance by reusing instances of strings instead of creating new ones each time.
+
+### How String Pooling Works
+
+- **String Pool:** A special area in the Java heap memory where string literals are stored.
+- **String Interning:** The process of storing only one copy of each distinct string value, which must be immutable.
+
+### Creating Strings in Java
+
+Strings can be created in two main ways:
+
+1. **Using String Literals:**
+
+   - When a string is created using double quotes (e.g., `"hello"`), it is automatically added to the string pool.
+   - If the string already exists in the pool, the reference to the existing string is returned.
+
+   ```java
+   String str1 = "hello";
+   String str2 = "hello";
+   System.out.println(str1 == str2); // true
+   ```
+2. **Using the `new` Keyword:**
+
+   - When a string is created using the `new` keyword (e.g., `new String("hello")`), it creates a new string object in the heap, not in the string pool.
+
+   ```java
+   String str1 = new String("hello");
+   String str2 = new String("hello");
+   System.out.println(str1 == str2); // false
+   ```
+
+### String Interning
+
+- **intern() Method:** The `intern()` method can be used to add a string to the pool explicitly or get the reference to the pooled instance if it already exists.
+
+#### Example
+
+```java
+public class StringPoolingExample {
+    public static void main(String[] args) {
+        String str1 = new String("hello");
+        String str2 = "hello";
+
+        // str1 and str2 are different objects
+        System.out.println(str1 == str2); // false
+
+        // Interning str1
+        str1 = str1.intern();
+
+        // Now str1 and str2 refer to the same object in the pool
+        System.out.println(str1 == str2); // true
+    }
+}
+```
+
+### Benefits of String Pooling
+
+1. **Memory Efficiency:**
+
+   - String pooling reduces memory consumption by storing only one copy of each distinct string value.
+2. **Performance Improvement:**
+
+   - Comparing strings using `==` (reference comparison) is faster than using `equals()` (content comparison), and string pooling allows for such optimizations in certain scenarios.
+
+### Considerations
+
+- **Immutability:** Strings in Java are immutable, which makes string pooling feasible and safe. If strings were mutable, sharing them would lead to unpredictable behavior.
+- **Garbage Collection:** Strings in the pool are eligible for garbage collection if no references to them remain.
+- **Large Applications:** In applications that use a large number of unique strings dynamically, excessive use of the string pool might lead to increased memory usage and potential performance overhead.
+
+### Summary
+
+- **String Pooling:** A technique to store and reuse instances of strings in a special memory area.
+- **String Literals:** Automatically pooled.
+- **new Keyword:** Creates a new object on the heap, not in the pool.
+- **intern() Method:** Used to manually add a string to the pool or retrieve the pooled instance.
+- **Benefits:** Memory efficiency and performance improvement.
+- **Considerations:** Strings must be immutable, and excessive dynamic strings might affect performance.
+
+String pooling is a powerful feature in Java that can significantly optimize memory usage and improve performance when used appropriately.
