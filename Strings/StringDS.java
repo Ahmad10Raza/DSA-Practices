@@ -115,19 +115,73 @@ public class StringDS {
         }
         return reversed.toString();
     }
+
+
+    // Function to check if a string is palindrome
+    // A string is said to be palindrome if the reverse of the string is the same as the string. 
+    // For example, “abba” is a palindrome because the reverse of “abba” will be equal 
+    // to “abba” so both of these strings are equal and are said to be a palindrome, but “abbc” is not a palindrome.
     
+    // Approach: Two pointer approach
+    // Time complexity: O(n)
+    // Space complexity: O(1)
+//     Algorithm 1 :
+// Initialize 2 variables, l from the start and h from the end of the given string.
+// Now, we will compare the characters at index l and h with each other
+// If the characters are not equal, the string is not palindrome.
+// If the characters are equal, we will increment l and decrement h.
+// Steps 2,3 and 4 will be repeated till ( l < h ) or we find unequal characters.
+// If we reach the condition ( l < h ), it means all the corresponding characters are equal and the string is palindrome.
+
+        public boolean isPalindrome(String str) {
+            int l = 0;
+            int h = str.length() - 1;
+            while (l < h) {
+                if (str.charAt(l) != str.charAt(h)) {
+                    return false;
+                }
+                l++;
+                h--;
+            }
+            return true;
+        }
+
+        // Approach2: Using Recursion
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+
+        // We will use recursion to check if the string is palindrome
+        // We will keep the first and last character as it is and check if the rest of the string is palindrome
+        // If the rest of the string is palindrome, we will return true else false
+
+        public boolean isPalindrome2(String str) {
+            if (str == null || str.length() == 0) {
+                return true;
+            }
+            if (str.charAt(0) != str.charAt(str.length() - 1)) {
+                return false;
+            }
+            return isPalindrome2(str.substring(1, str.length() - 1));
+        }
 
 
     // Driver program to test above function
     public static void main(String []args) {
         
-        StringDS str = new StringDS("hello");
-        System.out.println(str.reverseString("hello"));
-        System.out.println(str.reverseString2("hello"));
-        System.out.println(str.reverseString3("hello"));
-        System.out.println(str.reverseString4("hello"));
-        System.out.println(str.reverseIteratively("hello"));
-        
+        // Testing the Reverse String function
+        // StringDS str = new StringDS("hello");
+        // System.out.println(str.reverseString("hello"));
+        // System.out.println(str.reverseString2("hello"));
+        // System.out.println(str.reverseString3("hello"));
+        // System.out.println(str.reverseString4("hello"));
+        // System.out.println(str.reverseIteratively("hello"));
+
+        // Testing the Palindrome function
+        StringDS str = new StringDS("");
+        System.out.println(str.isPalindrome("abba"));
+        System.out.println(str.isPalindrome("abbc"));
+
+
 
         
     }
