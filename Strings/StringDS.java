@@ -1,3 +1,8 @@
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
 public class StringDS {
     private char[] chars;
     
@@ -165,6 +170,81 @@ public class StringDS {
         }
 
 
+        // Function to Find Duplicate characters in a string
+        // Given a string, we need to find the duplicate characters in the string
+        // and return the duplicate characters
+
+        // Input: "hello"
+        // Output: "l"
+
+        // Approach: Using HashSet
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+
+        // We will use a HashSet to store the characters of the string
+        // If we find a character that is already present in the HashSet, we will add it to the result
+        // If the character is not present in the HashSet, we will add it to the HashSet
+
+        public String findDuplicateCharacters(String str) {
+            HashSet<Character> set = new HashSet<>();
+            StringBuilder result = new StringBuilder();
+            for (int i = 0; i < str.length(); i++) {
+                char ch = str.charAt(i);
+                if (set.contains(ch)) {
+                    result.append(ch);
+                } else {
+                    set.add(ch);
+                }
+            }
+            return result.toString();
+        }
+
+
+        public void printDups(String str)
+        {
+          Map<Character, Integer> count = new HashMap<>();
+          for (int i = 0; i < str.length(); i++) {
+            if(count.containsKey(str.charAt(i)))
+              count.put(str.charAt(i) , count.get(str.charAt(i))+1); 
+            else count.put(str.charAt(i),1);
+            //increase the count of characters by 1 
+          }
+      
+          for (Map.Entry<Character,Integer> mapElement : count.entrySet()) {   //iterating through the unordered map 
+            if (mapElement.getValue() > 1)   //if the count of characters is greater than 1 then duplicate found
+              System.out.println(mapElement.getKey() + ", count = " + mapElement.getValue());
+          }
+        }
+      
+        // Approach2: Using Sorting
+        // Time complexity: O(nlogn)
+        // Space complexity: O(1)
+
+        // Steps to implement the above approach:
+
+        // Sort the given string.
+        // Loop through the sorted string to find the duplicates.
+        // If the next character is the same as the current character then we keep on counting the occurrence of that char.
+        // If the count is greater than one then we print the character and its count.
+
+        public void printDups2(String str)
+        {
+          char[] arr = str.toCharArray();
+          Arrays.sort(arr);
+          int count = 1;
+          for (int i = 0; i < arr.length; i++) {
+            if (i < arr.length - 1 && arr[i] == arr[i + 1]) {
+              count++;
+            } else {
+              if (count > 1) {
+                System.out.println(arr[i] + ", count = " + count);
+              }
+              count = 1;
+            }
+          }
+        }
+
+
     // Driver program to test above function
     public static void main(String []args) {
         
@@ -177,10 +257,18 @@ public class StringDS {
         // System.out.println(str.reverseIteratively("hello"));
 
         // Testing the Palindrome function
-        StringDS str = new StringDS("");
-        System.out.println(str.isPalindrome("abba"));
-        System.out.println(str.isPalindrome("abbc"));
+        // StringDS str = new StringDS("");
+        // System.out.println(str.isPalindrome("abba"));
+        // System.out.println(str.isPalindrome("abbc"));
 
+
+        // Testing the Find Duplicate Characters function
+        StringDS str = new StringDS("");
+        str.printDups("hello");
+        str.printDups2("hello");
+        String result = str.findDuplicateCharacters("hello");
+        System.out.println(result);
+        
 
 
         
