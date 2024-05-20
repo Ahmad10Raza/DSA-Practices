@@ -271,6 +271,113 @@ public class StringDS {
             return (s1 + s1).contains(s2);
         }
 
+
+
+        // Function to check whether a string is a valid shuffle of two strings or not
+
+        // Given two strings str1 and str2, and a third-string shuffle, determine if shuffle is a valid shuffle 
+        // of str1 and str2, where a valid shuffle contains all characters from str1 and str2 occurring
+        // the same number of times, regardless of order. Print “YES” if valid, and “NO” otherwise.
+
+        // Examples: 
+
+        // Input: str1 = BA, str2 = XY, shuffle = XYAB 
+        // Output: YES
+
+        // Input: str1 = BA, str2 = XY, shuffle = XUMB 
+        // Output: NO
+
+        // Input: str1 = ABC, str2 = ZYS, shuffle = YBAZSC 
+        // Output:YES
+
+
+        // Approach: Using HashMap
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+        
+        // The simplest approach that comes to mind is when we observe the given inputs carefully, 
+        // we see that we only need to check if the frequency of each character in the 
+        // string shuffle is exactly as it is in both the str1 and str2 and also the length 
+        // should be of the length of str1 + length of str2. So, we can use a hashmap here.
+
+        // We will use a HashMap to store the characters of the two strings
+        // We will iterate through the shuffle string and check if the character is present in the HashMap
+        // If the character is present in the HashMap, we will decrement the count of the character
+        // If the character is not present in the HashMap, we will return false
+        // If the count of the character is less than 0, we will return false
+        // If the count of the characters in the HashMap is not 0, we will return false
+        // If all the characters are present in the HashMap and the count of the characters is 0, we will return true
+
+        public boolean isValidShuffle(String str1, String str2, String shuffle) {
+            if (str1.length() + str2.length() != shuffle.length()) {
+                return false;
+            }
+            Map<Character, Integer> map = new HashMap<>();
+            for (char ch : str1.toCharArray()) { // storing the characters of str1 and str2 in the map
+                map.put(ch, map.getOrDefault(ch, 0) + 1); // incrementing the count of the characters by 1
+            }
+            for (char ch : str2.toCharArray()) {
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+            }
+            for (char ch : shuffle.toCharArray()) {
+                if (!map.containsKey(ch)) {
+                    return false;
+                }
+                map.put(ch, map.get(ch) - 1);
+                if (map.get(ch) < 0) {
+                    return false;
+                }
+            }
+            for (int count : map.values()) {
+                if (count != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public boolean validShuffle(String str1, String str2, String shuffle)
+    {
+        int n1 = str1.length();
+        int n2 = str2.length();
+        int n = shuffle.length();
+
+        if (n != n1 + n2) {
+            return false;
+        }
+
+        HashMap<Character, Integer> freq = new HashMap<>();
+
+        for (int i = 0; i < n1; i++) {
+            freq.put(str1.charAt(i),freq.getOrDefault(str1.charAt(i), 0) + 1);
+        }
+
+        for (int i = 0; i < n2; i++) {
+            freq.put(str2.charAt(i),freq.getOrDefault(str2.charAt(i), 0) + 1);
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (freq.containsKey(shuffle.charAt(i))) {
+                freq.put(shuffle.charAt(i),freq.get(shuffle.charAt(i)) - 1);
+            }
+            else {
+                return false;
+            }
+        }
+
+        // Checks whether all the elements's frequency in
+        // hashmap becomes 0
+        for (Map.Entry<Character, Integer> entry :
+             freq.entrySet()) {
+            if (entry.getValue() != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
     // Driver program to test above function
     public static void main(String []args) {
         
