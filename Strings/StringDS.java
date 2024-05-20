@@ -245,6 +245,32 @@ public class StringDS {
         }
 
 
+        // Function to check whether one string is a rotation of another string
+        // Given a string s1 and a string s2, write a function to check whether s2 is a rotation of s1. 
+
+        // Examples: 
+
+        // Input: S1 = ABCD, S2 = CDAB
+        // Output: Strings are rotations of each other
+
+        // Input: S1 = ABCD, S2 = ACBD
+        // Output: Strings are not rotations of each other
+
+        // Approach: Using Concatenation
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+
+        // We will concatenate the first string with itself
+        // Then we will check if the second string is a substring of the concatenated string
+        // If the second string is a substring of the concatenated string, then the strings are rotations of each other
+
+        public boolean isRotation(String s1, String s2) {
+            if (s1.length() != s2.length()) {
+                return false;
+            }
+            return (s1 + s1).contains(s2);
+        }
+
     // Driver program to test above function
     public static void main(String []args) {
         
@@ -263,11 +289,17 @@ public class StringDS {
 
 
         // Testing the Find Duplicate Characters function
+        // StringDS str = new StringDS("");
+        // str.printDups("hello");
+        // str.printDups2("hello");
+        // String result = str.findDuplicateCharacters("hello");
+        // System.out.println(result);
+
+        // Testing the Rotation function
         StringDS str = new StringDS("");
-        str.printDups("hello");
-        str.printDups2("hello");
-        String result = str.findDuplicateCharacters("hello");
-        System.out.println(result);
+        System.out.println(str.isRotation("ABCD", "CDAB"));
+        System.out.println(str.isRotation("ABCD", "ACBD"));
+
         
 
 
