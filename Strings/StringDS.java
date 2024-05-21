@@ -536,6 +536,37 @@ public class StringDS {
         }
 
 
+        // Function to print all subsequences of a string
+
+        // Given a string, we need to print all the subsequences of the string
+
+        // Example:
+        // Input: "abc"
+        // Output: "a", "b", "c", "ab", "ac", "bc", "abc"
+
+        // Approach: Using Recursion
+        // Time complexity: O(2^n)
+        // Space complexity: O(n)
+
+        // We will use recursion to print all the subsequences of the string
+        // We will keep two pointers, i and j
+        // If the characters at index i and j are the same and i is not equal to j, we will return 1 + the longest recurring subsequence
+        // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+
+        public void printSubsequences(String str) {
+            printSubsequencesRecursive(str, "");
+        }
+
+        private void printSubsequencesRecursive(String remaining, String current) {
+            if (remaining.isEmpty()) {
+                System.out.println(current);
+                return;
+            }
+            printSubsequencesRecursive(remaining.substring(1), current + remaining.charAt(0));
+            printSubsequencesRecursive(remaining.substring(1), current);
+        }
+
+
 
 
 
@@ -582,6 +613,16 @@ public class StringDS {
         // Testing the Longest Palindrome function
         // StringDS str = new StringDS("");
         // System.out.println(str.palindrome("babad"));
+
+        // Testing the Longest Recurring Subsequence function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.longestRecurringSubsequence("AABEBCDD", 8, 8));
+
+        // Testing the Print All Subsequences function
+        // StringDS str = new StringDS("");
+        // str.printSubsequences("abc");
+
+        
 
         
 
