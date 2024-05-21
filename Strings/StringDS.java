@@ -422,6 +422,88 @@ public class StringDS {
         return temp.toString();
     }
 
+    // Function to find the longest palindrome substring in a string
+
+    // Given a string, we need to find the longest palindrome substring in the string
+
+    // Example:
+    // Input: "babad"
+    // Output: "bab" or "aba"
+
+    // Approach: Using Two pointer approach
+    // Time complexity: O(n^2)
+    // Space complexity: O(1)
+
+    // We will use two pointers, low and high
+    // We will iterate through the string and check for the longest palindrome substring
+    // We will check for the palindrome substring with even length and odd length
+
+    // Follow the steps mentioned below to implement the idea:
+
+    // Use two pointers, low and hi, for the left and right end of the current     palindromic substring being found. 
+    // Then checks if the characters at str[low] and str[hi] are the same. 
+    //     If they are, it expands the substring to the left and right by decrementing     low and incrementing hi. 
+    //     It continues this process until the characters at str[low] and str[hi] are  unequal or until the indices are in bounds.
+    // If the length of the current palindromic substring becomes greater than the     maximum length, it updates the maximum length.
+
+    public String longestPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expandAroundCenter(s, i, i);
+            int len2 = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    private int expandAroundCenter(String s, int left, int right) {
+        int L = left;
+        int R = right;
+        while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+            L--;
+            R++;
+        }
+        return R - L - 1;
+    }
+
+
+    public  String palindrome(String s){
+        int start=0,end=0;
+        for(int i=1;i<s.length();i++){
+            int low=i-1,high=i;
+     //even length
+            while(low>=0 && high<s.length() && s.charAt(low)==s.charAt(high)){ //check if the characters are equal or not 
+                if(high-low+1>end){ //if the length of the substring is greater than the previous substring then update the start and end
+                    start=low; //update the start
+                    end=high-low+1; //update the end
+                }
+                low--; //decrement the low
+                high++; //increment the high
+            }
+    
+            // odd length
+            low=i-1;
+            high=i+1;
+            while(low>=0 && high<s.length() && s.charAt(low)==s.charAt(high)){ //check if the characters are equal or not 
+                if(high-low+1>end){ //if the length of the substring is greater than the previous substring then update the start and end
+                    start=low;
+                    end=high-low+1;
+                }
+                low--;
+                high++;
+            }
+        }
+        return s.substring(start,start+end); //substring(start,end) end is exclusive so we add 1 to end 
+    
+        }
 
     // Driver program to test above function
     public static void main(String []args) {
@@ -460,8 +542,12 @@ public class StringDS {
 
 
         // Testing the Count and Say function
-        StringDS str = new StringDS("");
-        System.out.println(str.countAndSay(5));
+        // StringDS str = new StringDS("");
+        // System.out.println(str.countAndSay(5));
+
+        // Testing the Longest Palindrome function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.palindrome("babad"));
 
         
 
