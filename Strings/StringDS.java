@@ -505,6 +505,40 @@ public class StringDS {
     
         }
 
+
+        // Function to find the longest recurring subsequence in a string
+
+        // Given a string, we need to find the longest recurring subsequence in the string
+
+        // Example:
+        // Input: "AABEBCDD"
+        // Output: 3
+        // Explanation: The longest recurring subsequence is "ABD" with length 3 
+
+        // Approach: Using Recursion
+        // Time complexity: O(m*n)
+        // Space complexity: O(m*n)
+
+        // We will use recursion to find the longest recurring subsequence in the string
+        // We will keep two pointers, i and j
+        // If the characters at index i and j are the same and i is not equal to j, we will return 1 + the longest recurring subsequence
+        // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+
+        public int longestRecurringSubsequence(String s, int i, int j) {
+            if (i == 0 || j == 0) {
+                return 0;
+            }
+            if (s.charAt(i - 1) == s.charAt(j - 1) && i != j) {
+                return 1 + longestRecurringSubsequence(s, i - 1, j - 1);
+            } else {
+                return Math.max(longestRecurringSubsequence(s, i - 1, j), longestRecurringSubsequence(s, i, j - 1));
+            }
+        }
+
+
+
+
+
     // Driver program to test above function
     public static void main(String []args) {
         
