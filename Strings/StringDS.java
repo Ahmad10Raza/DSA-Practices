@@ -271,6 +271,21 @@ public class StringDS {
             return (s1 + s1).contains(s2);
         }
 
+        // Approach2: Using Concatenation itself
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+
+        // We will concatenate the first string with itself
+        // Then we will check if the second string is a substring of the concatenated string
+        // If the second string is a substring of the concatenated string, then the strings are rotations of each other
+
+        public boolean isRotation2(String s1, String s2) {
+            if (s1.length() != s2.length()) {
+                return false;
+            }
+            return (s1.length() == s2.length()) && ((s1 + s1).indexOf(s2) != -1);
+        }
+
 
 
         // Function to check whether a string is a valid shuffle of two strings or not
@@ -374,6 +389,31 @@ public class StringDS {
             }
         }
         return true;
+    }
+
+
+    // Approach2: Using Two Pointers
+    // Time complexity: O(n)
+    // Space complexity: O(1)
+
+    public boolean isValidShuffle2(String str1, String str2, String shuffle) {
+        if (str1.length() + str2.length() != shuffle.length()) {
+            return false;
+        }
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (k < shuffle.length()) {
+            if (i < str1.length() && str1.charAt(i) == shuffle.charAt(k)) {
+                i++;
+            } else if (j < str2.length() && str2.charAt(j) == shuffle.charAt(k)) {
+                j++;
+            } else {
+                return false;
+            }
+            k++;
+        }
+        return i == str1.length() && j == str2.length();
     }
 
 
@@ -622,7 +662,7 @@ public class StringDS {
         // StringDS str = new StringDS("");
         // str.printSubsequences("abc");
 
-        
+
 
         
 
