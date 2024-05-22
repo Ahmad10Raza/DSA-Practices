@@ -592,6 +592,7 @@ public class StringDS {
         // We will keep two pointers, i and j
         // If the characters at index i and j are the same and i is not equal to j, we will return 1 + the longest recurring subsequence
         // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+        // First we include the character at index i and then we exclude the character at index i
 
         public void printSubsequences(String str) {
             printSubsequencesRecursive(str, "");
@@ -602,10 +603,79 @@ public class StringDS {
                 System.out.println(current);
                 return;
             }
+            // include the character at index 0
             printSubsequencesRecursive(remaining.substring(1), current + remaining.charAt(0));
+            // exclude the character at index 0
             printSubsequencesRecursive(remaining.substring(1), current);
         }
 
+
+        // Function to print all permutations of a string
+
+        // Given a string, we need to print all the permutations of the string
+
+        // Example:
+        // Input: "abc"
+        // Output: "abc", "acb", "bac", "bca", "cab", "cba"
+
+        // Approach: Using Recursion
+        // Time complexity: O(n!)
+        // Space complexity: O(n)
+
+        // We will use recursion to print all the permutations of the string
+        // We will keep two pointers, i and j
+        // If the characters at index i and j are the same and i is not equal to j, we will return 1 + the longest recurring subsequence
+        // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+        // First we include the character at index i and then we exclude the character at index i
+
+        public void printPermutations(String str) {
+            printPermutationsRecursive(str, "");
+        }
+
+        private void printPermutationsRecursive(String remaining, String current) {
+            if (remaining.isEmpty()) {
+                System.out.println(current);
+                return;
+            }
+            for (int i = 0; i < remaining.length(); i++) {
+                printPermutationsRecursive(remaining.substring(0, i) + remaining.substring(i + 1), current + remaining.charAt(i));
+            }
+        }
+
+        // Approach2: Using Backtracking
+        // Time complexity: O(n^2)
+        // Space complexity: O(R-L)
+
+        // Follow the given steps to solve the problem:
+
+        // Create a function permute() with parameters as input string, starting index of the      string,ending index of the string
+        // Call this function with values input string, 0, size of string – 1
+        // In this function, if the value of  L and R is the same then print the same string
+            // Else run a for loop from L to R and swap the current element in the for loop with the       inputString[L]
+            // Then again call this same function by increasing the value of L by 1
+            // After that again swap the previously swapped values to initiate backtracking
+
+        public void permute(String str,int index){
+            if(index==str.length()){
+                System.out.println(str);
+                return;
+            }
+            // iterate over the string
+            for(int i=index;i<str.length();i++){ 
+                str = swap(str,index,i); // swap the characters at index and i
+                permute(str,index+1); // call the function recursively
+                str = swap(str,index,i); // backtrack to the original string
+            }
+        
+        }
+
+        public String swap(String str,int i,int j){
+            char[] arr = str.toCharArray(); // convert the string to char array
+            char temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            return String.valueOf(arr); // convert the char array to string
+        }
 
 
 
@@ -661,6 +731,12 @@ public class StringDS {
         // Testing the Print All Subsequences function
         // StringDS str = new StringDS("");
         // str.printSubsequences("abc");
+
+
+        // Testing the Print All Permutations function
+        // StringDS str = new StringDS("");
+        // str.printPermutations("abc");
+        // str.permute("ABC",0);
 
 
 
