@@ -678,6 +678,53 @@ public class StringDS {
         }
 
 
+        // Function to split the string into two parts such that both parts have equal number of 0s and 1s
+
+        // Given a string, we need to split the string into two parts such that both parts have an equal number of 0s and 1s
+
+        // Example:
+        // Input: "010011"
+        // Output: 2 ("01", "0011") 
+        // Input: str = “0100110101” 
+        // Output: 4 
+        // The required substrings are “01”, “0011”, “01” and “01”.
+        // Input: str = “0111100010” 
+        // Output: 3 
+
+        // Input: str = “0000000000” 
+        // Output: -1
+
+        // Approach: Using Count of 0s and 1s
+        // Time complexity: O(n)
+        // Space complexity: O(1)
+
+        // We will keep two variables, count0 and count1
+        // We will iterate through the string and count the number of 0s and 1s
+        // If the count of 0s and 1s is not equal, we will return -1
+        // If the count of 0s and 1s is equal, we will return the count of 0s or 1s
+
+        public int splitString(String str) {
+            int count0 = 0;
+            int count1 = 0;
+            int count = 0;
+            for (int i = 0; i < str.length(); i++) {
+                if (str.charAt(i) == '0') {
+                    count0++;
+                } else {
+                    count1++;
+                }
+
+                if(count0 == count1){
+                    count++;
+                }
+            }
+            if (count0 != count1) {
+                return -1;
+            }
+            return count;
+        }
+
+
 
 
     // Driver program to test above function
@@ -739,7 +786,10 @@ public class StringDS {
         // str.permute("ABC",0);
 
 
-
+        // Testing the Split String function
+        StringDS str = new StringDS("");
+        System.out.println(str.splitString("010011"));
+        System.out.println(str.splitString("0100110101"));
         
 
 
