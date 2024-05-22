@@ -799,7 +799,106 @@ public class StringDS {
       }
     }
   }
+
+    // public boolean wordBreak(String str){
+
+    //     int size = str.length();
+    //     if (size == 0) {
+    //         return true;
+    //     }
+
+    //     for(int i=1;i<=size;i++){
+    //         if(dict.contains(str.substring(0,i)) && wordBreak(str.substring(i,size))){
+    //             return true;
+    //         }
+    //     }
+
+    //     return false;
+    // }
+
+
+    // Function for Edit Distance problem
+
+    // Given two strings str1 and str2, we need to find the minimum number of operations required to convert str1 to str2.
+
+    // Operations allowed are:
+    // Insert a character
+    // Delete a character
+    // Replace a character
+
+    // Example:
+    // Input: str1 = "sunday", str2 = "saturday"
+    // Output: 3
+    // Explanation: The minimum number of operations required to convert "sunday" to "saturday" is 3
+    // We can replace 'n' with 'r', insert 't' at the end, and insert 'a' at the end
+
+    // Approach: Using Recursion
+    // Time complexity: O(3^n)
+    // Space complexity: O(n)
+
+    // We will use recursion to find the minimum number of operations required to convert str1 to str2
+    // We will keep two pointers, i and j
+    // If the characters at index i and j are the same, we will return the minimum number of operations required to convert the rest of the strings
+    // If the characters at index i and j are not the same, we will return the minimum of the three operations
+    // We will insert a character, delete a character, and replace a character
+    // Recuurence relation:
+    // case1: If the characters at index i and j are the same, we will return the minimum number of operations required to convert the rest of the strings
+    // case2: If the characters at index i and j are not the same, we will return the minimum of the three operations
+    //EditDistance(str1, str2, i, j) = 1 + min(EditDistance(str1, str2, i, j + 1), EditDistance(str1, str2, i + 1, j), EditDistance(str1, str2, i + 1, j + 1))
+
+
+    public int editDistance(String str1, String str2, int i, int j) {
+        if (i == str1.length()) {
+            return str2.length() - j;
+        }
+        if (j == str2.length()) {
+            return str1.length() - i;
+        }
+        if (str1.charAt(i) == str2.charAt(j)) {
+            return editDistance(str1, str2, i + 1, j + 1);
+        }
+        return 1 + Math.min(editDistance(str1, str2, i, j + 1), Math.min(editDistance(str1, str2, i + 1, j), editDistance(str1, str2, i + 1, j + 1)));
+    }
+
+
+    public int editDist(String str1, String str2, int m,
+                        int n)
+    {
+        // If first string is empty, the only option is to
+        // insert all characters of second string into first
+        if (m == 0)
+            return n;
+
+        // If second string is empty, the only option is to
+        // remove all characters of first string
+        if (n == 0)
+            return m;
+
+        // If last characters of two strings are same,
+        // nothing much to do. Get the count for remaining
+        // strings.
+        if (str1.charAt(m - 1) == str2.charAt(n - 1))
+            return editDist(str1, str2, m - 1, n - 1);
+
+        // If last characters are not same, consider all
+        // three operations on last character of first
+        // string, recursively compute minimum cost for all
+        // three operations and take minimum of three
+        // values.
+        return 1 + min(editDist(str1, str2, m, n - 1), // Insert
+                  editDist(str1, str2, m - 1, n), // Remove
+                  editDist(str1, str2, m - 1, n - 1)) ;// Replace );
+    }
         
+    int min(int x, int y, int z)
+    {
+        if (x <= y && x <= z)
+            return x;
+        if (y <= x && y <= z)
+            return y;
+        else
+            return z;
+    }
 
 
     // Driver program to test above function
