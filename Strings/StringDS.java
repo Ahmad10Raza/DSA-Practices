@@ -1068,6 +1068,121 @@ public class StringDS {
     }
 
 
+    // Function for Robin Karp Algorithm
+
+    // Given a text and a pattern, we need to find the pattern in the text
+
+    // Example:
+    // Input: text = "ABABDABACDABABCABAB", pattern = "ABABCABAB"
+    // Output: 10
+
+    // Approach: Using Robin Karp Algorithm
+    // Time complexity: O(n)
+    // Space complexity: O(1)
+
+    // We will use Robin Karp Algorithm to find the pattern in the text
+    // We will calculate the hash value of the pattern and the text
+    // We will iterate through the text and check if the hash value of the pattern and the text is the same
+    // If the hash value of the pattern and the text is the same, we will check if the characters are the same
+    // If the characters are the same, we will return the index
+    // If the characters are not the same, we will continue the iteration
+
+
+    public int robinKarp(String text, String pattern) {
+        int n = text.length();
+        int m = pattern.length();
+        int p = 0;
+        int t = 0;
+        int d = 256;
+        int q = 101;
+        int h = 1;
+        for (int i = 0; i < m - 1; i++) {
+            h = (h * d) % q;
+        }
+        for (int i = 0; i < m; i++) {
+            p = (d * p + pattern.charAt(i)) % q;
+            t = (d * t + text.charAt(i)) % q;
+        }
+        for (int i = 0; i <= n - m; i++) {
+            if (p == t) {
+                int j = 0;
+                for (j = 0; j < m; j++) {
+                    if (text.charAt(i + j) != pattern.charAt(j)) {
+                        break;
+                    }
+                }
+                if (j == m) {
+                    return i;
+                }
+            }
+            if (i < n - m) {
+                t = (d * (t - text.charAt(i) * h) + text.charAt(i + m)) % q;
+                if (t < 0) {
+                    t = t + q;
+                }
+            }
+        }
+        return -1;
+    }
+
+
+    public final static int d = 256;
+ 
+    /* pat -> pattern
+        txt -> text
+        q -> A prime number
+    */
+    public void search(String pat, String txt, int q)
+    {
+        int M = pat.length();
+        int N = txt.length();
+        int i, j;
+        int p = 0; // hash value for pattern
+        int t = 0; // hash value for txt
+        int h = 1;
+ 
+        // The value of h would be "pow(d, M-1)%q"
+        for (i = 0; i < M - 1; i++)
+            h = (h * d) % q;
+ 
+        // Calculate the hash value of pattern and first
+        // window of text
+        for (i = 0; i < M; i++) {
+            p = (d * p + pat.charAt(i)) % q;
+            t = (d * t + txt.charAt(i)) % q;
+        }
+ 
+        // Slide the pattern over text one by one
+        for (i = 0; i <= N - M; i++) {
+ 
+            // Check the hash values of current window of
+            // text and pattern. If the hash values match
+            // then only check for characters one by one
+            if (p == t) {
+                /* Check for characters one by one */
+                for (j = 0; j < M; j++) {
+                    if (txt.charAt(i + j) != pat.charAt(j))
+                        break;
+                }
+ 
+                // if p == t and pat[0...M-1] = txt[i, i+1,
+                // ...i+M-1]
+                if (j == M)
+                    System.out.println("Pattern found at index " + i);
+            }
+ 
+            // Calculate hash value for next window of text:
+            // Remove leading digit, add trailing digit
+            if (i < N - M) {
+                t = (d * (t - txt.charAt(i) * h) + txt.charAt(i + M)) % q;
+ 
+                // We might get negative value of t,
+                // converting it to positive
+                if (t < 0)
+                    t = (t + q);
+            }
+        }
+    }
 
 
     // Driver program to test above function
@@ -1161,9 +1276,14 @@ public class StringDS {
         // System.out.println(str.nextGreaterNumber(1234, 4));
 
         // Testing the Balancing Parentheses function
-        StringDS str = new StringDS("");
-        System.out.println(str.isBalanced("((()"));
-        System.out.println(str.isBalanced("(()())"));
+        // StringDS str = new StringDS("");
+        // System.out.println(str.isBalanced("((()"));
+        // System.out.println(str.isBalanced("(()())"));
+
+        // Testing the Robin Karp Algorithm function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.robinKarp("ABABDABACDABABCABAB", "ABABCABAB"));
+
         
 
 
