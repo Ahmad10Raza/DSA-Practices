@@ -1,9 +1,12 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class StringDS {
     private char[] chars;
@@ -901,6 +904,172 @@ public class StringDS {
     }
 
 
+    // Function to find next greater number with same set of digits
+
+    // Given a number, we need to find the next greater number with the same set of digits
+
+    // Example:
+    // Input: 1234
+    // Output: 1243
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Following are few observations about the next greater number. 
+// 
+// If all digits sorted in descending order, then output is always “Not Possible”. For example, 4321. 
+// If all digits are sorted in ascending order, then we need to swap last two digits. For example, 1234. 
+// For other cases, we need to process the number from rightmost side (why? because we need to find the smallest of all greater numbers)
+// You can now try developing an algorithm yourself. 
+// 
+// Following is the algorithm for finding the next greater number. 
+// 
+// Traverse the given number from rightmost digit, keep traversing till you find a digit which is smaller than the previously traversed digit. For example, if the input number is “534976”, we stop at 4 because 4 is smaller than next digit 9. If we do not find such a digit, then output is “Not Possible”.
+// Now search the right side of above found digit ‘d’ for the smallest digit greater than ‘d’. For “534976″, the right side of 4 contains “976”. The smallest digit greater than 4 is 6.
+// Swap the above found two digits, we get 536974 in above example.
+// Now sort all digits from position next to ‘d’ to the end of number. The number that we get after sorting is the output. For above example, we sort digits in bold 536974. We get “536479” which is the next greater number for input 534976.
+
+
+    
+    public int nextGreaterNumber(int num,int n) {
+        char[] digits = String.valueOf(num).toCharArray();
+        int i;
+        // I) Start from the right most digit and find the first digit that is smaller than the digit next to it.
+
+        for( i = n-1; i>0; i++){
+            if(digits[i] > digits[i-1]){
+                break;
+            }
+        }
+
+        // If no such digit is found, then all digits are in descending order means there cannot be a greater number with same set of digits
+        if(i == 0){
+            return -1;
+        }
+        else{
+            int x = digits[i-1], min = i;
+            // II) Find the smallest digit on right side of (i-1)'th digit that is greater than number[i-1]
+            for(int j = i+1; j<n; j++){
+                if(digits[j] > x && digits[j] < digits[min]){
+                    min = j;
+                }
+            }
+
+            // III) Swap the above found smallest digit with number[i-1]
+            swap(digits,i-1,min);
+
+            // IV) Sort the digits after (i-1) in ascending order
+            Arrays.sort(digits,i,n);
+        }
+
+        return Integer.parseInt(String.valueOf(digits));
+    }
+
+    public void swap(char[] digits,int i,int j){
+        char temp = digits[i];
+        digits[i] = digits[j];
+        digits[j] = temp;
+    }
+
+
+    // Function for balancing the parentheses
+
+    // Given a string with parentheses, we need to balance the parentheses
+
+    // Example:
+    // Input: "((()"
+    // Output: NO
+
+    // Input: "(()())"
+    // Output: YES
+
+    // Approach: Using Stack
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use a stack to balance the parentheses
+    // We will iterate through the string and push the opening parentheses onto the stack
+    // If current bracket is closing then pop from stack and check if they are pair
+    // If they are not pair, return false
+    // If the stack is not empty, we will return true
+
+    public boolean isBalanced(String str) {
+        
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for(int i=0;i<str.length();i++){
+            char ch = str.charAt(i);
+            if(ch == '(' || ch == '{' || ch == '['){
+                stack.push(ch);
+                continue;
+            }
+            else{
+                if(stack.isEmpty()){
+                    return false;
+                }
+                char top = stack.pop();
+                if((ch == ')' && top != '(') || (ch == '}' && top != '{') || (ch == ']' && top != '[')){
+                    return false;
+                }
+            }
+
+        }
+
+        return stack.isEmpty();
+    }
+
+
+    // function to check if brackets are balanced
+    public boolean areBracketsBalanced(String expr)
+    {
+        // Using ArrayDeque is faster than using Stack class
+        Deque<Character> stack = new ArrayDeque<Character>();
+ 
+        // Traversing the Expression
+        for (int i = 0; i < expr.length(); i++) {
+            char x = expr.charAt(i);
+ 
+            if (x == '(' || x == '[' || x == '{') {
+                // Push the element in the stack
+                stack.push(x);
+                continue;
+            }
+ 
+            // If current character is not opening
+            // bracket, then it must be closing. So stack
+            // cannot be empty at this point.
+            if (stack.isEmpty())
+                return false;
+            char check;
+            switch (x) {
+            case ')':
+                check = stack.pop();
+                if (check == '{' || check == '[')
+                    return false;
+                break;
+ 
+            case '}':
+                check = stack.pop();
+                if (check == '(' || check == '[')
+                    return false;
+                break;
+ 
+            case ']':
+                check = stack.pop();
+                if (check == '(' || check == '{')
+                    return false;
+                break;
+            }
+        }
+ 
+        // Check Empty Stack
+        return (stack.isEmpty());
+    }
+
+
+
+
     // Driver program to test above function
     public static void main(String []args) {
         
@@ -966,21 +1135,35 @@ public class StringDS {
         // System.out.println(str.splitString("0100110101"));
 
         // Testing the Word Break function
+        // StringDS str = new StringDS("");
+        // List<String> dict = new ArrayList<>();
+        // dict.add("i");
+        // dict.add("like");
+        // dict.add("sam");
+        // dict.add("sung");
+        // dict.add("samsung");
+        // dict.add("mobile");
+        // dict.add("ice");
+        // dict.add("and");
+        // dict.add("cream");
+        // dict.add("icecream");
+        
+        // str.wordBreak(13, dict, "ilikesamsungmobile");
+        
+
+        // Testing the Edit Distance function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.editDistance("sunday", "saturday", 0, 0));
+
+
+        // Testing the Next Greater Number function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.nextGreaterNumber(1234, 4));
+
+        // Testing the Balancing Parentheses function
         StringDS str = new StringDS("");
-        List<String> dict = new ArrayList<>();
-        dict.add("i");
-        dict.add("like");
-        dict.add("sam");
-        dict.add("sung");
-        dict.add("samsung");
-        dict.add("mobile");
-        dict.add("ice");
-        dict.add("and");
-        dict.add("cream");
-        dict.add("icecream");
-        
-        str.wordBreak(13, dict, "ilikesamsungmobile");
-        
+        System.out.println(str.isBalanced("((()"));
+        System.out.println(str.isBalanced("(()())"));
         
 
 
