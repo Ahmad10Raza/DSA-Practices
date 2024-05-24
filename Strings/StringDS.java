@@ -1185,6 +1185,45 @@ public class StringDS {
     }
 
 
+    // Function to convert the sentence to mobile keypad numbers sequence
+
+    // Given a sentence, we need to convert the sentence to mobile keypad numbers sequence
+
+    // Example:
+    // Input: "HELLO"
+    // Output: 43556
+
+//     Approach: Follow the steps given below to convert a sentence into its equivalent mobile numeric keypad sequence. 
+
+// For each character, store the sequence which should be obtained at its respective position in an array, i.e. for Z, store 9999. For Y, store 999. For K, store 55 and so on.
+// For each character, subtract ASCII value of ‘A’ and obtain the position in the array pointed 
+// by that character and add the sequence stored in that array to a string.
+// If the character is a space, store 0
+// Print the overall sequence.
+    // Function which computes the sequence
+    public String printSequence(String arr[], String input)
+    {
+        String output = "";
+ 
+        // length of input string
+        int n = input.length();
+        for (int i = 0; i < n; i++) {
+            // Checking for space
+            if (input.charAt(i) == ' ')
+                output = output + "0";
+ 
+            else {
+                // Calculating index for each
+                // character
+                int position = input.charAt(i) - 'A';
+                output = output + arr[position];
+            }
+        }
+ 
+        // Output sequence
+        return output;
+    }
+
     // Driver program to test above function
     public static void main(String []args) {
         
@@ -1283,6 +1322,30 @@ public class StringDS {
         // Testing the Robin Karp Algorithm function
         // StringDS str = new StringDS("");
         // System.out.println(str.robinKarp("ABABDABACDABABCABAB", "ABABCABAB"));
+
+        // Testing the Robin Karp Algorithm function
+        // StringDS str = new StringDS("");
+        // str.search("ABABCABAB", "ABABDABACDABABCABAB", 101);
+
+        // Testing the Mobile keypad sequence  function
+        // StringDS str = new StringDS("");
+        // String arr[]
+        //     = { "2", "22", "222",
+        //         "3", "33", "333",
+        //         "4", "44", "444",
+        //         "5", "55", "555",
+        //         "6", "66", "666",
+        //         "7", "77", "777", "7777",
+        //         "8", "88", "888",
+        //         "9", "99", "999", "9999" };
+
+        // String input = "HELLO";
+        // System.out.println(str.printSequence(arr, input));
+        // String input2 = "HELLO WORLD";
+        // System.out.println(str.printSequence(arr, input2));
+        // String input3 = "GEEKSFORGEEKS";
+        // System.out.println(str.printSequence(arr, input3));
+
 
         
 
