@@ -1224,6 +1224,91 @@ public class StringDS {
         return output;
     }
 
+
+    // Function for minimum number of bracket reversals needed to make an expression balanced
+
+    // Given an expression with only ‘}’ and ‘{‘. The expression may not be balanced. We need to find the minimum number of bracket reversals needed to make the expression balanced.
+
+    // Example:
+    // Input: "}}{{"
+    // Output: 2
+
+    // Approach: Using Stack
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use a stack to balance the parentheses
+    // We will iterate through the string and push the opening parentheses onto the stack
+    // If current bracket is closing then pop from stack and check if they are pair
+    // If they are not pair, return false
+    // If the stack is not empty, we will return true
+
+    public int countMinReversals(String str) {
+        int n = str.length();
+        if (n % 2 != 0) {
+            return -1;
+        }
+        Deque<Character> stack = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            char ch = str.charAt(i);
+            if (ch == '}' && !stack.isEmpty()) {
+                if (stack.peek() == '{') {
+                    stack.pop();
+                } else {
+                    stack.push(ch);
+                }
+            } else {
+                stack.push(ch);
+            }
+        }
+        int m = stack.size();
+        int count = 0;
+        while (!stack.isEmpty() && stack.peek() == '{') {
+            stack.pop();
+            count++;
+        }
+        return (m / 2 + count % 2);
+    }
+
+    // Approach2: Using Recursion
+
+    // 1. Check for length of the string, if it is odd then return -1.
+    // 2. Initialize two variables left_brace and right_brace to 0.
+    // 3. Traverse the string from left to right.
+    // 4. If the current character is ‘{‘ then increment left_brace by 1.
+    // 5. If the current character is ‘}’ then increment right_brace by 1.
+    // 6. If right_brace is greater
+    // than left_brace then increment left_brace by 1 and right_brace by 1.
+    // 7. If left_brace is greater than right_brace then increment right_brace by 1 and left_brace by 1.
+    // 8. Return the minimum of left_brace and right_brace divided by 2 and added to the sum of left_brace and right_brace modulo 2.
+
+    public int countMinReversals2(String str) {
+        int n = str.length();
+        if (n % 2 != 0) {
+            return -1;
+        }
+        int left_brace = 0, right_brace = 0;
+        for (int i = 0; i < n; i++) {
+            char ch = str.charAt(i);
+            if (ch == '{') {
+                left_brace++;
+            }
+            else{
+                if(left_brace == 0){
+                    right_brace++;
+                }
+                else{
+                    left_brace--;
+                }
+            }
+        }
+         
+        int ans = (int)(Math.ceil((0.0 + left_brace) / 2) + Math.ceil((0.0 + right_brace) / 2));
+        return ans;
+    }
+
+
+
     // Driver program to test above function
     public static void main(String []args) {
         
@@ -1346,6 +1431,11 @@ public class StringDS {
         // String input3 = "GEEKSFORGEEKS";
         // System.out.println(str.printSequence(arr, input3));
 
+
+        // Testing the Minimum Number of Bracket Reversals function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.countMinReversals("}}{{"));
+        // System.out.println(str.countMinReversals2("}}{{"));
 
         
 
