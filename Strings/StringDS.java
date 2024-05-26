@@ -1307,6 +1307,50 @@ public class StringDS {
         return ans;
     }
 
+    // Function for finding the minimum number of bracket reversals needed to make an expression balanced
+
+    // Given an expression with only ‘}’ and ‘{‘. The expression may not be balanced. We need to find the minimum number of bracket reversals needed to make the expression balanced.
+
+    // Example:
+    // Input: "}}{{"
+    // Output: 2
+
+    // Approach: Using Stack
+    // Time complexity: O(n)
+
+    // We will use a stack to balance the parentheses
+    // We will iterate through the string and push the opening parentheses onto the stack
+    // If current bracket is closing then pop from stack and check if they are pair
+    // If they are not pair, return false
+    // If the stack is not empty, we will return true
+
+    public int countMinReversals22(String str) {
+        int n = str.length();
+        if (n % 2 != 0) {
+            return -1;
+        }
+        Deque<Character> stack = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            char ch = str.charAt(i);
+            if (ch == '}' && !stack.isEmpty()) {
+                if (stack.peek() == '{') {
+                    stack.pop();
+                } else {
+                    stack.push(ch);
+                }
+            } else {
+                stack.push(ch);
+            }
+        }
+        int m = stack.size();
+        int count = 0;
+        while (!stack.isEmpty() && stack.peek() == '{') {
+            stack.pop();
+            count++;
+        }
+        return (m / 2 + count % 2);
+    }
+
 
 
     // Driver program to test above function
