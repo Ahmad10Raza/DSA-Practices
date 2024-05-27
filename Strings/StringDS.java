@@ -1391,6 +1391,60 @@ public class StringDS {
     }
 
 
+    // Function for count of number of given in 2D character array
+
+    // Given a 2D character array, we need to count the number of given words in the 2D character array
+
+    // Example:
+    // Input: 2D character array
+    // [['G', 'E', 'E', 'K', 'S'],
+    // ['F', 'O', 'R', 'G', 'E', 'E', 'K', 'S'],
+    // ['A', 'B', 'C', 'D', 'E', 'E', 'K', 'S']]
+    // Words: GEEKS, FOR, GEEKS
+    // Output: 3
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use recursion to count the number of given words in the 2D character array
+    // We will iterate through the 2D character array and check if the current character is the first character of the word
+    // If the current character is the first character of the word, we will check if the rest of the characters are the same
+    // If the rest of the characters are the same, we will return the count of the word
+    // If the rest of the characters are not the same, we will continue the iteration
+
+    public int countWords(char[][] board, String[] words) {
+        int count = 0;
+        for (String word : words) {
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[i].length; j++) {
+                    if (board[i][j] == word.charAt(0)) {
+                        if (searchWord(board, i, j, word, 0)) {
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    private boolean searchWord(char[][] board, int i, int j, String word, int index) {
+        if (index == word.length()) {
+            return true;
+        }
+        if (i < 0 || i >= board.length || j < 0 || j >= board[i].length || board[i][j] != word.charAt(index)) {
+            return false;
+        }
+        char temp = board[i][j];
+        board[i][j] = ' ';
+        boolean found = searchWord(board, i + 1, j, word, index + 1) || searchWord(board, i - 1, j, word, index + 1)
+                || searchWord(board, i, j + 1, word, index + 1) || searchWord(board, i, j - 1, word, index + 1);
+        board[i][j] = temp;
+        return found;
+    }
+
+
 
     // Driver program to test above function
     public static void main(String []args) {
@@ -1524,7 +1578,15 @@ public class StringDS {
         // Testing the Count All Palindrome Subsequence function
         // StringDS str = new StringDS("");
         // System.out.println(str.palindromeCount("abba"));
-        
+
+        // Testing the Count of Number of Given Words in 2D Character Array function
+        // StringDS str = new StringDS("");
+        // char[][] board = { { 'G', 'E', 'E', 'K', 'S' }, { 'F', 'O', 'R', 'G', 'E', 'E', 'K', 'S' },
+        //         { 'A', 'B', 'C', 'D', 'E', 'E', 'K', 'S' } };
+        // String[] words = { "GEEKS", "FOR", "GEEKS" };
+        // System.out.println(str.countWords(board, words));
+
+
 
         
 
