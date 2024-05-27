@@ -1352,6 +1352,45 @@ public class StringDS {
     }
 
 
+    // Function for count all palindrome subsequence in a given string
+
+    // Given a string, we need to count all the palindromic subsequences in the string
+
+    // Example:
+    // Input: "abba"
+    // Output: 4
+    // Explanation: The palindromic subsequences are "a", "b", "b", "a"
+
+    // Approach: Using Recursion
+    // Time complexity: O(2^n)
+    // Space complexity: O(n)
+
+    // We will use recursion to count all the palindromic subsequences in the string
+    // We will keep two pointers, i and j
+    // If the characters at index i and j are the same, we will return 1 + the longest recurring subsequence
+    // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+    // First we include the character at index i and then we exclude the character at index i
+
+    public int palindromeCount(String str) {
+        return palindromeRecursive(str, 0, str.length() - 1);
+    }
+
+    private int palindromeRecursive(String str, int i, int j) {
+        if (i > j) {
+            return 0;
+        }
+        if (i == j) {
+            return 1;
+        }
+        if (str.charAt(i) == str.charAt(j)) {
+            // If the characters at index i and j are the same, we will return 1 + the longest recurring subsequence
+            return 1 + palindromeRecursive(str, i + 1, j) + palindromeRecursive(str, i, j - 1);
+        }
+        // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+        return palindromeRecursive(str, i + 1, j) + palindromeRecursive(str, i, j - 1) - palindromeRecursive(str, i + 1, j - 1);
+    }
+
+
 
     // Driver program to test above function
     public static void main(String []args) {
@@ -1480,6 +1519,12 @@ public class StringDS {
         // StringDS str = new StringDS("");
         // System.out.println(str.countMinReversals("}}{{"));
         // System.out.println(str.countMinReversals2("}}{{"));
+
+
+        // Testing the Count All Palindrome Subsequence function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.palindromeCount("abba"));
+        
 
         
 
