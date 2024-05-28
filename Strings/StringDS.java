@@ -1488,6 +1488,54 @@ public class StringDS {
         return decimal;
     }
 
+    // Function for longest common prefix 
+
+    // Given an array of strings, we need to find the longest common prefix among the strings
+
+    // Example:
+    // Input: ["flower","flow","flight"]
+    // Output: "fl"
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use recursion to find the longest common prefix among the strings
+    // We will keep two pointers, i and j
+    // If the characters at index i and j are the same, we will return the longest common prefix
+    // If the characters at index i and j are not the same, we will return the longest common prefix
+
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) {
+            return "";
+        }
+        return longestCommonPrefixRecursive(strs, 0, strs.length - 1);
+    }
+
+    private String longestCommonPrefixRecursive(String[] strs, int i, int j) {
+        if (i == j) {
+            return strs[i];
+        }
+        int mid = (i + j) / 2;
+        String left = longestCommonPrefixRecursive(strs, i, mid);
+        String right = longestCommonPrefixRecursive(strs, mid + 1, j);
+        return commonPrefix(left, right);
+    }
+
+    private String commonPrefix(String left, String right) {
+        int min = Math.min(left.length(), right.length());
+        for (int i = 0; i < min; i++) {
+            if (left.charAt(i) != right.charAt(i)) {
+                return left.substring(0, i);
+            }
+        }
+        return left.substring(0, min);
+    }
+
+
+
+
+
    
 
     // Driver program to test above function
@@ -1634,6 +1682,12 @@ public class StringDS {
         // Testing the Roman to Decimal function
         // StringDS str = new StringDS("");
         // System.out.println(str.romanToDecimal("XIV"));
+
+
+        // Testing the Longest Common Prefix function
+        // StringDS str = new StringDS("");
+        // String[] strs = { "flower", "flow", "flight" };
+        // System.out.println(str.longestCommonPrefix(strs));
 
 
         
