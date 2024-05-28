@@ -1444,7 +1444,51 @@ public class StringDS {
         return found;
     }
 
+    // Function for convert a Roman numeral to an Decimal number
 
+    // Given a Roman numeral, we need to convert the Roman numeral to a Decimal number
+
+    // Example:
+    // Input: "XIV"
+    // Output: 14
+
+    // Approach: Using HashMap
+    // Time complexity: O(n)
+    // Space complexity: O(1)
+
+    // We will use a hashmap to store the Roman numerals and their corresponding Decimal numbers
+    // We will iterate through the Roman numeral and check if the current Roman numeral is less than the next Roman numeral
+    // If the current Roman numeral is less than the next Roman numeral, we will subtract the current Roman numeral from the Decimal number
+    // If the current Roman numeral is greater than the next Roman numeral, we will add the current Roman numeral to the Decimal number
+    // else subtract this value by adding the value of next symbol to the running total.
+
+    public int romanToDecimal(String roman) {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+        int decimal = 0;
+        for (int i = 0; i < roman.length(); i++) {
+            int current = map.get(roman.charAt(i));
+            if (i + 1 < roman.length()) {
+                int next = map.get(roman.charAt(i + 1));
+                if (current < next) {
+                    decimal -= current;
+                } else {
+                    decimal += current;
+                }
+            } else {
+                decimal += current;
+            }
+        }
+        return decimal;
+    }
+
+   
 
     // Driver program to test above function
     public static void main(String []args) {
@@ -1586,6 +1630,10 @@ public class StringDS {
         // String[] words = { "GEEKS", "FOR", "GEEKS" };
         // System.out.println(str.countWords(board, words));
 
+
+        // Testing the Roman to Decimal function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.romanToDecimal("XIV"));
 
 
         
