@@ -1533,7 +1533,90 @@ public class StringDS {
     }
 
 
+    
+    // Function for number of flips to make binary string alternate
 
+    // Given a binary string, we need to find the minimum number of flips to make the binary string alternate
+
+    // Example:
+    // Input: "0001010111"
+    // Output: 2
+    // Explanation: The minimum number of flips to make the binary string alternate is 2
+    // We can flip the 2nd and 4th characters to make the binary string alternate
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use recursion to find the minimum number of flips to make the binary string alternate
+    // We will keep two pointers, i and j
+    // If the characters at index i and j are the same, we will return the minimum number of flips
+    // If the characters at index i and j are not the same, we will return the minimum number of flips
+
+    public int minFlips(String str) {
+        return Math.min(minFlipsRecursive(str, '0'), minFlipsRecursive(str, '1'));
+    }
+
+    private int minFlipsRecursive(String str, char expected) {
+        int flips = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != expected) {
+                flips++;
+            }
+            expected = (expected == '0') ? '1' : '0';
+        }
+        return flips;
+    }
+
+    // Approach2: 
+//     We can solve this problem by considering all possible results, As we are supposed to get 
+// alternate string, there are only 2 possibilities, alternate string starting with 0 and alternate 
+// string starting with 1. We will try both cases and choose the string which will require minimum 
+// number of flips as our final answer. 
+
+// // Trying a case requires O(n) time in which we will loop over all characters of given string, 
+// if current character is expected character according to alternation then we will do nothing 
+// otherwise we will increase flip count by 1. After trying strings starting with 0 and starting with 1, 
+// we will choose the string with minimum flip count. 
+
+// // Total time complexity of solution will be O(n) 
+
+
+public static char flip(char ch)
+{
+    return (ch == '0') ? '1' : '0';
+}
+  
+//  Utility method to get minimum flips when
+//  alternate string starts with expected char
+public static int getFlipWithStartingCharcter(String str,
+                                char expected)
+{
+    int flipCount = 0;
+    for (int i = 0; i < str.length(); i++)
+    {
+        //  if current character is not expected,
+        // increase flip count
+        if (str.charAt(i) != expected)
+            flipCount++;
+  
+        //  flip expected character each time
+        expected = flip(expected);
+    }
+    return flipCount;
+}
+  
+// method return minimum flip to make binary
+// string alternate
+public static int minFlipToMakeStringAlternate(String str)
+{
+    //  return minimum of following two
+    //  1) flips when alternate string starts with 0
+    //  2) flips when alternate string starts with 1
+    return Math.min(getFlipWithStartingCharcter(str, '0'),
+               getFlipWithStartingCharcter(str, '1'));
+}
+  
 
 
    
@@ -1688,6 +1771,11 @@ public class StringDS {
         // StringDS str = new StringDS("");
         // String[] strs = { "flower", "flow", "flight" };
         // System.out.println(str.longestCommonPrefix(strs));
+
+        // Testing the Number of Flips to Make Binary String Alternate function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.minFlips("0001010111"));
+        
 
 
         
