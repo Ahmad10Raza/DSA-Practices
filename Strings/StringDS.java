@@ -1616,6 +1616,52 @@ public static int minFlipToMakeStringAlternate(String str)
     return Math.min(getFlipWithStartingCharcter(str, '0'),
                getFlipWithStartingCharcter(str, '1'));
 }
+
+
+    // Function for minimum number of swap operations for bracket balancing
+    
+    // Given a string with parentheses, we need to find the minimum number of swap operations needed to balance the parentheses
+
+    // Example:
+    // Input: "[]][]["
+    // Output: 2
+    // Explanation: The minimum number of swap operations needed to balance the parentheses is 2
+    // We can swap the 2nd and 4th characters to balance the parentheses
+
+    // Approach: Using Stack
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use a stack to balance the parentheses
+    // We will iterate through the string and push the opening parentheses onto the stack
+    // If current bracket is closing then pop from stack and check if they are pair
+    // If they are not pair, return false
+    // If the stack is not empty, we will return true
+
+
+    public int minSwaps(String str) {
+        int n = str.length();
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < n; i++) {
+            if (str.charAt(i) == '[') {
+                stack.push(i);
+            } else {
+                if (!stack.isEmpty() && str.charAt(stack.peek()) == '[') {
+                    stack.pop();
+                } else {
+                    stack.push(i);
+                }
+            }
+        }
+        int count = 0;
+        while (!stack.isEmpty()) {
+            stack.pop();
+            count++;
+            stack.pop();
+            count++;
+        }
+        return count;
+    }
   
 
 
@@ -1775,6 +1821,12 @@ public static int minFlipToMakeStringAlternate(String str)
         // Testing the Number of Flips to Make Binary String Alternate function
         // StringDS str = new StringDS("");
         // System.out.println(str.minFlips("0001010111"));
+
+
+        // Testing the Minimum Number of Swap Operations for Bracket Balancing function
+        StringDS str = new StringDS("");
+        System.out.println(str.minSwaps("[]][]["));
+
         
 
 
