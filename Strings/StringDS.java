@@ -1831,6 +1831,63 @@ public static int minFlipToMakeStringAlternate(String str)
     }
 
 
+    // Function for Transform One String to Another using Minimum Number of Given Operation
+
+//     Given two strings A and B, the task is to convert A to B if possible. The only operation allowed is to put any character from A and insert it at front. Find if it’s possible to convert the string. If yes, then output minimum no. of operations required for transformation.
+
+// Examples: 
+
+// Input:  A = "ABD", B = "BAD"
+// Output: 1
+// Explanation: Pick B and insert it at front.
+// Input:  A = "EACBD", B = "EABCD"
+// Output: 3
+// Explanation: Pick B and insert at front, EACBD => BEACD
+//              Pick A and insert at front, BEACD => ABECD
+//              Pick E and insert at front, ABECD => EABCD
+
+
+    // Approach: Using HashMap
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // We declare a HashMap<Character,Integer> to store frequency map.
+    // We store the character of string 1 in the map and then while traversing string 2 ,we erase the characters and if the map is empty at the end that means the characters in both the string are same and we can continue,else we return -1.
+    // We make a variable res and point two pointer i and j to the last of both strings and start traversing from back.
+    // As soon as see a ith character that doesn’t match with jth character ,we start increasing res by 1 until again both the characters are same.
+    // Atlast we return res.
+
+    public int minOps(String A, String B)
+    {
+        if (A.length() != B.length())
+            return -1;
+        int n = A.length();
+        HashMap<Character, Integer> mp = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            mp.put(A.charAt(i), mp.getOrDefault(A.charAt(i), 0) + 1);
+            mp.put(B.charAt(i), mp.getOrDefault(B.charAt(i), 0) - 1);
+        }
+        for (int val : mp.values()) {
+            if (val != 0)
+                return -1;
+        }
+        int res = 0;
+        for (int i = n - 1, j = n - 1; i >= 0;) {
+            while (i >= 0 && A.charAt(i) != B.charAt(j)) {
+                i--;
+                res++;
+            }
+            if (i >= 0) {
+                i--;
+                j--;
+            }
+        }
+        return res;
+    }
+
+
     
 
    
@@ -2026,6 +2083,13 @@ public static int minFlipToMakeStringAlternate(String str)
         // System.out.println(str.isIsomorphic("foo", "bar"));
         // System.out.println(str.areIsomorphic("egg", "add"));
         // System.out.println(str.areIsomorphic("foo", "bar"));
+
+
+        // Testing the Transform One String to Another using Minimum Number of Given Operation function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.minOps("ABD", "BAD"));
+        // System.out.println(str.minOps("EACBD", "EABCD"));
+
         
 
 
