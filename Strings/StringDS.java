@@ -1643,12 +1643,15 @@ public static int minFlipToMakeStringAlternate(String str)
         int n = str.length();
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
+            // If the current character is opening bracket, push its index
             if (str.charAt(i) == '[') {
                 stack.push(i);
             } else {
+                // If the current character is closing bracket and the stack is not empty and the top of the stack is opening bracket, pop from the stack
                 if (!stack.isEmpty() && str.charAt(stack.peek()) == '[') {
                     stack.pop();
                 } else {
+                    // 
                     stack.push(i);
                 }
             }
@@ -1664,6 +1667,39 @@ public static int minFlipToMakeStringAlternate(String str)
     }
   
 
+    // Function for longest common subsequence
+
+    // Given two strings, we need to find the longest common subsequence between the two strings
+
+    // Example:
+    // Input: "abcde", "ace"
+    // Output: 3
+    // Explanation: The longest common subsequence between the two strings is "ace"
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // We will use recursion to find the longest common subsequence between the two strings
+    // We will keep two pointers, i and j
+    // If the characters at index i and j are the same, we will return 1 + the longest common subsequence
+    // If the characters at index i and j are not the same, we will return the maximum of the two subsequences
+    // First we include the character at index i and then we exclude the character at index i
+
+    public int longestCommonSubsequence(String text1, String text2) {
+        return longestCommonSubsequenceRecursive(text1, text2, text1.length(), text2.length());
+    }
+
+    private int longestCommonSubsequenceRecursive(String text1, String text2, int m, int n) {
+        if (m == 0 || n == 0) {
+            return 0;
+        }
+        if (text1.charAt(m - 1) == text2.charAt(n - 1)) {
+            return 1 + longestCommonSubsequenceRecursive(text1, text2, m - 1, n - 1);
+        }
+        return Math.max(longestCommonSubsequenceRecursive(text1, text2, m - 1, n),
+                longestCommonSubsequenceRecursive(text1, text2, m, n - 1));
+    }
 
    
 
@@ -1824,8 +1860,14 @@ public static int minFlipToMakeStringAlternate(String str)
 
 
         // Testing the Minimum Number of Swap Operations for Bracket Balancing function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.minSwaps("[]][]["));
+
+
+        // Testing the Longest Common Subsequence function
         StringDS str = new StringDS("");
-        System.out.println(str.minSwaps("[]][]["));
+        System.out.println(str.longestCommonSubsequence("abcde", "ace"));
+
 
         
 
