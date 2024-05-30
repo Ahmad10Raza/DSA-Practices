@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
+import java.util.Iterator;
+import java.util.Iterator;
 
 public class StringDS {
     private char[] chars;
@@ -1701,6 +1704,135 @@ public static int minFlipToMakeStringAlternate(String str)
                 longestCommonSubsequenceRecursive(text1, text2, m, n - 1));
     }
 
+
+    // Function for Recursively print all sentences that can be formed from list of word lists
+
+    // Given a list of word lists, we need to print all sentences that can be formed from the list of word lists
+
+    // Example:
+    // Input: [["you", "we"], ["have", "are"], ["sleep", "eat", "drink"]]
+    // Output: you have sleep
+    //         you have eat
+    //         you have drink
+    //         you are sleep
+    //         you are eat
+    //         you are drink
+    //         we have sleep
+    //         we have eat
+    //         we have drink
+    //         we are sleep
+    //         we are eat
+    //         we are drink
+
+    // Approach: Using Depth First Traverse
+    // Time complexity: O(n^m)
+    // Space complexity: O(n)
+
+    // We will use depth first traverse to print all sentences that can be formed from the list of word lists
+    // We start from every word of the first list and recursively call for the next list
+    // If the current list is the last list, we will print the sentence
+    // If the current list is not the last list, we will recursively call for the next list
+
+    public void printSentences(List<List<String>> wordLists) {
+        List<String> result = new ArrayList<>();
+        printSentencesRecursive(wordLists, 0, result);
+    }
+
+    private void printSentencesRecursive(List<List<String>> wordLists, int index, List<String> result) {
+        // If the current list is the last list, we will print the sentence
+        if (index == wordLists.size()) {
+            System.out.println(String.join(" ", result));
+            return;
+        }
+        // We start from every word of the first list and recursively call for the next list
+        for (String word : wordLists.get(index)) { // for each word in the current list of words 
+            // If the current list is not the last list, we will recursively call for the next list
+            result.add(word);
+            printSentencesRecursive(wordLists, index + 1, result);
+            // remove the last word from the result list to backtrack and try the next word
+            result.remove(result.size() - 1);
+        }
+    }
+
+
+    // Function for Check if two given strings are isomorphic to each other
+
+    // Given two strings, we need to check if the two strings are isomorphic to each other
+
+    // Example:
+    // Input: "egg", "add"
+    // Output: true
+    // Explanation: The two strings are isomorphic to each other
+    // We can map 'e' to 'a' and 'g' to 'd'
+
+    // Input: "foo", "bar"
+    // Output: false
+    // Explanation: The two strings are not isomorphic to each other
+    // We cannot map 'f' to 'b' and 'o' to 'a'
+
+    // Approach: Using HashMap
+    // Time complexity: O(n)
+    // Space complexity: O(1)
+
+    // Follow the steps to solve the problem:
+
+    // Create a hashmap of (char, char) to store the mapping of str1 and str2.
+    // Now traverse on the string and check whether the current character is present in the Hashmap.
+    //     If it is present then the character that is mapped is there at the ith index or not.
+    //     Else check if str2[i] is not present in the key then add the new mapping.
+    //     Else return false.
+
+    public boolean isIsomorphic(String str1, String str2) {
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+        Map<Character, Character> map = new HashMap<>();
+        Set<Character> set = new HashSet<>();
+        for (int i = 0; i < str1.length(); i++) {
+            char ch1 = str1.charAt(i);
+            char ch2 = str2.charAt(i);
+            if (map.containsKey(ch1)) {
+                if (map.get(ch1) != ch2) {
+                    return false;
+                }
+            } else {
+                if (set.contains(ch2)) {
+                    return false;
+                }
+                map.put(ch1, ch2);
+                set.add(ch2);
+            }
+        }
+        return true;
+    }
+
+
+    public boolean areIsomorphic(String str1, String str2)
+    {
+
+        HashMap<Character, Character> charCount = new HashMap<>();
+        char c = 'a';
+        for (int i = 0; i < str1.length(); i++) {
+            if (charCount.containsKey(str1.charAt(i))) {
+                c = charCount.get(str1.charAt(i));
+                if (c != str2.charAt(i))
+                    return false;
+            }
+            else if (!charCount.containsValue(
+                         str2.charAt(i))) {
+                charCount.put(str1.charAt(i),
+                              str2.charAt(i));
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    
+
    
 
     // Driver program to test above function
@@ -1865,10 +1997,35 @@ public static int minFlipToMakeStringAlternate(String str)
 
 
         // Testing the Longest Common Subsequence function
-        StringDS str = new StringDS("");
-        System.out.println(str.longestCommonSubsequence("abcde", "ace"));
+        // StringDS str = new StringDS("");
+        // System.out.println(str.longestCommonSubsequence("abcde", "ace"));
 
 
+        // Testing the Recursively Print All Sentences that can be Formed from List of Word Lists function
+        // StringDS str = new StringDS("");
+        // List<List<String>> wordLists = new ArrayList<>();
+        // List<String> list1 = new ArrayList<>();
+        // list1.add("you");
+        // list1.add("we");
+        // List<String> list2 = new ArrayList<>();
+        // list2.add("have");
+        // list2.add("are");
+        // List<String> list3 = new ArrayList<>();
+        // list3.add("sleep");
+        // list3.add("eat");
+        // list3.add("drink");
+        // wordLists.add(list1);
+        // wordLists.add(list2);
+        // wordLists.add(list3);
+        // str.printSentences(wordLists);
+
+
+        // Testing the Check if Two Given Strings are Isomorphic to Each Other function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.isIsomorphic("egg", "add"));
+        // System.out.println(str.isIsomorphic("foo", "bar"));
+        // System.out.println(str.areIsomorphic("egg", "add"));
+        // System.out.println(str.areIsomorphic("foo", "bar"));
         
 
 
