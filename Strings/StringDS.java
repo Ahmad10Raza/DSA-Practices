@@ -1972,7 +1972,80 @@ public int runCustomerSimulation(int n, char []seq)
     } 
     return res; 
 } 
- 
+
+
+    // Function for String matching where one string contains wildcard characters
+
+//     Given two strings where first string may contain wild card characters and second string is a normal string. Write a function that returns true if the two strings match. The following are allowed wild card characters in first string. 
+
+// * --> Matches with 0 or more instances of any character or set of characters.
+// ? --> Matches with any one character.
+// For example, “g*ks” matches with “geeks” match. And string “ge?ks*” matches with “geeksforgeeks” (note ‘*’ at the end of first string). But “g*k” doesn’t match with “gee” as character ‘k’ is not present in second string. 
+
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // If the first string is empty, return true if the second string is also empty, else return false.
+    // If the first string is not empty and the second string is empty, return false.
+    // If the first character of the first string is ‘*’, then return true if any of the following is true:
+    //     Ignore the ‘*’ and match the remaining characters of the first string with the second string.
+    //     Ignore the first character of the first string and match the remaining characters of the first string with the second string.
+    // If the first character of the first string is ‘?’ or the first character of the first string is equal to the first character of the second string, then return true if the remaining characters of the first string match the remaining characters of the second string.
+    // If the first character of the first string is not equal to the first character of the second string, return false.
+    public boolean match(String first, String second)  
+    { 
+      
+        // If we reach at the end of both strings,  
+        // we are done 
+        if (first.length() == 0 && second.length() == 0) 
+            return true; 
+        
+      // Make sure to eliminate consecutive '*' 
+        if (first.length() > 1 && first.charAt(0) == '*') { 
+          int i=0; 
+            while (i+1<first.length() && first.charAt(i+1) == '*') 
+              i++; 
+          first=first.substring(i); 
+        } 
+      
+        // Make sure that the characters after '*'  
+        // are present in second string.  
+        // This function assumes that the first 
+        // string will not contain two consecutive '*' 
+        if (first.length() > 1 && first.charAt(0) == '*' &&  second.length() == 0) 
+            return false; 
+      
+        // If the first string contains '?',  
+        // or current characters of both strings match 
+        if ((first.length() > 1 && first.charAt(0) == '?') ||  
+            (first.length() != 0 && second.length() != 0 &&  
+             first.charAt(0) == second.charAt(0))) 
+            return match(first.substring(1),  
+                         second.substring(1)); 
+      
+        // If there is *, then there are two possibilities 
+        // a) We consider current character of second string 
+        // b) We ignore current character of second string. 
+        if (first.length() > 0 && first.charAt(0) == '*') 
+            return match(first.substring(1), second) ||  
+                   match(first, second.substring(1)); 
+        return false; 
+    } 
+      
+    // A function to run test cases 
+    public void testWildCard(String first, String second) 
+    { 
+        if (match(first, second)) 
+            System.out.println("Yes"); 
+        else
+            System.out.println("No"); 
+    } 
+
+
 
     // Driver program to test above function
     public static void main(String []args) {
@@ -2181,6 +2254,15 @@ public int runCustomerSimulation(int n, char []seq)
         // System.out.println(str.runCustomerSimulation(1, "ABCBCA".toCharArray()));
         // System.out.println(str.runCustomerSimulation(1, "ABCBCADEED".toCharArray()));
 
+
+        // Testing the String Matching where One String Contains Wildcard Characters function
+        // StringDS str = new StringDS("");
+        // str.testWildCard("g*ks", "geeks"); // Yes
+        // str.testWildCard("ge?ks*", "geeksforgeeks"); // Yes
+        // str.testWildCard("g*k", "gee"); // No
+        // str.testWildCard("*pqrs", "pqrst"); // No
+        // str.testWildCard("abc*bcd", "abcdhghgbcd"); // Yes
+        // str.testWildCard("abc*c?d", "abcd"); // No
         
 
 
