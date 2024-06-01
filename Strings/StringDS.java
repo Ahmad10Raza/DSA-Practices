@@ -2148,6 +2148,49 @@ public int runCustomerSimulation(int n, char []seq)
     }
 
     
+    // Function for Given a sequence of words, print all anagrams together
+
+    // Given an array of words, we need to print all anagrams together
+
+    // Example:
+    // Input: ["cat", "dog", "tac", "god", "act"]
+    // Output: ["cat", "tac", "act", "dog", "god"]
+    
+    // Approach: Using HashMap
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // Create a hashmap to store the sorted word as the key and the list of words as the value.
+    // Iterate through the array of words.
+    //     Sort the word.
+    //     If the sorted word is present in the hashmap, add the word to the list of words.
+    //     If the sorted word is not present in the hashmap, add the sorted word as the key and the list of words as the value.
+    // Iterate through the hashmap and print the list of words.
+
+    public void printAnagrams(String[] words) {
+        Map<String, List<String>> map = new HashMap<>();
+        for (String word : words) {
+            char[] chars = word.toCharArray();
+            Arrays.sort(chars);
+            String sortedWord = new String(chars);
+            if (map.containsKey(sortedWord)) {
+                map.get(sortedWord).add(word);
+            } else {
+                List<String> list = new ArrayList<>();
+                list.add(word);
+                map.put(sortedWord, list);
+            }
+        }
+        for (List<String> list : map.values()) {
+            System.out.println(list);
+        }
+    }
+
+
+
+
     // Driver program to test above function
     public static void main(String []args) {
         
@@ -2371,6 +2414,15 @@ public int runCustomerSimulation(int n, char []seq)
         // System.out.println(str.removeDuplicates("geeksforgeek"));
 
 
+        // Testing the Find the Smallest Window in a String Containing All Characters of Another String function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.minWindow("this is a test string", "tist"));
+
+
+        // Testing the Given a Sequence of Words, Print All Anagrams Together function
+        // StringDS str = new StringDS("");
+        // String[] words = { "cat", "dog", "tac", "god", "act" };
+        // str.printAnagrams(words);
 
         
 
