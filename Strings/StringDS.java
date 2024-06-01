@@ -2045,6 +2045,42 @@ public int runCustomerSimulation(int n, char []seq)
             System.out.println("No"); 
     } 
 
+    // Function for Recursively remove all adjacent duplicates
+
+    //     Given a string s, recursively remove adjacent duplicate characters from the string s. The output string should not have any adjacent duplicates.
+
+    // Example:
+    // Input: "geeksforgeek"
+    // Output: "gksforgk"
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // If the string is empty, return the empty string.
+    // If the string has only one character, return the string.
+    // If the first character of the string is the same as the second character of the string, then remove the first character and recursively call the function on the remaining string.
+    // If the first character of the string is not the same as the second character of the string, then append the first character to the result and recursively call the function on the remaining string.
+
+    public String removeDuplicates(String s) {
+        if (s.length() == 0) {
+            return "";
+        }
+        if (s.length() == 1) {
+            return s;
+        }
+        if (s.charAt(0) == s.charAt(1)) {
+            int i = 1;
+            while (i < s.length() && s.charAt(0) == s.charAt(i)) {
+                i++;
+            }
+            return removeDuplicates(s.substring(i));
+        }
+        return s.charAt(0) + removeDuplicates(s.substring(1));
+    }
+
 
 
     // Driver program to test above function
@@ -2264,6 +2300,11 @@ public int runCustomerSimulation(int n, char []seq)
         // str.testWildCard("abc*bcd", "abcdhghgbcd"); // Yes
         // str.testWildCard("abc*c?d", "abcd"); // No
         
+
+        // Testing the Recursively Remove All Adjacent Duplicates function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.removeDuplicates("geeksforgeek"));
+
 
 
         
