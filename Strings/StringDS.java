@@ -2082,7 +2082,72 @@ public int runCustomerSimulation(int n, char []seq)
     }
 
 
+    // Function for Find the smallest window in a string containing all characters of another string
 
+    // Given two strings, we need to find the smallest window in the first string that contains all characters of the second string
+
+    // Example:
+    // Input: "this is a test string", "tist"
+    // Output: "t stri"
+    // Explanation: The smallest window in the first string that contains all characters of the second string is "t stri"
+
+    // Approach: Using Hashing and Two Pointers
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // Create a hashmap to store the frequency of characters in the second string.
+    // Create a hashmap to store the frequency of characters in the window.
+    // Initialize the start and end pointers to 0.
+    // Initialize the minLen to the maximum value.
+    // Initialize the count to 0.
+    // Iterate through the first string using the end pointer.
+    //     If the character at the end pointer is present in the second string, increment the frequency of the character in the window.
+    //     If the frequency of the character in the window is less than or equal to the frequency of the character in the second string, increment the count.
+    //     If the count is equal to the length of the second string, increment the start pointer until the count is less than the length of the second string.
+    //     If the length of the window is less than the minimum length, update the minimum length and the start and end pointers.
+    // Return the substring from the start to the end pointers.
+
+    public String minWindow(String s, String t) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char ch : t.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        Map<Character, Integer> window = new HashMap<>();
+        int start = 0;
+        int end = 0;
+        int minLen = Integer.MAX_VALUE;
+        int count = 0;
+        int minStart = 0;
+        while (end < s.length()) {
+            char ch = s.charAt(end);
+            if (map.containsKey(ch)) {
+                window.put(ch, window.getOrDefault(ch, 0) + 1);
+                if (window.get(ch) <= map.get(ch)) {
+                    count++;
+                }
+            }
+            while (count == t.length()) {
+                if (end - start + 1 < minLen) {
+                    minLen = end - start + 1;
+                    minStart = start;
+                }
+                char startCh = s.charAt(start);
+                if (map.containsKey(startCh)) {
+                    window.put(startCh, window.get(startCh) - 1);
+                    if (window.get(startCh) < map.get(startCh)) {
+                        count--;
+                    }
+                }
+                start++;
+            }
+            end++;
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
+    }
+
+    
     // Driver program to test above function
     public static void main(String []args) {
         
