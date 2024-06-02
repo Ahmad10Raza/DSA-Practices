@@ -2188,6 +2188,73 @@ public int runCustomerSimulation(int n, char []seq)
         }
     }
 
+    // Function for Minimum characters to be added at front to make string palindrome
+
+    // Given a string, we need to find the minimum number of characters to be added at the front of the string to make the string a palindrome
+
+    // Example:
+    // Input: "AACECAAAA"
+    // Output: 2
+    // Explanation: The minimum number of characters to be added at the front of the string to make the string a palindrome is 2
+    // We can add "AA" at the front of the string to make the string a palindrome
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // If the string is empty, return 0.
+    // If the string is a palindrome, return 0.
+    // If the first character of the string is equal to the last character of the string, return the minimum characters to be added at the front of the substring.
+    // If the first character of the string is not equal to the last character of the string, return 1 + the minimum of the two characters to be added at the front of the substring.
+
+
+    public int minCharsToBeAdded(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        if (isPalindrome(s)) {
+            return 0;
+        }
+        if (s.charAt(0) == s.charAt(s.length() - 1)) {
+            return minCharsToBeAdded(s.substring(1, s.length() - 1));
+        }
+        return 1 + Math.min(minCharsToBeAdded(s.substring(1)), minCharsToBeAdded(s.substring(0, s.length() - 1)));
+    }
+
+    // Approach2: lps array of KMP algorithm
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // Create a string s1 by concatenating the string s with a special character and the reverse of the string s.
+    // Create an lps array using the KMP algorithm on the string s1.
+    // Return the length of the string s minus the last element of the lps array.
+
+    public int minCharsToBeAdded2(String s) {
+        String s1 = s + "$" + new StringBuilder(s).reverse().toString();
+        int[] lps = new int[s1.length()];
+        int len = 0;
+        int i = 1;
+        while (i < s1.length()) {
+            if (s1.charAt(i) == s1.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        return s.length() - lps[s1.length() - 1];
+    }
+
 
 
 
@@ -2423,6 +2490,12 @@ public int runCustomerSimulation(int n, char []seq)
         // StringDS str = new StringDS("");
         // String[] words = { "cat", "dog", "tac", "god", "act" };
         // str.printAnagrams(words);
+
+
+        // Testing the Minimum Characters to be Added at Front to Make String Palindrome function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.minCharsToBeAdded("AACECAAAA"));
+        // System.out.println(str.minCharsToBeAdded2("AACECAAAA"));
 
         
 
