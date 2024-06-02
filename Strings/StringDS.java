@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Stack;
 import java.util.Iterator;
@@ -2256,6 +2257,138 @@ public int runCustomerSimulation(int n, char []seq)
     }
 
 
+    // Function for Rearrange characters in a string such that no two adjacent are same
+
+    // Given a string, we need to rearrange the characters in the string such that no two adjacent characters are the same
+
+    // Example:
+    // Input: "aaabc"
+    // Output: "abaca"
+
+    // Approach: Using HashMap and PriorityQueue
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // Create a hashmap to store the frequency of characters in the string.
+    // Create a priority queue to store the characters in the string based on their frequency.
+    // Iterate through the hashmap and add the characters to the priority queue based on their frequency.
+    // Create a string builder to store the rearranged string.
+    // Iterate through the priority queue and append the characters to the string builder.
+    // If the priority queue is not empty, add the characters back to the priority queue.
+    // If the priority queue is empty, break the loop.
+    // Return the rearranged string.
+
+    public String rearrangeString(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        PriorityQueue<Character> pq = new PriorityQueue<>((a, b) -> map.get(b) - map.get(a));
+        pq.addAll(map.keySet());
+        StringBuilder sb = new StringBuilder();
+        while (!pq.isEmpty()) {
+            List<Character> list = new ArrayList<>();
+            int k = 2;
+            while (k-- > 0 && !pq.isEmpty()) {
+                char ch = pq.poll();
+                sb.append(ch);
+                map.put(ch, map.get(ch) - 1);
+                if (map.get(ch) > 0) {
+                    list.add(ch);
+                }
+            }
+            for (char ch : list) {
+                pq.offer(ch);
+            }
+            if (pq.size() == 1 && map.get(pq.peek()) > 1) {
+                return "";
+            }
+        }
+        return sb.toString();
+    }
+
+    // Approach2: From GeekforGeeks
+
+//     To solve the problem using this approach follow the below idea:
+
+// Fill all the even positions of the result string first, with the highest frequency character. If there are still some even positions remaining, fill them first. Once even positions are done, then fill the odd positions. This way, it can be ensured that no two adjacent characters are the same. 
+
+// Follow the given steps to solve the problem:
+
+// Calculate the frequencies of every character in the input string
+// If a character with a maximum frequency has a frequency greater than (n + 1) / 2, then return an empty string, as it is not possible to construct a string
+// Now fill the even index positions with the maximum frequency character, if some even positions are remaining then first fill them with remaining characters
+// Then fill odd index positions with the remaining characters
+// Return the constructed string
+
+    public char getMaxCountChar(int[] count)
+    {
+        int max = 0;
+        char ch = 0;
+        for (int i = 0; i < 26; i++) {
+            if (count[i] > max) {
+                max = count[i];
+                ch = (char)((int)'a' + i);
+            }
+        }
+        return ch;
+    }
+ 
+    public String rearrangeString2(String S)
+    {
+ 
+        int N = S.length();
+        if (N == 0)
+            return "";
+ 
+        int[] count = new int[26];
+        for (int i = 0; i < 26; i++) {
+            count[i] = 0;
+        }
+        for (char ch : S.toCharArray()) {
+            count[(int)ch - (int)'a']++;
+        }
+ 
+        char ch_max = getMaxCountChar(count);
+        int maxCount = count[(int)ch_max - (int)'a'];
+ 
+        // check if the result is possible or not
+        if (maxCount > (N + 1) / 2)
+            return "";
+ 
+        String res = "";
+        for (int i = 0; i < N; i++) {
+            res += ' ';
+        }
+ 
+        int ind = 0;
+        // filling the most frequently occurring char in the
+        // even indices
+        while (maxCount > 0) {
+            res = res.substring(0, ind) + ch_max
+                  + res.substring(ind + 1);
+            ind = ind + 2;
+            maxCount--;
+        }
+        count[(int)ch_max - (int)'a'] = 0;
+ 
+        // now filling the other Chars, first filling the
+        // even positions and then the odd positions
+        for (int i = 0; i < 26; i++) {
+            while (count[i] > 0) {
+                ind = (ind >= N) ? 1 : ind;
+                res = res.substring(0, ind)
+                      + (char)((int)'a' + i)
+                      + res.substring(ind + 1);
+                ind += 2;
+                count[i]--;
+            }
+        }
+        return res;
+    }
+ 
 
 
     // Driver program to test above function
@@ -2498,7 +2631,10 @@ public int runCustomerSimulation(int n, char []seq)
         // System.out.println(str.minCharsToBeAdded2("AACECAAAA"));
 
         
-
+        // Testing the Rearrange Characters in a String such that No Two Adjacent are Same function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.rearrangeString("aaabc"));
+        // System.out.println(str.rearrangeString2("aaabc"));
 
         
     }
