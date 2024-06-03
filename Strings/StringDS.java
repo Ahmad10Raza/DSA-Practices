@@ -2388,6 +2388,73 @@ public int runCustomerSimulation(int n, char []seq)
         }
         return res;
     }
+
+
+    // Function for Write a program tofind the smallest window that contains all characters of string itself.
+
+    // Given a string, we need to find the smallest window in the string that contains all characters of the string itself
+
+    // Example:
+    // Input: "aabcbcdbca"
+    // Output: "dbca"
+
+    // Approach: Using HashMap and Two Pointers
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // Create a hashmap to store the frequency of characters in the string.
+    // Create a hashmap to store the frequency of characters in the window.
+    // Initialize the start and end pointers to 0.
+    // Initialize the minLen to the maximum value.
+    // Initialize the count to 0.
+    // Iterate through the string using the end pointer.
+    //     If the character at the end pointer is present in the hashmap, increment the frequency of the character in the window.
+    //     If the frequency of the character in the window is less than or equal to the frequency of the character in the hashmap, increment the count.
+    //     If the count is equal to the length of the hashmap, increment the start pointer until the count is less than the length of the hashmap.
+    //     If the length of the window is less than the minimum length, update the minimum length and the start and end pointers.
+    // Return the substring from the start to the end pointers.
+
+
+    public String smallestWindow(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        Map<Character, Integer> window = new HashMap<>();
+        int start = 0;
+        int end = 0;
+        int minLen = Integer.MAX_VALUE;
+        int count = 0;
+        int minStart = 0;
+        while (end < s.length()) {
+            char ch = s.charAt(end);
+            if (map.containsKey(ch)) {
+                window.put(ch, window.getOrDefault(ch, 0) + 1);
+                if (window.get(ch) <= map.get(ch)) {
+                    count++;
+                }
+            }
+            while (count == map.size()) {
+                if (end - start + 1 < minLen) {
+                    minLen = end - start + 1;
+                    minStart = start;
+                }
+                char startCh = s.charAt(start);
+                if (map.containsKey(startCh)) {
+                    window.put(startCh, window.get(startCh) - 1);
+                    if (window.get(startCh) < map.get(startCh)) {
+                        count--;
+                    }
+                }
+                start++;
+            }
+            end++;
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
+        
+    }
  
 
 
@@ -2635,6 +2702,13 @@ public int runCustomerSimulation(int n, char []seq)
         // StringDS str = new StringDS("");
         // System.out.println(str.rearrangeString("aaabc"));
         // System.out.println(str.rearrangeString2("aaabc"));
+
+
+        // Testing the Write a Program to Find the Smallest Window that Contains All Characters of String Itself function
+        
+        // StringDS str = new StringDS("");
+        // System.out.println(str.smallestWindow("aabcbcdbca"));
+
 
         
     }
