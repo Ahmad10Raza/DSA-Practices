@@ -2553,9 +2553,40 @@ public int runCustomerSimulation(int n, char []seq)
     }
 }
 
+        // Function for Find the first repeated word in string.
 
+        //     Given a string, we need to find the first repeated word in the string.
+
+        // Example:
+        // Input: "Ravi had been saying that he had been there"
+        // Output: "had"
+
+        // Approach: Using HashSet
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+
+        // Follow the steps to solve the problem:
+
+        // Create a hashset to store the words in the string.
+        // Split the string into words.
+        // Iterate through the words.
+        //     If the word is present in the hashset, return the word.
+        //     If the word is not present in the hashset, add the word to the hashset.
+        // Return an empty string.
+
+        public String firstRepeatedWord(String s) {
+            Set<String> set = new HashSet<>();
+            String[] words = s.split(" ");
+            for (String word : words) {
+                if (set.contains(word)) {
+                    return word;
+                }
+                set.add(word);
+            }
+            return "";
+        }
     
-    // @SuppressWarnings("unchecked")
+    
     
 
     
@@ -2816,16 +2847,19 @@ public int runCustomerSimulation(int n, char []seq)
 
 
         // Testing the Program to Generate All Possible Valid IP Addresses from Given String function
-        StringDS str = new StringDS("");
-        System.out.println(str.generateIPAddresses("255255111"));
+        // StringDS str = new StringDS("");
+        // System.out.println(str.generateIPAddresses("255255111"));
 
-        ArrayList<String> res = new ArrayList<>();
-        String s = "25525511135";
-        int n = s.length();
-        str.solveIP(s, 0,n-1, 1, "", res);
-        System.out.println(res);
+        // ArrayList<String> res = new ArrayList<>();
+        // String s = "25525511135";
+        // int n = s.length();
+        // str.solveIP(s, 0,n-1, 1, "", res);
+        // System.out.println(res);
 
-        System.out.println(str.generateIPAddresses2("255255111"));
+        
+        // Testing the Find the First Repeated Word in String function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.firstRepeatedWord("Ravi had been saying that he had been there"));
 
 
         
