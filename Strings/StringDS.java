@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -2455,6 +2456,110 @@ public int runCustomerSimulation(int n, char []seq)
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
         
     }
+
+
+    // Function for Program to generate all possible valid IP addresses from given  string.
+
+    // Given a string containing only digits, we need to generate all possible valid IP addresses from the given string.
+
+    // Example:
+    // Input: "25525511135"
+    // Output: ["255.255.11.135", "255.255.111.35"]
+
+    // Approach: Using Recursion
+    // Time complexity: O(n)
+    // Space complexity: O(n)
+
+    // Follow the steps to solve the problem:
+
+    // Create a list to store the valid IP addresses.
+    // Call the helper function to generate all possible valid IP addresses.
+    // Return the list of valid IP addresses.
+
+    public List<String> generateIPAddresses(String s) {
+        List<String> result = new ArrayList<>();
+        generateIPAddresses(s, 0, 0, "", result);
+        return result;
+    }
+
+    // Helper function to generate all possible valid IP addresses
+
+    // Follow the steps to solve the problem:
+
+    // If the index is equal to 4 and the start is equal to the length of the string, add the IP address to the result.
+    // If the index is equal to 4 and the start is not equal to the length of the string, return.
+    // Iterate through the string from the start to the start + 3.
+    //     If the substring from the start to the i is valid, call the helper function recursively with the index + 1, i + 1, the current IP address, and the result.
+    //     If the substring from the start to the i is not valid, break the loop.
+
+    public void generateIPAddresses(String s, int index, int start, String ipAddress, List<String> result) {
+        if (index == 4 && start == s.length()) {
+            result.add(ipAddress);
+            return;
+        }
+        if (index == 4) {
+            return;
+        }
+        for (int i = start; i < start + 3 && i < s.length(); i++) {
+            String part = s.substring(start, i + 1);
+            if (isValid(part)) {
+                generateIPAddresses(s, index + 1, i + 1, ipAddress + part + (index == 3 ? "" : "."), result);
+            } else {
+                break;
+            }
+        }
+    }
+
+    // Function to check if the given string is valid
+
+    // Follow the steps to solve the problem:
+
+    // If the string is empty or the length of the string is greater than 3, return false.
+    // If the length of the string is greater than 1 and the first character of the string is '0', return false.
+    // If the integer value of the string is greater than 255, return false.
+    // Return true.
+
+    public boolean isValid(String s) {
+        if (s.length() == 0 || s.length() > 3) {
+            return false;
+        }
+        if (s.length() > 1 && s.charAt(0) == '0') {
+            return false;
+        }
+        if (Integer.parseInt(s) > 255) {
+            return false;
+        }
+        return true;
+    }
+
+    public void solveIP(String s, int i, int j, int level, String temp,ArrayList<String>res)
+{
+    if (i == (j + 1) && level == 5) {
+        res.add(temp.substring(1));
+    }
+ 
+    // Digits of a number ranging 0-255 can lie only between
+    // 0-3
+    for (int k = i; k < i + 3 && k <= j; k++) {
+        String ad = s.substring(i, k + 1);
+ 
+        // Return if string starting with '0' or it is
+        // greater than 255.
+        if ((s.charAt(i) == '0'&& ad.length()>1 ) || Integer.valueOf(ad) > 255)
+            return;
+ 
+        // Recursively call for another level.
+        solveIP(s, k + 1, j, level + 1, temp + '.' + ad, res);
+    }
+}
+
+
+    
+    // @SuppressWarnings("unchecked")
+    
+
+    
+
  
 
 
@@ -2708,6 +2813,19 @@ public int runCustomerSimulation(int n, char []seq)
         
         // StringDS str = new StringDS("");
         // System.out.println(str.smallestWindow("aabcbcdbca"));
+
+
+        // Testing the Program to Generate All Possible Valid IP Addresses from Given String function
+        StringDS str = new StringDS("");
+        System.out.println(str.generateIPAddresses("255255111"));
+
+        ArrayList<String> res = new ArrayList<>();
+        String s = "25525511135";
+        int n = s.length();
+        str.solveIP(s, 0,n-1, 1, "", res);
+        System.out.println(res);
+
+        System.out.println(str.generateIPAddresses2("255255111"));
 
 
         
