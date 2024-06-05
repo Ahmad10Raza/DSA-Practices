@@ -2695,6 +2695,83 @@ public int runCustomerSimulation(int n, char []seq)
         }
 
 
+        // Function for KMP Algorithm for Pattern Searching.
+
+        // Given a string and pattern we need to find the pattern in the string using KMP Algorithm
+
+        // Example:
+        // Input: "ABAAABCD", "ABC"
+        // Output: 4
+        // Explanation: The pattern "ABC" is found in the string "ABAAABCD" at index 4
+
+        // Approach: Using KMP Algorithm
+        // Time complexity: O(n)
+        // Space complexity: O(n)
+
+        // Follow the steps to solve the problem:
+
+        // Create a function to find the pattern in the string using the KMP Algorithm.
+        // Create an array to store the longest prefix suffix.
+        // Calculate the longest prefix suffix.
+        // Iterate through the string and pattern to find the pattern in the string using the KMP Algorithm.
+        // Return the index of the pattern in the string.
+
+        public int kmp(String s, String pattern) {
+            int n = s.length();
+            int m = pattern.length();
+            int[] lps = new int[m];
+            calculateLPS(pattern, lps);
+            int i = 0;
+            int j = 0;
+            while (i < n) {
+                if (s.charAt(i) == pattern.charAt(j)) {
+                    i++;
+                    j++;
+                }
+                if (j == m) {
+                    return i - j;
+                }
+                if (i < n && s.charAt(i) != pattern.charAt(j)) {
+                    if (j != 0) {
+                        j = lps[j - 1];
+                    } else {
+                        i++;
+                    }
+                }
+            }
+            return -1;
+        }
+
+        // Function to calculate the longest prefix suffix
+
+        // Follow the steps to solve the problem:
+
+        // Initialize the length to 0.
+        // Iterate through the pattern.
+        //     If the characters at the start and end pointers are equal, increment the length and store the length in the lps array.
+        //     If the characters at the start and end pointers are not equal, check if the length is greater than 0 and update the length.
+        // Return the lps array.
+
+        public void calculateLPS(String pattern, int[] lps) {
+            int length = 0;
+            int i = 1;
+            while (i < pattern.length()) {
+                if (pattern.charAt(i) == pattern.charAt(length)) {
+                    length++;
+                    lps[i] = length;
+                    i++;
+                } else {
+                    if (length != 0) {
+                        length = lps[length - 1];
+                    } else {
+                        lps[i] = length;
+                        i++;
+                    }
+                }
+            }
+        }
+
+
     
     
     
@@ -2971,6 +3048,10 @@ public int runCustomerSimulation(int n, char []seq)
         // StringDS str = new StringDS("");
         // System.out.println(str.firstRepeatedWord("Ravi had been saying that he had been there"));
 
+
+        // Testing the Boyer Moore Algorithm for Pattern Searching function
+        // StringDS str = new StringDS("");
+        // System.out.println(str.boyerMoore("ABAAABCD", "ABC"));
 
         
     }
