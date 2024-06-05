@@ -2585,6 +2585,116 @@ public int runCustomerSimulation(int n, char []seq)
             }
             return "";
         }
+
+
+        // Function for Boyer Moore Algorithm for Pattern Searching.
+
+        // Given a string and pattern we need to find the pattern in the string using Boyer Moore Algorithm
+
+        // Example:
+        // Input: "ABAAABCD", "ABC"
+        // Output: 4
+        // Explanation: The pattern "ABC" is found in the string "ABAAABCD" at index 4
+
+        // Approach: Using Boyer Moore Algorithm
+        // Time complexity: O(n)
+        // Space complexity: O(1)
+
+        // Follow the steps to solve the problem:
+
+        // Create a function to find the pattern in the string using the Boyer Moore Algorithm.
+        // Create a function to calculate the bad character heuristic.
+        // Create a function to calculate the good suffix heuristic.
+        // Call the function to find the pattern in the string using the Boyer Moore Algorithm.
+        // Return the index of the pattern in the string.
+
+        public int boyerMoore(String s, String pattern) {
+            int n = s.length();
+            int m = pattern.length();
+            int[] badChar = badCharacterHeuristic(pattern);
+            int[] goodSuffix = goodSuffixHeuristic(pattern);
+            int shift = 0;
+            while (shift <= n - m) {
+                int j = m - 1;
+                while (j >= 0 && pattern.charAt(j) == s.charAt(shift + j)) {
+                    j--;
+                }
+                if (j < 0) {
+                    return shift;
+                }
+                shift += Math.max(j - badChar[s.charAt(shift + j)], goodSuffix[j]);
+            }
+            return -1;
+        }
+
+        // Function to calculate the bad character heuristic
+
+        // Follow the steps to solve the problem:
+
+        // Create an array to store the bad character heuristic.
+        // Iterate through the pattern and calculate the bad character heuristic.
+        // Return the bad character heuristic.
+
+        public int[] badCharacterHeuristic(String pattern) {
+            int m = pattern.length();
+            int[] badChar = new int[256];
+            Arrays.fill(badChar, -1);
+            for (int i = 0; i < m; i++) {
+                badChar[pattern.charAt(i)] = i;
+            }
+            return badChar;
+        }
+
+        // Function to calculate the good suffix heuristic
+
+        // Follow the steps to solve the problem:
+
+        // Create an array to store the good suffix heuristic.
+        // Create an array to store the suffixes of the pattern.
+        // Create an array to store the longest prefix suffix.
+        // Calculate the suffixes of the pattern.
+        // Calculate the longest prefix suffix.
+        // Calculate the good suffix heuristic.
+        // Return the good suffix heuristic.
+
+        public int[] goodSuffixHeuristic(String pattern) {
+            int m = pattern.length();
+            int[] goodSuffix = new int[m];
+            int[] suffix = new int[m];
+            Arrays.fill(suffix, 0);
+            int f = 0;
+            int g = m - 1;
+            for (int i = m - 2; i >= 0; i--) {
+                if (i > g && suffix[i + m - 1 - f] < i - g) {
+                    suffix[i] = suffix[i + m - 1 - f];
+                } else {
+                    if (i < g) {
+                        g = i;
+                    }
+                    f = i;
+                    while (g >= 0 && pattern.charAt(g) == pattern.charAt(g + m - 1 - f)) {
+                        g--;
+                    }
+                    suffix[i] = f - g;
+                }
+            }
+            Arrays.fill(goodSuffix, m);
+            for (int i = m - 1; i >= 0; i--) {
+                if (suffix[i] == i + 1) {
+                    for (int j = 0; j < m - 1 - i; j++) {
+                        if (goodSuffix[j] == m) {
+                            goodSuffix[j] = m - 1 - i;
+                        }
+                    }
+                }
+            }
+            for (int i = 0; i < m - 1; i++) {
+                goodSuffix[m - 1 - suffix[i]] = m - 1 - i;
+            }
+            return goodSuffix;
+        }
+
+
     
     
     
