@@ -2772,6 +2772,66 @@ public int runCustomerSimulation(int n, char []seq)
         }
 
 
+
+        // Function for Robin karp Algorithms for Pattern Searching.
+
+        // Given a string and pattern we need to find the pattern in the string using Robin Karp Algorithm  
+
+        // Example:
+        // Input: "ABAAABCD", "ABC"
+        // Output: 4
+        // Explanation: The pattern "ABC" is found in the string "ABAAABCD" at index 4
+
+        // Approach: Using Robin Karp Algorithm
+        // Time complexity: O(n)
+        // Space complexity: O(1)
+
+        // Follow the steps to solve the problem:
+
+        // Create a function to find the pattern in the string using the Robin Karp Algorithm.
+        // Calculate the hash value of the pattern and the first window of the string.
+        // Iterate through the string and calculate the hash value of the next window of the string.
+        // If the hash value of the pattern is equal to the hash value of the window of the string, check if the pattern is present in the window of the string.
+        // Return the index of the pattern in the string.
+
+
+        public int robinKarp2(String s, String pattern) {
+            int n = s.length();
+            int m = pattern.length();
+            int prime = 101;
+            int d = 256;
+            int h = 1;
+            int p = 0;
+            int t = 0;
+            for (int i = 0; i < m - 1; i++) {
+                h = (h * d) % prime;
+            }
+            for (int i = 0; i < m; i++) {
+                p = (d * p + pattern.charAt(i)) % prime;
+                t = (d * t + s.charAt(i)) % prime;
+            }
+            for (int i = 0; i <= n - m; i++) {
+                if (p == t) {
+                    int j = 0;
+                    for (j = 0; j < m; j++) {
+                        if (s.charAt(i + j) != pattern.charAt(j)) {
+                            break;
+                        }
+                    }
+                    if (j == m) {
+                        return i;
+                    }
+                }
+                if (i < n - m) {
+                    t = (d * (t - s.charAt(i) * h) + s.charAt(i + m)) % prime;
+                    if (t < 0) {
+                        t = t + prime;
+                    }
+                }
+            }
+            return -1;
+        }
+
     
     
     
