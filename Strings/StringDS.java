@@ -1537,6 +1537,27 @@ public class StringDS {
         return left.substring(0, min);
     }
 
+    // Approach2: Using Horizontal scanning
+    // The Idea is to find unique prefix without sorting the string array. Extract substring by comparing current substring with  the previous substring and update it’s result. For large string it work much faster.
+    
+    public String longestCommonPrefixLC(String[] strs) {
+        // If the input is empty, return an empty string
+        if(strs.length == 0) return "";
+        // Initialize the prefix as the first string
+        String prefix = strs[0];
+        // Iterate through the strings
+        for(int i = 1; i < strs.length; i++){
+            // While the current string does not start with the prefix
+            while(strs[i].indexOf(prefix) != 0){
+                // Remove the last character from the prefix
+                prefix = prefix.substring(0, prefix.length()-1);
+                // If the prefix is empty, return an empty string
+                if(prefix.isEmpty()) return "";
+            }
+        }
+        return prefix;
+    }
+
 
     
     // Function for number of flips to make binary string alternate
