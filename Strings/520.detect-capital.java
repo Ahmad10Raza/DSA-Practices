@@ -52,7 +52,7 @@
 // If the string matches any of the above patterns, return true. Else, return false.
 
 // @lc code=start
-class Solution {
+class Solution520 {
     public boolean detectCapitalUse(String word) {
         
         return word.matches("[a-z]+|[A-Z]+|[A-Z][a-z]+");
@@ -63,11 +63,7 @@ class Solution {
             word.substring(1).equals(word.substring(1).toLowerCase());
       }
 
-    public static void main(String[] args) {
-        Solution sol = new Solution();
-        System.out.println(sol.detectCapitalUse("USA"));
-        System.out.println(sol.detectCapitalUse("FlaG"));
-    }
+    
 }
 // @lc code=end
 
