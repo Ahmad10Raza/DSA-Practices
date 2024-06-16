@@ -57,7 +57,7 @@
 import java.util.HashSet;
 import java.util.Set;
 
-class Solution {
+class Solution804 {
     public int uniqueMorseRepresentations(String[] words) {
         
         // Morse code for each character
@@ -87,7 +87,7 @@ class Solution {
         
         // Return the number of unique transformations
         return transformations.size();
-        
+
     }
 }
 // @lc code=end
