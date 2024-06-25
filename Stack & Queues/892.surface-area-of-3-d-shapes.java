@@ -59,6 +59,7 @@
 //     - If the current cell is not the first column, increment the overlap by the minimum of the current cell and the cell to the left of it.
 // 3. Return the totalArea minus the overlap multiplied by 2.
 
+// java Approach 
 
 class Solution892 {
     public int surfaceArea(int[][] grid) {
