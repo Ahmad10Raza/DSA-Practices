@@ -8,7 +8,10 @@
 // str2 = "silent"
 // Output: Yes
 
-// Approach: An efficient approach is to use the hashing technique. We will use a hash table to store the frequency of each character of the first string. Then we will iterate over the second string and decrement the frequency of each character of the second string from the hash table. If the frequency of each character is zero, then the strings are anagram otherwise not.
+// Approach: An efficient approach is to use the hashing technique. We will use a hash table to 
+// store the frequency of each character of the first string. Then we will iterate over the second 
+// string and decrement the frequency of each character of the second string from the hash table. 
+// If the frequency of each character is zero, then the strings are anagram otherwise not.
 
 // Time Complexity: O(n)
 // Space Complexity: O(1)
