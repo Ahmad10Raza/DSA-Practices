@@ -31,11 +31,19 @@ public class AnagramString {
             map.put(str1.charAt(i), map.getOrDefault(str1.charAt(i), 0) + 1);
         }
 
+        // Iterate over the second string and decrement the frequency of each character
+        // of the second string from the hash table.
         for (int i = 0; i < str2.length(); i++) {
+            // here if map doesn't contain the character then return false.
             if (!map.containsKey(str2.charAt(i))) {
                 return false;
             }
+            // here decrement the frequency of each character of the second string from the
+            // hash table.
             map.put(str2.charAt(i), map.get(str2.charAt(i)) - 1);
+
+            // if the frequency of each character is zero, then remove the character from
+            // the hash table.
             if (map.get(str2.charAt(i)) == 0) {
                 map.remove(str2.charAt(i));
             }
@@ -50,21 +58,21 @@ public class AnagramString {
     // Space Complexity: O(1)
 
     public static boolean isAnagram2(String str1, String str2) {
-    String s1 = str1.replaceAll("[\\s]", "");
-    String s2 = str2.replaceAll("[\\s]", "");
-    boolean status = true;
+        String s1 = str1.replaceAll("[\\s]", "");
+        String s2 = str2.replaceAll("[\\s]", "");
+        boolean status = true;
 
-    if (s1.length() != s2.length())
-      status = false;
-    else {
-      char[] a1 = s1.toLowerCase().toCharArray();
-      char[] a2 = s2.toLowerCase().toCharArray();
-      Arrays.sort(a1);
-      Arrays.sort(a2);
-      status = Arrays.equals(a1, a2);
+        if (s1.length() != s2.length())
+            status = false;
+        else {
+            char[] a1 = s1.toLowerCase().toCharArray();
+            char[] a2 = s2.toLowerCase().toCharArray();
+            Arrays.sort(a1);
+            Arrays.sort(a2);
+            status = Arrays.equals(a1, a2);
+        }
+        return status;
     }
-    return status;
-  }
 
     public static void main(String[] args) {
         String str1 = "listen";
