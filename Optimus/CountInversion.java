@@ -6,6 +6,10 @@
 // Output: 3
 // Explanation: (2, 1), (4, 1), (4, 3) are the inversions.
 
+// Approach: The idea is to use the merge sort technique to count the number of inversions. The inversion count will be the sum of inversions in the left subarray, right subarray, and the number of inversions formed by merging the two subarrays.
+// Time Complexity: O(n log n)
+// Space Complexity: O(n)
+
 public class CountInversion {
 
     public static int countInversion(int[] arr) {

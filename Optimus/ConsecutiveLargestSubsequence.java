@@ -11,6 +11,9 @@ import java.util.Set;
 
 // Approach: Create a HashSet and add all the elements of the array. Iterate over the array and check if the current element is the starting element of the subsequence. If it is the starting element, then iterate over the consecutive elements and check if they are present in the HashSet. If they are present, then increment the count of the subsequence. Update the maximum length of the subsequence.
 
+// Time Complexity: O(n)
+// Space Complexity: O(n)
+
 public class ConsecutiveLargestSubsequence {
 
     public static int consecutiveLargestSubsequence(int[] arr) {

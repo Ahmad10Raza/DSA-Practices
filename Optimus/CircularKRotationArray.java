@@ -1,5 +1,4 @@
 
-
 // Given an array of integers, rotate the array by 'k' elements. Here, 'k' is an integer.
 // For example, if the array is [1, 2, 3, 4, 5, 6, 7] and k is 3, the array should be rotated to [5, 6, 7, 1, 2, 3, 4].
 // The array should be rotated in-place, which means that the original array should be 
@@ -11,9 +10,11 @@
 // Space Complexity: O(1)
 
 public class CircularKRotationArray {
-    
+
     public static void rotateArray(int[] arr, int k) {
         int n = arr.length;
+        // If k is greater than the length of the array, then we will take the modulo of
+        // k with n
         k = k % n;
         reverseArray(arr, 0, k - 1);
         reverseArray(arr, k, n - 1);
@@ -31,7 +32,7 @@ public class CircularKRotationArray {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1, 2, 3, 4, 5, 6, 7};
+        int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
         int k = 3;
         rotateArray(arr, k);
         for (int i = 0; i < arr.length; i++) {

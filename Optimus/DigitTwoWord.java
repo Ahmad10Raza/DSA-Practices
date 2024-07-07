@@ -43,6 +43,16 @@ public class DigitTwoWord {
         }
     }
 
+    public static String ConvertNumberFourDigitToWords(int num) {
+        if (num == 0) {
+            return "";
+        } else if (num < 1000) {
+            return ConvertThreeDigitNumberToWords(num);
+        } else {
+            return "Number out of range";
+        }
+    }
+
     public static void main(String[] args) {
         int num = 123;
         if (num < 1000) {

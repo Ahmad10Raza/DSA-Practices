@@ -6,12 +6,18 @@
 // 153 = 1^3 + 5^3 + 3^3
 // 153 is an Armstrong number.
 
+// Input: n = 371
+// Output: true
+// Explanation: 371 = 3^3 + 7^3 + 1^3 = 371
+
 // Approach: To check if a number is an Armstrong number, we need to calculate the sum of the cube of each digit of the number. If the sum is equal to the original number, then the number is an Armstrong number.
 
 public class ArmstrongNumber {
 
     public static boolean isArmstrong(int n) {
         int originalNumber = n;
+        // here String.valueOf(n).length() is used to calculate the number of digits in
+        // the number.
         int numDigits = String.valueOf(n).length();
         int sum = 0;
 

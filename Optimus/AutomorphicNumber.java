@@ -3,9 +3,11 @@
 
 // Input: 5
 // Output: Automorphic number
+// Explanation: 5^2 = 25
 
 // Input: 6
-// Output: Not an automorphic number
+// Output: Automorphic number
+// Explanation: 6^2 = 36
 
 // Approach: To check if a number is an automorphic number, we need to calculate the square of the number and check if the square ends with the number itself. To check if the square ends with the number, we can convert the square and the number to strings and compare the last digits of the strings.
 
