@@ -74,8 +74,28 @@ public class N_Consecutive_Ropes_Problem {
         return cost;
     }
 
+    public static long minCost2(long arr[], int n) {
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+        for (int i = 0; i < n; i++) {
+            pq.add(arr[i]);
+        }
+
+        long cost = 0;
+        while (pq.size() > 1) {
+            long a = pq.poll();
+            long b = pq.poll();
+            cost += a + b;
+            pq.add(a + b);
+        }
+
+        return cost;
+    }
+
     public static void main(String[] args) {
         int[] arr = { 7, 6, 8, 6, 1, 1 };
         System.out.println(minCost(arr));
+
+        int[] arr2 = { 4, 12, 2, 2, 5 };
+        System.out.println(minCost(arr2));
     }
 }
