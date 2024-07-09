@@ -11,7 +11,7 @@
 
 // Approach: The idea is to create a copy of the original array and sort the copy array.
 // Then, we will create a map to store the rank of each element in the sorted array.
-// Finally, we will iterate through the original array and replace each element with its rank in the map.
+// Finally, we will iterate through the original array and replace each element with its rank in the map
 
 // Time Complexity: O(nlogn)
 // Space Complexity: O(n)
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReplaceArrayWithRank {
-    
+
     public static int[] replaceArrayWithRank(int[] arr) {
         int[] copy = arr.clone();
         Arrays.sort(copy);
@@ -40,7 +40,7 @@ public class ReplaceArrayWithRank {
     }
 
     public static void main(String[] args) {
-        int[] arr = {10, 8, 15, 12, 6, 20, 1};
+        int[] arr = { 10, 8, 15, 12, 6, 20, 1 };
         System.out.println(Arrays.toString(replaceArrayWithRank(arr)));
     }
 }
