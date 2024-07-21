@@ -631,7 +631,7 @@ public class ArrayDS {
     // If steps becomes 0, increment the jumps by 1 and update the steps to the
     // difference between
     // the current index and maxReach.
-    // Print the number of jumps.
+    // Print the number of jumps.-
 
     public int minJumps(int[] arr) {
         int maxReach = arr[0];
