@@ -13,6 +13,8 @@
 // Output: [1,2,3]
 
 // // Approach: Break point and reverse
+// Time Complexity: O(n), where n is the length of the given array.
+// Space Complexity: O(1), as we are using only a constant amount of space.
 // The steps are the following:
 
 // Find the break-point, i: Break-point means the first index i from the back of the given array where arr[i] becomes smaller than arr[i+1].
@@ -40,7 +42,7 @@ public class NextPermutation {
             return;
         }
 
-        // Find the next greater element and swap it with arr[ind]:
+        // Find the next small element and swap it with arr[ind]:
         int j = n - 1;
         while (j > i && nums[j] <= nums[i]) {
             j--;
