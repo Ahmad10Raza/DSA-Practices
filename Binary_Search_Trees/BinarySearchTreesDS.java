@@ -1,25 +1,23 @@
 import java.util.*;
 import java.util.Stack;
-    
-    
-    
-    
-    public class BinarySearchTreesDS {
-    class Node {
-    int key;
-    Node left, right;
 
-    public Node(int item) {
-        key = item;
-        left = right = null;
+public class BinarySearchTreesDS {
+    class Node {
+        int key;
+        Node left, right;
+
+        public Node(int item) {
+            key = item;
+            left = right = null;
+        }
     }
-    }
+
     Node root;
 
     BinarySearchTreesDS() {
         root = null;
     }
-    
+
     void insert(int key) {
         root = insertRec(root, key);
     }
@@ -103,22 +101,42 @@ import java.util.Stack;
         root = deleteRec(root, key);
     }
 
+    // Follows the below steps to delete the node from the BST:
+    // 1. If the node to be deleted is a leaf node, then delete the node.
+    // 2. If the node to be deleted has only one child, then copy the child to the
+    // node and delete the child.
+    // 3. If the node to be deleted has two children, then find the inorder
+    // successor of the node. Copy the inorder successor to the node and delete the
+    // inorder successor.
+
     Node deleteRec(Node root, int key) {
         if (root == null)
             return root;
 
+        // If the key to be deleted is smaller than the root's key, then it lies in the
+        // left subtree
         if (key < root.key)
+            // Recursively call the delete function for the left subtree
             root.left = deleteRec(root.left, key);
+        // If the key to be deleted is greater than the root's key, then it lies in the
+        // right subtree
         else if (key > root.key)
+            // Recursively call the delete function for the right subtree
             root.right = deleteRec(root.right, key);
+
+        // If the key is same as root's key, then this is the node to be deleted
         else {
+            // Node with only one child or no child
             if (root.left == null)
                 return root.right;
             else if (root.right == null)
                 return root.left;
 
+            // Node with two children: Get the inorder successor (smallest in the right
+            // subtree)
             root.key = inorderSuccessor(root.right);
 
+            // Delete the inorder successor
             root.right = deleteRec(root.right, root.key);
         }
 
@@ -129,12 +147,11 @@ import java.util.Stack;
 
     // Inorder successor is the leftmost node in the right subtree
 
-
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Inorder traversal of the tree: 20 30 40 50 60 70 80
     // Inorder successor of 50: 60
@@ -148,17 +165,28 @@ import java.util.Stack;
         return minv;
     }
 
-
     // Function to print node in range k1 and k2
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Input: k1 = 20, k2 = 70
     // Output: 20 30 40 50 60 70
+
+    // Follows the below steps to print the nodes in the given range:
+    // 1. If the root is null, then return.
+    // 2. If the k1 is less than the root's key, then recursively call the function
+    // for
+    // the left subtree.
+    // 3. If the k1 is less than or equal to the root's key and k2 is greater than
+    // or
+    // equal to the root's key, then print the root's key.
+    // 4. If the k2 is greater than the root's key, then recursively call the
+    // function
+    // for the right subtree.
 
     public void printInRange(Node root, int k1, int k2) {
         if (root == null)
@@ -174,24 +202,24 @@ import java.util.Stack;
             printInRange(root.right, k1, k2);
     }
 
+    // Function to count node in given range in a BST
 
-   // Function to count node in given range in a BST
+    // Given a Binary Search Tree (BST) and a range l-h(inclusive), count the number
+    // of nodes in the BST that lie in the given range.
 
-//     Given a Binary Search Tree (BST) and a range l-h(inclusive), count the number of nodes in the BST that lie in the given range.
+    // The values smaller than root go to the left side
+    // The values greater and equal to the root go to the right side
 
-// The values smaller than root go to the left side
-// The values greater and equal to the root go to the right side
-
-// Input:
-//       10
-//      /  \
-//     5    50
-//    /    /  \
-//   1    40  100
-// l = 5, h = 45
-// Output: 3
-// Explanation: 5 10 40 are the node in the
-// range
+    // Input:
+    // 10
+    // / \
+    // 5 50
+    // / / \
+    // 1 40 100
+    // l = 5, h = 45
+    // Output: 3
+    // Explanation: 5 10 40 are the node in the
+    // range
 
     public int getCountOfNode(Node root, int l, int h) {
         if (root == null)
@@ -208,23 +236,19 @@ import java.util.Stack;
             return getCountOfNode(root.left, l, h);
     }
 
-    
-
-
-
     // Function to print node to root node path to leaf node
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Input: ~
     // Output: 50 30 20
-    //         50 30 40
-    //         50 70 60
-    //         50 70 80
+    // 50 30 40
+    // 50 70 60
+    // 50 70 80
 
     public void printRootToLeaf(Node root, List<Integer> path) {
         if (root == null)
@@ -244,24 +268,25 @@ import java.util.Stack;
         path.remove(path.size() - 1); // Backtrack to the parent node after printing the path
     }
 
-
     // Function to check given tree is BST or not
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Output: Given tree is a BST
 
     public boolean isValidBST(Node root) {
         return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-    
+
     public boolean isValidBST(Node root, long minVal, long maxVal) {
-        if (root == null) return true;
-        if (root.key >= maxVal || root.key <= minVal) return false;
+        if (root == null)
+            return true;
+        if (root.key >= maxVal || root.key <= minVal)
+            return false;
         return isValidBST(root.left, minVal, root.key) && isValidBST(root.right, root.key, maxVal);
     }
 
@@ -286,15 +311,13 @@ import java.util.Stack;
         return true;
     }
 
-
-
     // Function to print mirror of the tree
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Output: 50 70 80 60 30 40 20
 
@@ -310,17 +333,15 @@ import java.util.Stack;
         root.right = temp;
     }
 
-
     // function to construct Balanced BST from sorted array
 
     // Input: 1 2 3 4 5 6 7
     // Output: 4 2 6 1 3 5 7 (Inorder traversal of the constructed BST)
-    // Tree:        4
-    //            /     \
-    //          2         6
-    //         /  \     /  \
-    //       1   3     5    7
-
+    // Tree: 4
+    // / \
+    // 2 6
+    // / \ / \
+    // 1 3 5 7
 
     public Node sortedArrayToBST(int[] arr, int start, int end) {
         if (start > end)
@@ -339,16 +360,15 @@ import java.util.Stack;
         return sortedArrayToBST(arr, 0, arr.length - 1);
     }
 
-
     // Function to convert BST to Balanced BST
 
-   public Node balanceBST(Node root) {
+    public Node balanceBST(Node root) {
         List<Node> nodes = new ArrayList<>();
         inorder(root, nodes);
 
         return buildBalancedBST(nodes, 0, nodes.size() - 1);
     }
-    
+
     void inorder(Node root, List<Node> nodes) {
         if (root == null)
             return;
@@ -371,21 +391,19 @@ import java.util.Stack;
         return root;
     }
 
-
-
     // Function to merge two BSTs
 
-    // Tree1:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree1: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
-    // Tree2:        55
-    //            /     \
-    //          35       75
-    //         /  \     /  \
-    //       25   45   65   85
+    // Tree2: 55
+    // / \
+    // 35 75
+    // / \ / \
+    // 25 45 65 85
 
     // Output: 20 25 30 35 40 45 50 55 60 65 70 75 80 85
 
@@ -421,14 +439,13 @@ import java.util.Stack;
         return merged;
     }
 
-
     // Function to find minimum and maximum element in the BST
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Output: Minimum: 20, Maximum: 80
 
@@ -450,11 +467,11 @@ import java.util.Stack;
 
     // Inorder predecessor is the rightmost node in the left subtree
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Inorder traversal of the tree: 20 30 40 50 60 70 80
     // Inorder predecessor of 50: 40
@@ -468,18 +485,17 @@ import java.util.Stack;
         return maxv;
     }
 
+    // Function to find Populate Inorder successor of all nodes
 
-   // Function to find Populate Inorder successor of all nodes
+    // Given a Binary Tree, write a function to populate next pointer for all nodes.
+    // The next pointer for every node should be set
+    // to point to inorder successor.
 
-   // Given a Binary Tree, write a function to populate next pointer for all nodes. The next pointer for every node should be set
-   //  to point to inorder successor.
-
-
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Output: 20->30->40->50->60->70->80
 
@@ -489,7 +505,7 @@ import java.util.Stack;
     }
 
     public void populateInorderSuccessor(Node root, Node next) {
-        
+
         // The first visited node will be the rightmost node
         // next of the rightmost node will be NULL
         if (root != null) {
@@ -505,17 +521,15 @@ import java.util.Stack;
         }
     }
 
+    // Function to Find LCA of 2 nodes in a BST
 
-    // Function to  Find LCA  of 2 nodes in a BST
+    // LCA means Lowest Common Ancestor
 
-    // LCA means Lowest Common Ancestor 
-
-
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Input: 20, 40
     // Output: 30
@@ -552,28 +566,30 @@ import java.util.Stack;
     // Input: 10 5 1 7 40 50
 
     // Output: 10
-    //         /  \
-    //        5    40
-    //       / \     \
-    //      1   7     50
+    // / \
+    // 5 40
+    // / \ \
+    // 1 7 50
 
-
-    /* Approach
-
-    Follow the below steps to solve the problem:
-
-Initialize the range as {INT_MIN .. INT_MAX}
-The first node will definitely be in range, so create a root node. 
-To construct the left subtree, set the range as {INT_MIN …root->data}. 
-If a value is in the range {INT_MIN .. root->data}, the values are part of the left subtree. 
-To construct the right subtree, set the range as {root->data..max .. INT_MAX}. 
-If a value is in the range {root->data..max .. INT_MAX}, the values are part of the right subtree.
-    
-        */
-
+    /*
+     * Approach
+     * 
+     * Follow the below steps to solve the problem:
+     * 
+     * Initialize the range as {INT_MIN .. INT_MAX}
+     * The first node will definitely be in range, so create a root node.
+     * To construct the left subtree, set the range as {INT_MIN …root->data}.
+     * If a value is in the range {INT_MIN .. root->data}, the values are part of
+     * the left subtree.
+     * To construct the right subtree, set the range as {root->data..max ..
+     * INT_MAX}.
+     * If a value is in the range {root->data..max .. INT_MAX}, the values are part
+     * of the right subtree.
+     * 
+     */
 
     public Node constructBSTFromPreorder(int[] preorder) {
-        return constructBSTFromPreorder(preorder, new int[] {0}, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return constructBSTFromPreorder(preorder, new int[] { 0 }, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     public Node constructBSTFromPreorder(int[] preorder, int[] index, int min, int max) {
@@ -593,37 +609,42 @@ If a value is in the range {root->data..max .. INT_MAX}, the values are part of 
         return root;
     }
 
-
     // Function to Convert Binary tree into BST
-/*
-    Example 1
-Input:
-          10
-         /  \
-        2    7
-       / \
-      8   4
-Output:
-          8
-         /  \
-        4    10
-       / \
-      2   7
-
-Solution:
-
-Following is a 3 step solution for converting Binary tree to Binary Search Tree.
-
-1. Create a temp array arr[] that stores inorder traversal of the tree. This step takes O(n) time.
-2. Sort the temp array arr[]. Time complexity of this step depends upon the sorting algorithm. 
-In the following implementation, Quick Sort is used which takes (n^2) time. This can be done in O(nLogn) time using Heap Sort or Merge Sort.
-3. Again do inorder traversal of tree and copy array elements to tree nodes one by one. This step takes O(n) time. */
+    /*
+     * Example 1
+     * Input:
+     * 10
+     * / \
+     * 2 7
+     * / \
+     * 8 4
+     * Output:
+     * 8
+     * / \
+     * 4 10
+     * / \
+     * 2 7
+     * 
+     * Solution:
+     * 
+     * Following is a 3 step solution for converting Binary tree to Binary Search
+     * Tree.
+     * 
+     * 1. Create a temp array arr[] that stores inorder traversal of the tree. This
+     * step takes O(n) time.
+     * 2. Sort the temp array arr[]. Time complexity of this step depends upon the
+     * sorting algorithm.
+     * In the following implementation, Quick Sort is used which takes (n^2) time.
+     * This can be done in O(nLogn) time using Heap Sort or Merge Sort.
+     * 3. Again do inorder traversal of tree and copy array elements to tree nodes
+     * one by one. This step takes O(n) time.
+     */
 
     public Node binaryTreeToBST(Node root) {
         List<Integer> nodes = new ArrayList<>();
         inorder2(root, nodes);
         Collections.sort(nodes);
-        return binaryTreeToBST(root, nodes, new int[] {0});
+        return binaryTreeToBST(root, nodes, new int[] { 0 });
     }
 
     public Node binaryTreeToBST(Node root, List<Integer> nodes, int[] index) {
@@ -646,19 +667,16 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         inorder2(root.right, nodes);
     }
 
-
     // Function to find kth smallest element in the BST
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Input: 3
     // Output: 40
-
-
 
     public int kthSmallestNaive(Node root, int k) {
         List<Integer> nodes = new ArrayList<>();
@@ -666,8 +684,8 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         return nodes.get(k - 1);
     }
 
-
-    //Approach: The idea is to do an inorder traversal of the BST and keep a count of the number of nodes visited.
+    // Approach: The idea is to do an inorder traversal of the BST and keep a count
+    // of the number of nodes visited.
     // The count will be equal to k when the kth smallest element is visited.
 
     // Using Iterative Approach
@@ -693,7 +711,6 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         return -1;
     }
 
-
     // Using recursive approach to find kth smallest element in the BST
 
     public int kthSmallest(Node root, int k, int[] count) {
@@ -712,23 +729,23 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     }
 
     public int kthSmallest(Node root, int k) {
-        return kthSmallest(root, k, new int[] {0});
+        return kthSmallest(root, k, new int[] { 0 });
     }
 
     // Function to find kth largest element in the BST
 
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Input: 3
     // Output: 60
 
-    // Approach: The idea is to do a reverse inorder traversal of the BST and keep a count of the number of nodes visited.
+    // Approach: The idea is to do a reverse inorder traversal of the BST and keep a
+    // count of the number of nodes visited.
     // The count will be equal to k when the kth largest element is visited.
-
 
     public int kthLargest(Node root, int k) {
         Stack<Node> stack = new Stack<>();
@@ -770,50 +787,49 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     }
 
     public int kthLargest2(Node root, int k) {
-        return kthLargest(root, k, new int[] {0});
+        return kthLargest(root, k, new int[] { 0 });
     }
-
 
     // Function to Count pairs from 2 BST whose sum is equal to given value "X"
 
-    // Tree1:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree1: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
-    // Tree2:        55
-    //            /     \
-    //          35       75
-    //         /  \     /  \
-    //       25   45   65   85
+    // Tree2: 55
+    // / \
+    // 35 75
+    // / \ / \
+    // 25 45 65 85
 
     // Input: X = 100
     // Output: 3
 
-    // Approach: Method 1: For each node value a in BST 1, search the value (x – a) in BST 2. 
+    // Approach: Method 1: For each node value a in BST 1, search the value (x – a)
+    // in BST 2.
     // If value found then increment the count. For searching a value in BST.
-    public  int countPairs(Node root1, Node root2, int x)
-    {
+    public int countPairs(Node root1, Node root2, int x) {
         Set<Integer> set = new HashSet<>();
         Stack<Node> stack = new Stack<>();
         Node curr = root2;
- 
+
         while (curr != null || !stack.empty()) {
             while (curr != null) {
                 stack.push(curr);
                 curr = curr.left;
             }
- 
+
             curr = stack.pop();
             set.add(curr.key);
             curr = curr.right;
         }
- 
+
         // Traverse BST 1 and search for (x-a) in the set
         int count = 0;
         curr = root1;
- 
+
         while (curr != null || !stack.empty()) {
             while (curr != null) {
                 stack.push(curr);
@@ -828,45 +844,42 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
     }
 
-    
-    
     // Function to Count BST nodes that lie in a given range
-    
-   // Tree1:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+
+    // Tree1: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Input: lb = 30, ub = 60
-    //Output: 5
+    // Output: 5
 
-    public int getCount(Node root, int lb, int ub){
-        
-        if(root.key >= lb && root.key <= ub){
+    public int getCount(Node root, int lb, int ub) {
+
+        if (root.key >= lb && root.key <= ub) {
             return 1 + getCount(root.left, lb, ub) + getCount(root.right, lb, ub);
         }
 
-        else if(root.key < lb){
+        else if (root.key < lb) {
             return getCount(root.right, lb, ub);
-        }
-        else{
+        } else {
             return getCount(root.left, lb, ub);
-        } 
+        }
     }
 
+    // Function to Find the median of BST in O(n) time and O(1) space
 
-    // Function to  Find the median of BST in O(n) time and O(1) space
-
-    // Tree:        50
-    //            /     \
-    //          30       70
-    //         /  \     /  \
-    //       20   40   60   80
+    // Tree: 50
+    // / \
+    // 30 70
+    // / \ / \
+    // 20 40 60 80
 
     // Output: 50
 
-    // Approach: The idea is to do a reverse inorder traversal of the BST and keep a count of the number of nodes visited.
+    // Approach: The idea is to do a reverse inorder traversal of the BST and keep a
+    // count of the number of nodes visited.
     // The count will be equal to n/2 when the median element is visited.
 
     public int countNodes(Node root) {
@@ -893,24 +906,26 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
 
     public int findMedian(Node root) {
         int count = countNodes(root);
-        int[] median = new int[] {0};
+        int[] median = new int[] { 0 };
         return findMedian(root, (count + 1) / 2, median);
     }
 
-    
     // Function to Replace every element with the least greater element on its right
 
-    // Tree:        8
-    //            /     \
-    //          58       71
-    //         /  \        \
-    //       13   47       74
+    // Tree: 8
+    // / \
+    // 58 71
+    // / \ \
+    // 13 47 74
 
     // Output: 13 47 58 71 74
 
-    // Approach: If we traverse the array from backwards, we need  a data structure(ds) to support:
-    // Insert an element into our ds in sorted order (so at any point of time the elements in our ds are sorted)
-    // Finding the upper bound of the current element (upper bound will give just greater element from our ds if present)
+    // Approach: If we traverse the array from backwards, we need a data
+    // structure(ds) to support:
+    // Insert an element into our ds in sorted order (so at any point of time the
+    // elements in our ds are sorted)
+    // Finding the upper bound of the current element (upper bound will give just
+    // greater element from our ds if present)
 
     public void replaceWithLeastGreater(Node root, int[] succ) {
         if (root == null)
@@ -924,17 +939,16 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
     }
 
     public void replaceWithLeastGreater(Node root) {
-        int[] succ = new int[] {-1};
+        int[] succ = new int[] { -1 };
         replaceWithLeastGreater(root, succ);
     }
 
-    public  void replaceWithLeastGreater2(int[] arr)
-    {
+    public void replaceWithLeastGreater2(int[] arr) {
         TreeSet<Integer> s = new TreeSet<>();
-        for (int i = arr.length - 1; i >= 0;i--) { // traversing the array backwards
+        for (int i = arr.length - 1; i >= 0; i--) { // traversing the array backwards
             s.add(arr[i]); // inserting the element into set
             Integer it = s.higher(arr[i]); // finding upper bound
-                                    // (higher in java)
+            // (higher in java)
             if (it == null)
                 arr[i] = -1; // if upper_bound does not
                              // exist then -1
@@ -944,23 +958,22 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         }
     }
 
-
-
     // Function to print Flatten BST to sorted list
 
-    // Tree:        5
-    //            /     \
-    //          3       7
-    //         /  \     /  \
-    //       2    4    6    8
+    // Tree: 5
+    // / \
+    // 3 7
+    // / \ / \
+    // 2 4 6 8
 
-    //  Output: 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
-    //            |     |     |     |     |     |
-    //          NULL  NULL  NULL  NULL  NULL  NULL
-    
+    // Output: 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8
+    // | | | | | |
+    // NULL NULL NULL NULL NULL NULL
 
-    // Approach 1: In this approach we will use inorder traversal to flatten the BST when we move to next node just after leaving
-    // the current node we will set the left of current node to null and right of current node to next node.
+    // Approach 1: In this approach we will use inorder traversal to flatten the BST
+    // when we move to next node just after leaving
+    // the current node we will set the left of current node to null and right of
+    // current node to next node.
     // Time Complexity: O(n) and Space Complexity: O(H)
 
     public void flattenBST(Node root) {
@@ -982,8 +995,10 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         }
     }
 
-    // Approach 2: In this approch we will use inorder traversal to flatten the BST when we move to next node just after leaving
-    // the current node we will set the left of current node to null and right of current node to next node. 
+    // Approach 2: In this approch we will use inorder traversal to flatten the BST
+    // when we move to next node just after leaving
+    // the current node we will set the left of current node to null and right of
+    // current node to next node.
     public void inorder3(Node root, Node prev) {
         if (root == null)
             return;
@@ -995,48 +1010,47 @@ In the following implementation, Quick Sort is used which takes (n^2) time. This
         inorder3(root.right, prev);
     }
 
+    static Node prev;
 
-    static  Node prev;
-    
-// Function to perform 
-// in-order traversal
-public  void Inorder(Node curr)
-{
-  // Base case
-  if (curr == null)
-    return;
-  Inorder(curr.left);
-  prev.left = null;
-  prev.right = curr;
-  prev = curr;
-  Inorder(curr.right);
-}
-/*  
-// Function to flatten binary
-// tree using level order
-// traversal
-public  Node flattenBST(Node parent)
-{
-  // Dummy node
-  Node dummy = new Node(-1);
-  
-  // Pointer to previous
-  // element
-  prev = dummy;
-  
-  // Calling in-order
-  // traversal
-  Inorder(parent);
-  
-  prev.left = null;
-  prev.right = null;
-  Node ret = dummy.right;
-  
-  // Delete dummy node
-  //delete dummy;
-  return ret;
-}
-*/
+    // Function to perform
+    // in-order traversal
+    public void Inorder(Node curr) {
+        // Base case
+        if (curr == null)
+            return;
+        Inorder(curr.left);
+        prev.left = null;
+        prev.right = curr;
+        prev = curr;
+        Inorder(curr.right);
+    }
+
+    /*
+     * // Function to flatten binary
+     * // tree using level order
+     * // traversal
+     * public Node flattenBST(Node parent)
+     * {
+     * // Dummy node
+     * Node dummy = new Node(-1);
+     * 
+     * // Pointer to previous
+     * // element
+     * prev = dummy;
+     * 
+     * // Calling in-order
+     * // traversal
+     * Inorder(parent);
+     * 
+     * prev.left = null;
+     * prev.right = null;
+     * Node ret = dummy.right;
+     * 
+     * // Delete dummy node
+     * //delete dummy;
+     * return ret;
+     * }
+     */
     public Node flattenBST2(Node root) {
         Node dummy = new Node(-1);
         Node prev = dummy;
@@ -1049,22 +1063,23 @@ public  Node flattenBST(Node parent)
         return ret;
 
     }
-    
-    
+
     // Function to Check whether BST contains Dead end
 
-    // Tree:         8
-    //            /     \
-    //          5       9
-    //         /  \
-    //       2    7
-    //            /
-    //          6
-    
+    // Tree: 8
+    // / \
+    // 5 9
+    // / \
+    // 2 7
+    // /
+    // 6
+
     // Output: Yes
 
-    // Approach: The idea is to do an inorder traversal of the BST and keep track of the minimum and maximum values visited so far.
-    // For each node, check if the node value is equal to the minimum value or maximum value. If yes, then it is a dead end.
+    // Approach: The idea is to do an inorder traversal of the BST and keep track of
+    // the minimum and maximum values visited so far.
+    // For each node, check if the node value is equal to the minimum value or
+    // maximum value. If yes, then it is a dead end.
 
     public boolean isDeadEnd(Node root, int min, int max) {
         if (root == null)
@@ -1079,21 +1094,22 @@ public  Node flattenBST(Node parent)
     public boolean isDeadEnd(Node root) {
         return isDeadEnd(root, 1, Integer.MAX_VALUE);
     }
-    
 
-    //  Function to Check preorder is valid or not
+    // Function to Check preorder is valid or not
 
-    // Tree:         8
-    //            /     \
-    //          5       1
-    //         /  \
-    //       7    6
+    // Tree: 8
+    // / \
+    // 5 1
+    // / \
+    // 7 6
 
     // Input: 8 5 1 7 6
     // Output: False
 
-    // Approach: The idea is to use a stack to simulate the preorder traversal of the BST.
-    // For each node, if the current node value is less than the previous node value, 
+    // Approach: The idea is to use a stack to simulate the preorder traversal of
+    // the BST.
+    // For each node, if the current node value is less than the previous node
+    // value,
     // then it is not a valid preorder traversal.
 
     public boolean isValidPreorder(int[] preorder) {
@@ -1132,14 +1148,15 @@ public  Node flattenBST(Node parent)
         return true;
     }
 
-
     // Function to Given "n" appointments, find the conflicting appointments
 
     // Input: 1 5, 3 7, 2 6, 10 15, 5 6
     // Output: 3 7, 2 6, 5 6
 
-    // Approach: The idea is to use a TreeMap to store the end time of the appointments.
-    // For each appointment, check if the start time is less than the end time of the previous appointment.
+    // Approach: The idea is to use a TreeMap to store the end time of the
+    // appointments.
+    // For each appointment, check if the start time is less than the end time of
+    // the previous appointment.
     // If yes, then it is a conflicting appointment.
 
     public void conflictingAppointments(int[][] appointments) {
@@ -1157,9 +1174,6 @@ public  Node flattenBST(Node parent)
         }
     }
 
-
-    
-    
     public static void main(String[] args) {
         BinarySearchTreesDS bst = new BinarySearchTreesDS();
 
@@ -1176,9 +1190,9 @@ public  Node flattenBST(Node parent)
 
         // int key = 60;
         // if (bst.search(key))
-        //     System.out.println("\nKey " + key + " found in the BST");
+        // System.out.println("\nKey " + key + " found in the BST");
         // else
-        //     System.out.println("\nKey " + key + " not found in the BST");
+        // System.out.println("\nKey " + key + " not found in the BST");
 
         // bst.delete(20);
         // System.out.println("\nInorder traversal after deleting 20:");
@@ -1187,22 +1201,18 @@ public  Node flattenBST(Node parent)
         // System.out.println("\nFollowing Ouput is the nodes in the range K1 and K2:");
         // bst.printInRange(bst.root, 20, 70);
 
-
         // System.out.println("\nFollowing Ouput is the nodes from root to leaf:");
         // bst.printRootToLeaf(bst.root, new ArrayList<>());
 
         // if (bst.isBST(bst.root))
-        //     System.out.println("Given tree is a BST");
+        // System.out.println("Given tree is a BST");
         // else
-        //     System.out.println("Given tree is not a BST");
-
+        // System.out.println("Given tree is not a BST");
 
         // if (bst.isBSTUsingPrev(bst.root))
-        //     System.out.println("Given tree is a BST");
+        // System.out.println("Given tree is a BST");
         // else
-        //     System.out.println("Given tree is not a BST");
-
-
+        // System.out.println("Given tree is not a BST");
 
         // System.out.println("\nInorder traversal of the BST before mirroring:");
         // bst.inorder();
@@ -1210,46 +1220,43 @@ public  Node flattenBST(Node parent)
         // bst.mirror(bst.root);
         // bst.inorder();
 
-
         // int[] arr = {1, 2, 3, 4, 5, 6, 7};
         // Node root = bst.sortedArrayToBST(arr);
         // System.out.println("\nInorder traversal of the constructed BST:");
         // bst.inorderRec(root);
 
-
         // Node root = bst.balanceBST(bst.root);
         // System.out.println("\nInorder traversal of the Balanced BST:");
         // bst.inorderRec(root);
 
-
         /*
-        BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
-        bst1.insert(55);
-        bst1.insert(35);
-        bst1.insert(25);
-        bst1.insert(45);
-        bst1.insert(75);
-        bst1.insert(65);
-        bst1.insert(85);
+         * BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
+         * bst1.insert(55);
+         * bst1.insert(35);
+         * bst1.insert(25);
+         * bst1.insert(45);
+         * bst1.insert(75);
+         * bst1.insert(65);
+         * bst1.insert(85);
+         * 
+         * System.out.println("\nInorder traversal of the BST1:");
+         * bst.inorder();
+         * Node root = bst.mergeBSTs(bst.root, bst1.root);
+         * System.out.println("\nInorder traversal of the merged BST:");
+         * bst.inorderRec(root);
+         */
 
-        System.out.println("\nInorder traversal of the BST1:");
-        bst.inorder();
-        Node root = bst.mergeBSTs(bst.root, bst1.root);
-        System.out.println("\nInorder traversal of the merged BST:");
-        bst.inorderRec(root);
-        */
+        // bst.findMinMax(bst.root);
 
-
-        // bst.findMinMax(bst.root);    
-
-        // System.out.println("\nInorder predecessor of 50: " + bst.inorderPredecessor(bst.root));
-        // System.out.println("Inorder successor of 50: " + bst.inorderSuccessor(bst.root));
-
+        // System.out.println("\nInorder predecessor of 50: " +
+        // bst.inorderPredecessor(bst.root));
+        // System.out.println("Inorder successor of 50: " +
+        // bst.inorderSuccessor(bst.root));
 
         // bst.populateInorderSuccessor(bst.root);
-        // System.out.println("\nInorder traversal of the BST after populating inorder successor:");
+        // System.out.println("\nInorder traversal of the BST after populating inorder
+        // successor:");
         // bst.inorder();
-
 
         // int n1 = 20, n2 = 40;
         // Node t = bst.LCA(bst.root, n1, n2);
@@ -1258,112 +1265,112 @@ public  Node flattenBST(Node parent)
         // Node t = bst.LCAIterative(bst.root, n1, n2);
         // System.out.println("\nLCA of " + n1 + " and " + n2 + " is :" + t.key);
 
-
         // int[] preorder = {10, 5, 1, 7, 40, 50};
         // Node root = bst.constructBSTFromPreorder(preorder);
         // System.out.println("\nInorder traversal of the constructed BST:");
         // bst.inorderRec(root);
 
-
         // Node root = bst.binaryTreeToBST(bst.root);
-        // System.out.println("\nInorder traversal of the BST after converting binary tree to BST:");
+        // System.out.println("\nInorder traversal of the BST after converting binary
+        // tree to BST:");
         // bst.inorderRec(root);
 
+        // int k = 3;
+        // System.out.println("\n" + k + "th smallest element in the BST: " +
+        // bst.kthSmallestNaive(bst.root, k));
+        // System.out.println("\n" + k + "th smallest element in the BST: " +
+        // bst.kthSmallestIterative(bst.root, k));
+        // System.out.println("\n" + k + "th smallest element in the BST: " +
+        // bst.kthSmallest(bst.root, k));
 
         // int k = 3;
-        // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallestNaive(bst.root, k));
-        // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallestIterative(bst.root, k));
-        // System.out.println("\n" + k + "th smallest element in the BST: " + bst.kthSmallest(bst.root, k));
-
-        // int k = 3;
-        // System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k));
-        // System.out.println("\n" + k + "th largest element in the BST: " + bst.kthLargest(bst.root, k, new int[] {0}));
+        // System.out.println("\n" + k + "th largest element in the BST: " +
+        // bst.kthLargest(bst.root, k));
+        // System.out.println("\n" + k + "th largest element in the BST: " +
+        // bst.kthLargest(bst.root, k, new int[] {0}));
 
         /*
-        BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
-        bst1.insert(55);
-        bst1.insert(35);
-        bst1.insert(25);
-        bst1.insert(45);
-        bst1.insert(75);
-        bst1.insert(65);
-        bst1.insert(85);
-
-        int X = 100;
-        System.out.println("\nNumber of pairs from 2 BSTs whose sum is equal to " + X + ": " + bst.countPairs(bst.root, bst1.root, X));
-            */
-
+         * BinarySearchTreesDS bst1 = new BinarySearchTreesDS();
+         * bst1.insert(55);
+         * bst1.insert(35);
+         * bst1.insert(25);
+         * bst1.insert(45);
+         * bst1.insert(75);
+         * bst1.insert(65);
+         * bst1.insert(85);
+         * 
+         * int X = 100;
+         * System.out.println("\nNumber of pairs from 2 BSTs whose sum is equal to " + X
+         * + ": " + bst.countPairs(bst.root, bst1.root, X));
+         */
 
         // int lb = 30, ub = 60;
-        // System.out.println("\nNumber of nodes in the range [" + lb + ", " + ub + "]: " + bst.getCount(bst.root, lb, ub));
-
+        // System.out.println("\nNumber of nodes in the range [" + lb + ", " + ub + "]:
+        // " + bst.getCount(bst.root, lb, ub));
 
         // System.out.println("\nMedian of the BST: " + bst.findMedian(bst.root));
-        
-        
+
         // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
-        // bst2.replaceWithLeastGreater2(new int[]{8, 58, 71, 18, 31, 32, 63, 92, 43, 3, 91, 93, 25, 80, 28});
-        // System.out.println("\nInorder traversal of the BST after replacing with least greater element:");
+        // bst2.replaceWithLeastGreater2(new int[]{8, 58, 71, 18, 31, 32, 63, 92, 43, 3,
+        // 91, 93, 25, 80, 28});
+        // System.out.println("\nInorder traversal of the BST after replacing with least
+        // greater element:");
         // bst2.inorder();
 
         /*
-        BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
-        bst2.insert(5);
-        bst2.insert(3);
-        bst2.insert(2);
-        bst2.insert(4);
-        bst2.insert(7);
-        bst2.insert(6);
-        bst2.insert(8);
-
-        Node root = bst2.flattenBST2(bst2.root);
-        System.out.println("\nFlatten BST to sorted list:");
-        while (root != null) {
-            System.out.print(root.key + " -> ");
-            root = root.right;
-        } */
-
+         * BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+         * bst2.insert(5);
+         * bst2.insert(3);
+         * bst2.insert(2);
+         * bst2.insert(4);
+         * bst2.insert(7);
+         * bst2.insert(6);
+         * bst2.insert(8);
+         * 
+         * Node root = bst2.flattenBST2(bst2.root);
+         * System.out.println("\nFlatten BST to sorted list:");
+         * while (root != null) {
+         * System.out.print(root.key + " -> ");
+         * root = root.right;
+         * }
+         */
 
         /*
-        BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
-        bst2.insert(8);
-        bst2.insert(5);
-        bst2.insert(2);
-        bst2.insert(7);
-        bst2.insert(6);
-        bst2.insert(9);
-        bst2.insert(13);
-        bst2.insert(47);
-        bst2.insert(6);
-
-        if (bst2.isDeadEnd(bst2.root))
-            System.out.println("Yes");
-        else
-            System.out.println("No");
-        */
-
+         * BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
+         * bst2.insert(8);
+         * bst2.insert(5);
+         * bst2.insert(2);
+         * bst2.insert(7);
+         * bst2.insert(6);
+         * bst2.insert(9);
+         * bst2.insert(13);
+         * bst2.insert(47);
+         * bst2.insert(6);
+         * 
+         * if (bst2.isDeadEnd(bst2.root))
+         * System.out.println("Yes");
+         * else
+         * System.out.println("No");
+         */
 
         // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
         // int[] preorder = {8, 5, 1, 7, 6};
         // if (bst2.isValidPreorder(preorder))
-        //     System.out.println("Valid preorder");
+        // System.out.println("Valid preorder");
         // else
-        //     System.out.println("Invalid preorder");
-
+        // System.out.println("Invalid preorder");
 
         // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
         // int[] preorder = {8, 5, 1, 7, 6};
         // if (bst2.isValidPreorder2(preorder))
-        //     System.out.println("Valid preorder");
+        // System.out.println("Valid preorder");
         // else
-        //     System.out.println("Invalid preorder");
-
+        // System.out.println("Invalid preorder");
 
         // BinarySearchTreesDS bst2 = new BinarySearchTreesDS();
         // int[][] appointments = {{1, 5}, {3, 7}, {2, 6}, {10, 15}, {5, 6}};
         // System.out.println("Conflicting appointments:");
         // bst2.conflictingAppointments(appointments);
-
 
     }
 }
