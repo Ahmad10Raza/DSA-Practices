@@ -1,5 +1,9 @@
 import java.util.*;
 import java.util.Stack;
+import java.util.HashSet;
+import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BinarySearchTreesDS {
     class Node {
@@ -221,6 +225,17 @@ public class BinarySearchTreesDS {
     // Explanation: 5 10 40 are the node in the
     // range
 
+    // Follows the below steps to count the nodes in the given range:
+    // 1. If the root is null, then return 0.
+    // 2. If the root's key is greater than h, then recursively call the function
+    // for
+    // the left subtree.
+    // 3. If the root's key is smaller than l, then recursively call the function
+    // for
+    // the right subtree.
+    // 4. If the root's key is in the range, then recursively call the function for
+    // both left and right subtrees.
+
     public int getCountOfNode(Node root, int l, int h) {
         if (root == null)
             return 0;
@@ -250,6 +265,14 @@ public class BinarySearchTreesDS {
     // 50 70 60
     // 50 70 80
 
+    // Follows the below steps to print the path from the root node to the leaf
+    // node:
+    // 1. If the root is null, then return.
+    // 2. Add the root's key to the path.
+    // 3. If the root is a leaf node, then print the path.
+    // 4. Recursively call the function for the left and right subtrees.
+    // 5. Remove the last element from the path.
+
     public void printRootToLeaf(Node root, List<Integer> path) {
         if (root == null)
             return;
@@ -278,6 +301,21 @@ public class BinarySearchTreesDS {
 
     // Output: Given tree is a BST
 
+    // Approach: The idea is to do an inorder traversal of the BST and keep track of
+    // the previous node visited.
+    // If the current node's value is less than the previous node's value, then the
+    // tree is not a BST.
+
+    public boolean isBST(Node root) {
+        List<Integer> nodes = new ArrayList<>();
+        inorder2(root, nodes);
+        for (int i = 1; i < nodes.size(); i++) {
+            if (nodes.get(i) <= nodes.get(i - 1))
+                return false;
+        }
+        return true;
+    }
+
     public boolean isValidBST(Node root) {
         return isValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
@@ -285,8 +323,12 @@ public class BinarySearchTreesDS {
     public boolean isValidBST(Node root, long minVal, long maxVal) {
         if (root == null)
             return true;
+        // If the current node's value is less than the minimum value or greater than
+        // the maximum value, then the tree is not a BST.
         if (root.key >= maxVal || root.key <= minVal)
             return false;
+        // Recursively call the function for the left subtree with the updated maximum
+        // value and minimum value.
         return isValidBST(root.left, minVal, root.key) && isValidBST(root.right, root.key, maxVal);
     }
 
@@ -321,6 +363,11 @@ public class BinarySearchTreesDS {
 
     // Output: 50 70 80 60 30 40 20
 
+    // Follows the below steps to print the mirror of the tree:
+    // 1. If the root is null, then return.
+    // 2. Recursively call the function for the left and right subtrees.
+    // 3. Swap the left and right child of the root.
+
     public void mirror(Node root) {
         if (root == null)
             return;
@@ -342,6 +389,16 @@ public class BinarySearchTreesDS {
     // 2 6
     // / \ / \
     // 1 3 5 7
+
+    // Approach: The idea is to insert the middle element of the array to the root
+    // and recursively construct the left and right subtrees.
+
+    // Follows the below steps to construct the Balanced BST from the sorted array:
+    // 1. If the start is greater than the end, then return null.
+    // 2. Find the middle element of the array.
+    // 3. Create a new node with the middle element.
+    // 4. Recursively call the function for the left and right subtrees.
+    // 5. Return the root node.
 
     public Node sortedArrayToBST(int[] arr, int start, int end) {
         if (start > end)
@@ -406,6 +463,16 @@ public class BinarySearchTreesDS {
     // 25 45 65 85
 
     // Output: 20 25 30 35 40 45 50 55 60 65 70 75 80 85
+
+    // Approach: The idea is to do an inorder traversal of both BSTs and merge the
+    // nodes of both BSTs into a single list.
+    // After merging the nodes, construct a balanced BST from the merged list.
+
+    // Follows the below steps to merge two BSTs:
+    // 1. Do an inorder traversal of the first BST and store the nodes in a list.
+    // 2. Do an inorder traversal of the second BST and store the nodes in a list.
+    // 3. Merge the nodes of both BSTs into a single list.
+    // 4. Construct a balanced BST from the merged list.
 
     public Node mergeBSTs(Node root1, Node root2) {
         List<Node> nodes1 = new ArrayList<>();
@@ -534,6 +601,12 @@ public class BinarySearchTreesDS {
     // Input: 20, 40
     // Output: 30
 
+    // Approach: The idea is to traverse the tree starting from the root node.
+    // If both n1 and n2 are smaller than the root, then the LCA lies in the left
+    // subtree.
+    // If both n1 and n2 are greater than the root, then the LCA lies in the right
+    // subtree.
+    // Otherwise, the root is the LCA.
     public Node LCA(Node root, int n1, int n2) {
         if (root == null)
             return null;
