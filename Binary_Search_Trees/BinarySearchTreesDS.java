@@ -1,9 +1,7 @@
 import java.util.*;
-import java.util.Stack;
 import java.util.HashSet;
-import java.util.Collections;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 
 public class BinarySearchTreesDS {
     class Node {
@@ -856,6 +854,13 @@ public class BinarySearchTreesDS {
 
     // Function to find kth largest element in the BST using recursive approach
 
+    // Follows the below steps to find the kth largest element in the BST:
+    // 1. If the root is null, then return -1.
+    // 2. Recursively call the function for the right subtree.
+    // 3. Increment the count.
+    // 4. If the count is equal to k, then return the root's key.
+    // 5. Recursively call the function for the left subtree.
+
     public int kthLargest(Node root, int k, int count[]) {
         if (root == null)
             return -1;
@@ -877,24 +882,30 @@ public class BinarySearchTreesDS {
 
     // Function to Count pairs from 2 BST whose sum is equal to given value "X"
 
-    // Tree1: 50
+    // Input : BST 1: 5
     // / \
-    // 30 70
+    // 3 7
     // / \ / \
-    // 20 40 60 80
+    // 2 4 6 8
 
-    // Tree2: 55
+    // BST 2: 10
     // / \
-    // 35 75
+    // 6 15
     // / \ / \
-    // 25 45 65 85
+    // 3 8 11 18
+    // x = 16
 
-    // Input: X = 100
-    // Output: 3
+    // Output : 3
+    // The pairs are:
+    // (5, 11), (6, 10) and (8, 8)
 
-    // Approach: Method 1: For each node value a in BST 1, search the value (x – a)
-    // in BST 2.
-    // If value found then increment the count. For searching a value in BST.
+    // Follows the below steps to count the pairs from 2 BSTs whose sum is equal to
+    // the given value:
+    // 1. Create an empty set to store the nodes of the second BST.
+    // 2. Do an inorder traversal of the second BST and store the nodes in the set.
+    // 3. Traverse the first BST and search for (x-a) in the set.
+    // 4. If the (x-a) is found in the set, then increment the count.
+
     public int countPairs(Node root1, Node root2, int x) {
         Set<Integer> set = new HashSet<>();
         Stack<Node> stack = new Stack<>();
@@ -926,7 +937,6 @@ public class BinarySearchTreesDS {
             curr = curr.right;
         }
         return count;
-
     }
 
     // Function to Count BST nodes that lie in a given range
@@ -966,6 +976,13 @@ public class BinarySearchTreesDS {
     // Approach: The idea is to do a reverse inorder traversal of the BST and keep a
     // count of the number of nodes visited.
     // The count will be equal to n/2 when the median element is visited.
+
+    // Follows the below steps to find the median of the BST:
+    // 1. If the root is null, then return 0.
+    // 2. Recursively call the function for the right subtree.
+    // 3. Increment the count.
+    // 4. If the count is equal to n/2, then return the root's key.
+    // 5. Recursively call the function for the left subtree.
 
     public int countNodes(Node root) {
         if (root == null)
