@@ -1,4 +1,3 @@
-
 // Problem Statement: You are given a sorted array ‘arr’ of length ‘n’, which contains positive integer positions of ‘n’ gas stations on the X-axis. You are also given an integer ‘k’. You have to place 'k' new gas stations on the X-axis. You can place them anywhere on the non-negative side of the X-axis, even on non-integer positions. Let 'dist' be the maximum value of the distance between adjacent gas stations after adding k new gas stations.
 // Find the minimum value of ‘dist’.
 
@@ -41,6 +40,59 @@
 
 // For example, the gas stations are = {1, 7} and k = 2. Here, the ‘dist’ is = (7-1) = 6. So, the space between two gas stations will be dis / (k+1) = 6 / (2+1) = 2. The placements will be as follows: {1, 3, 5, 7}.
 
+// Approach: Binary Search Tree
+// For this problem, we can use the binary search tree approach. We can use the binary search tree to find the minimum value of ‘dist’.
+
+// Follow below steps to solve the problem:
+// 1. Find the maximum distance between two consecutive gas stations.
+// 2. Initialize the low and high values for the binary search. The low value will be 0 and the high value will be the maximum distance between two consecutive gas stations.
+// 3. Find the mid value of low and high.
+// 4. Check if it is possible to place the gas stations in such a way that the maximum distance between two consecutive gas stations is less than or equal to mid. If it is possible, then update the high value to mid. Otherwise, update the low value to mid.
+// 5. Repeat steps 3 and 4 until the low value is less than the high value.
+// 6. Return the high value as the answer.
+
 public class MinimiseMaximumDistancebwGasStation {
 
+    public static void main(String[] args) {
+        int[] arr = { 1, 2, 3, 4, 5 };
+        int k = 4;
+        System.out.println(minimiseMaxDistance(arr, k));
+    }
+
+    public static int numberOfGasStationsRequired(double dist, int[] arr) {
+        int n = arr.length; // size of the array
+        int cnt = 0;
+        for (int i = 1; i < n; i++) {
+            int numberInBetween = (int) ((arr[i] - arr[i - 1]) / dist);
+            if ((arr[i] - arr[i - 1]) == (dist * numberInBetween)) {
+                numberInBetween--;
+            }
+            cnt += numberInBetween;
+        }
+        return cnt;
+    }
+
+    public static double minimiseMaxDistance(int[] arr, int k) {
+        int n = arr.length; // size of the array
+        double low = 0;
+        double high = 0;
+
+        // Find the maximum distance:
+        for (int i = 0; i < n - 1; i++) {
+            high = Math.max(high, (double) (arr[i + 1] - arr[i]));
+        }
+
+        // Apply Binary search:
+        double diff = 1e-6;
+        while (high - low > diff) {
+            double mid = (low + high) / (2.0);
+            int cnt = numberOfGasStationsRequired(mid, arr);
+            if (cnt > k) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+        return high;
+    }
 }
