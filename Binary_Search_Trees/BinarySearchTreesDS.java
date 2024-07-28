@@ -661,6 +661,14 @@ public class BinarySearchTreesDS {
      * 
      */
 
+    // Follows the below steps to construct the BST from the preorder traversal:
+    // 1. If the index is greater than or equal to the length of the preorder array,
+    // then return null.
+    // 2. If the value is not in the range, then return null.
+    // 3. Create a new node with the value.
+    // 4. Recursively call the function for the left and right subtrees.
+    // 5. Return the root node.
+
     public Node constructBSTFromPreorder(int[] preorder) {
         return constructBSTFromPreorder(preorder, new int[] { 0 }, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
@@ -750,6 +758,10 @@ public class BinarySearchTreesDS {
 
     // Input: 3
     // Output: 40
+
+    // Approach: The idea is to do an inorder traversal of the BST and store the
+    // nodes in a list.
+    // The kth smallest element will be the k-1th element in the list.
 
     public int kthSmallestNaive(Node root, int k) {
         List<Integer> nodes = new ArrayList<>();
