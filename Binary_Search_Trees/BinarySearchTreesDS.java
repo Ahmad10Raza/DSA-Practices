@@ -1021,6 +1021,8 @@ public class BinarySearchTreesDS {
     // 13 47 74
 
     // Output: 13 47 58 71 74
+    // Explanation: In the given BST, the least greater element of 8 is 13, 58 is
+    // 71, 71 is 74, 47 is 58 and 74 is NULL.
 
     // Approach: If we traverse the array from backwards, we need a data
     // structure(ds) to support:
@@ -1028,6 +1030,17 @@ public class BinarySearchTreesDS {
     // elements in our ds are sorted)
     // Finding the upper bound of the current element (upper bound will give just
     // greater element from our ds if present)
+
+    // Follows the below steps to replace every element with the least greater
+    // element on its right:
+    // 1. Create a TreeSet to store the elements.
+    // 2. Traverse the array from backwards.
+    // 3. Insert the element into the TreeSet.
+    // 4. Find the upper bound of the current element.
+    // 5. If the upper bound exists, then replace the current element with the upper
+    // bound.
+    // 6. If the upper bound does not exist, then replace the current element with
+    // -1.
 
     public void replaceWithLeastGreater(Node root, int[] succ) {
         if (root == null)
@@ -1078,6 +1091,13 @@ public class BinarySearchTreesDS {
     // current node to next node.
     // Time Complexity: O(n) and Space Complexity: O(H)
 
+    // Follows the below steps to flatten the BST to a sorted list:
+    // 1. If the root is null, then return.
+    // 2. Flatten the left subtree.
+    // 3. Set the left of the current node to null and right to the next node.
+    // 4. Move to the next node.
+    // 5. Flatten the right subtree.
+
     public void flattenBST(Node root) {
         if (root == null)
             return;
@@ -1101,6 +1121,10 @@ public class BinarySearchTreesDS {
     // when we move to next node just after leaving
     // the current node we will set the left of current node to null and right of
     // current node to next node.
+
+    // Time Complexity: O(n) and Space Complexity: O(H)
+    // Follows the below steps to flatten the BST to a sorted list:
+
     public void inorder3(Node root, Node prev) {
         if (root == null)
             return;
@@ -1183,6 +1207,14 @@ public class BinarySearchTreesDS {
     // For each node, check if the node value is equal to the minimum value or
     // maximum value. If yes, then it is a dead end.
 
+    // Follows the below steps to check whether the BST contains a dead end:
+    // 1. If the root is null, then return false.
+    // 2. If the minimum value is equal to the maximum value, then return true.
+    // 3. Recursively call the function for the left subtree with the updated
+    // maximum value and minimum value.
+    // 4. Recursively call the function for the right subtree with the updated
+    // maximum value and minimum value.
+
     public boolean isDeadEnd(Node root, int min, int max) {
         if (root == null)
             return false;
@@ -1213,6 +1245,18 @@ public class BinarySearchTreesDS {
     // For each node, if the current node value is less than the previous node
     // value,
     // then it is not a valid preorder traversal.
+
+    // Follows the below steps to check whether the preorder is valid or not:
+    // 1. Create a stack to store the nodes.
+    // 2. Initialize the root as the minimum value.
+    // 3. For each node, if the current node value is less than the root, then
+    // return
+    // false.
+    // 4. If the stack is not empty and the current node value is greater than the
+    // top of the stack,
+    // then pop the stack until the stack is empty or the current node value is
+    // greater than the top of the stack.
+    // 5. Push the current node value to the stack.
 
     public boolean isValidPreorder(int[] preorder) {
         Stack<Integer> stack = new Stack<>();
@@ -1260,6 +1304,12 @@ public class BinarySearchTreesDS {
     // For each appointment, check if the start time is less than the end time of
     // the previous appointment.
     // If yes, then it is a conflicting appointment.
+
+    // Follows the below steps to find the conflicting appointments:
+    // 1. Create a TreeMap to store the appointments.
+    // 2. For each appointment, check if the start time is less than the end time of
+    // the previous appointment.
+    // 3. If yes, then print the conflicting appointments.
 
     public void conflictingAppointments(int[][] appointments) {
         TreeMap<Integer, Integer> map = new TreeMap<>();
