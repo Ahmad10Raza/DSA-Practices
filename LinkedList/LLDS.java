@@ -519,7 +519,7 @@ public class LLDS {
         return head;
     }
 
-    // Function to find inersection of two linkedlist
+    // Function to find inersection point of two linkedlist
 
     // Input: LinkedList1 = 1->2->3->4->5, LinkedList2 = 6->7->8->3->4->5
     // Output: 3
@@ -639,7 +639,7 @@ public class LLDS {
         return head;
     }
 
-    // Function for de;ete a middle node from LL
+    // Function for delete a middle node from LL
 
     // Input: LinkedList = 1->2->3->4->5
     // Output: LinkedList = 1->2->4->5
@@ -892,6 +892,22 @@ public class LLDS {
     // If the data of the nodes of the first half and the reversed second half are
     // not the same, the linked list is not a palindrome.
 
+    // Follow below steps to check if a linked list is palindrome:
+    // 1. Traverse the linked list using two pointers slow and fast.
+    // 2. Move the slow pointer one node at a time and the fast pointer two nodes at
+    // a time.
+    // 3. When the fast pointer reaches the end of the linked list, the slow pointer
+    // will be at the middle of the linked list.
+    // 4. Reverse the second half of the linked list.
+    // 5. Compare the first half of the linked list and the reversed second half of
+    // the linked list.
+    // 6. If the data of the nodes of the first half and the reversed second half
+    // are
+    // the same, the linked list is a palindrome.
+    // 7. If the data of the nodes of the first half and the reversed second half
+    // are
+    // not the same, the linked list is not a palindrome.
+
     public boolean isPalindrome(Node head) {
         Node slow = head;
         Node fast = head;
@@ -1112,13 +1128,13 @@ public class LLDS {
         Node ptr2 = loop;
 
         // Count the number of nodes in loop
-        int k = 1, i;
+
         Node prevNode = ptr1;
         while (ptr1.next != ptr2) {
             // keeping track beforeing moving next
             prevNode = ptr1;
             ptr1 = ptr1.next;
-            k++;
+
         }
         prevNode.next = null;
     }
