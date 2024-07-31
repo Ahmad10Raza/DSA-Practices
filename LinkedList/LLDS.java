@@ -1,4 +1,5 @@
 import java.util.HashSet;
+
 public class LLDS {
 
     class Node {
@@ -9,10 +10,10 @@ public class LLDS {
             this.data = data;
             this.next = null;
         }
-    }             
+    }
 
     Node head;
-    Node tail=null; // Declare the head variable
+    Node tail = null; // Declare the head variable
 
     public boolean isEmpty() {
         return head == null;
@@ -28,8 +29,6 @@ public class LLDS {
         return count;
     }
 
-    
-
     public int sizeRecursive(Node current) {
         if (current == null) {
             return 0;
@@ -39,18 +38,22 @@ public class LLDS {
 
     // Function to insert a new Node at front of the list
 
-// Input: LinkedList = 2->3->4->5, NewNode = 1
-// Output: LinkedList = 1->2->3->4->5
+    // Input: LinkedList = 2->3->4->5, NewNode = 1
+    // Output: LinkedList = 1->2->3->4->5
 
-// Input: LinkedList = , NewNode = 1
-// Output: LinkedList = 1
+    // Input: LinkedList = , NewNode = 1
+    // Output: LinkedList = 1
 
-        // Approach: The new node is always added before the head of the given Linked List. And newly 
-        // added node will become the new head of the Linked List. 
-        // For example if the given Linked List is 10->15->20->25 and we add an item 5 at the front, 
-        // then the Linked List becomes 5->10->15->20->25. Let us call the function that adds at the 
-        // front of the list is push(). The push() must receive a pointer to the head pointer, 
-        // because push must change the head pointer to point to the new node
+    // Approach: The new node is always added before the head of the given Linked
+    // List. And newly
+    // added node will become the new head of the Linked List.
+    // For example if the given Linked List is 10->15->20->25 and we add an item 5
+    // at the front,
+    // then the Linked List becomes 5->10->15->20->25. Let us call the function that
+    // adds at the
+    // front of the list is push(). The push() must receive a pointer to the head
+    // pointer,
+    // because push must change the head pointer to point to the new node
 
     public void insertAtBeginning(int data) {
         Node newNode = new Node(data);
@@ -63,14 +66,17 @@ public class LLDS {
 
     // Function to insert a new node at the end of the list
 
-// Input: LinkedList = 1->2->3->4->5, NewNode = 6
-// Output: LinkedList = 1->2->3->4->5->6
+    // Input: LinkedList = 1->2->3->4->5, NewNode = 6
+    // Output: LinkedList = 1->2->3->4->5->6
 
-       // Approach: The new node is always added after the last node of the given Linked List.
-         // For example if the given Linked List is 5->10->15->20->25 and we add an item 30 at the end,
-            // then the Linked List becomes 5->10->15->20->25->30. Since a Linked List is typically
-            // represented by the head of it, we have to traverse the list till end and then change the next of last node to new node.
-
+    // Approach: The new node is always added after the last node of the given
+    // Linked List.
+    // For example if the given Linked List is 5->10->15->20->25 and we add an item
+    // 30 at the end,
+    // then the Linked List becomes 5->10->15->20->25->30. Since a Linked List is
+    // typically
+    // represented by the head of it, we have to traverse the list till end and then
+    // change the next of last node to new node.
 
     public void insertAtEnd(int data) {
         Node newNode = new Node(data);
@@ -85,11 +91,13 @@ public class LLDS {
 
     // Function to insert a new node after a given node
 
-// Input: LinkedList = 1->2->3->4, NewNode = 8, PrevNode = 3
-// Output: LinkedList = 1->2->3->8->4
+    // Input: LinkedList = 1->2->3->4, NewNode = 8, PrevNode = 3
+    // Output: LinkedList = 1->2->3->8->4
 
-// Approach: The new node is always added after the given prev_node. For example if the given 
-// Linked List is 5->10->15->20->25 and we add an item 30 after 15, the Linked List looks like 5->10->15->30->20->25.
+    // Approach: The new node is always added after the given prev_node. For example
+    // if the given
+    // Linked List is 5->10->15->20->25 and we add an item 30 after 15, the Linked
+    // List looks like 5->10->15->30->20->25.
 
     public void insertAtPosition(int data, int position) {
         if (position < 0) {
@@ -122,11 +130,12 @@ public class LLDS {
 
     // Function to delete a node at the beginning of the list
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: LinkedList = 2->3->4->5
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 2->3->4->5
 
-// Approach: The linked list can be traversed and the head can be changed to the next node in the list.
-// The previous head node will be garbage collected by Java Garbage Collector.
+    // Approach: The linked list can be traversed and the head can be changed to the
+    // next node in the list.
+    // The previous head node will be garbage collected by Java Garbage Collector.
 
     public void deleteAtBeginning() {
         if (isEmpty()) {
@@ -142,12 +151,13 @@ public class LLDS {
 
     // Function to delete a node at the end of the list
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: LinkedList = 1->2->3->4
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 1->2->3->4
 
-// Approach: The linked list can be traversed and the second last node can be found.
-// The next of the second last node will be null and the last node will be garbage collected by Java Garbage Collector.
-
+    // Approach: The linked list can be traversed and the second last node can be
+    // found.
+    // The next of the second last node will be null and the last node will be
+    // garbage collected by Java Garbage Collector.
 
     public void deleteAtEnd() {
         if (isEmpty()) {
@@ -169,11 +179,13 @@ public class LLDS {
 
     // Function to delete a node after a given node
 
-// Input: LinkedList = 1->2->3->4, Node = 3
-// Output: LinkedList = 1->2->3
+    // Input: LinkedList = 1->2->3->4, Node = 3
+    // Output: LinkedList = 1->2->3
 
-// Approach: The linked list can be traversed and the node after the given node can be found.
-// The next of the given node will be changed to the next of the next node and the next node will be garbage collected by Java Garbage Collector.
+    // Approach: The linked list can be traversed and the node after the given node
+    // can be found.
+    // The next of the given node will be changed to the next of the next node and
+    // the next node will be garbage collected by Java Garbage Collector.
 
     public void deleteAtPosition(int position) {
         if (position < 0) {
@@ -205,12 +217,14 @@ public class LLDS {
 
     // Function to get the data of a node at a given position
 
-// Input: LinkedList = 1->2->3->4->5, Position = 2
-// Output: 3
+    // Input: LinkedList = 1->2->3->4->5, Position = 2
+    // Output: 3
 
-// Approach: The linked list can be traversed and the data of the node at the given position can be returned.
-// If the position is less than 0, an IllegalArgumentException is thrown.
-// If the position is greater than the size of the linked list, an IndexOutOfBoundsException is thrown.
+    // Approach: The linked list can be traversed and the data of the node at the
+    // given position can be returned.
+    // If the position is less than 0, an IllegalArgumentException is thrown.
+    // If the position is greater than the size of the linked list, an
+    // IndexOutOfBoundsException is thrown.
 
     public int get(int index) {
         if (index < 0) {
@@ -230,13 +244,14 @@ public class LLDS {
 
     // Function to get the data of a node at a given position using recursion
 
-// Input: LinkedList = 1->2->3->4->5, Position = 2
-// Output: 3
+    // Input: LinkedList = 1->2->3->4->5, Position = 2
+    // Output: 3
 
-// Approach: The linked list can be traversed recursively and the data of the node at the given position can be returned.
-// If the position is less than 0, an IllegalArgumentException is thrown.
-// If the position is greater than the size of the linked list, an IndexOutOfBoundsException is thrown.
-
+    // Approach: The linked list can be traversed recursively and the data of the
+    // node at the given position can be returned.
+    // If the position is less than 0, an IllegalArgumentException is thrown.
+    // If the position is greater than the size of the linked list, an
+    // IndexOutOfBoundsException is thrown.
 
     public int getRecursive(Node current, int index) {
         if (current == null) {
@@ -250,12 +265,12 @@ public class LLDS {
 
     // Function to traverse the list
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: 1 -> 2 -> 3 -> 4 -> 5 -> null
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: 1 -> 2 -> 3 -> 4 -> 5 -> null
 
-// Approach: The linked list can be traversed and the data of each node can be printed.
-// The traversal can be done iteratively or recursively.
-
+    // Approach: The linked list can be traversed and the data of each node can be
+    // printed.
+    // The traversal can be done iteratively or recursively.
 
     public void traverse() {
         Node current = head;
@@ -268,11 +283,12 @@ public class LLDS {
 
     // Function to traverse the list using recursion
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: 1 -> 2 -> 3 -> 4 -> 5 -> null
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: 1 -> 2 -> 3 -> 4 -> 5 -> null
 
-// Approach: The linked list can be traversed recursively and the data of each node can be printed.
-// The traversal can be done iteratively or recursively.
+    // Approach: The linked list can be traversed recursively and the data of each
+    // node can be printed.
+    // The traversal can be done iteratively or recursively.
 
     public void traverseRecursive(Node current) {
         if (current == null) {
@@ -285,18 +301,17 @@ public class LLDS {
 
     // Additional functionalities:
 
-
     // Function to search for an element in the list
 
-// Input: LinkedList = 1->2->3->4->5, Element = 3
-// Output: Element found at index: 2
+    // Input: LinkedList = 1->2->3->4->5, Element = 3
+    // Output: Element found at index: 2
 
-// Input: LinkedList = 1->2->3->4->5, Element = 6
-// Output: Element not found
+    // Input: LinkedList = 1->2->3->4->5, Element = 6
+    // Output: Element not found
 
-// Approach: The linked list can be traversed and the element can be searched.
-// If the element is found, the index of the element can be returned.
-// If the element is not found, a message can be printed.
+    // Approach: The linked list can be traversed and the element can be searched.
+    // If the element is found, the index of the element can be returned.
+    // If the element is not found, a message can be printed.
 
     public void search(int data) {
         Node current = head;
@@ -313,7 +328,6 @@ public class LLDS {
         System.out.println("Element not found");
     }
 
-
     public void searchRecursive(Node current, int data, int index) {
         if (current == null) {
             System.out.println("Element not found");
@@ -328,11 +342,13 @@ public class LLDS {
 
     // Function to reverse the list
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: LinkedList = 5->4->3->2->1
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 5->4->3->2->1
 
-// Approach: The linked list can be reversed by changing the next of each node to the previous node.
-// The head of the linked list will be the last node after reversing the linked list.
+    // Approach: The linked list can be reversed by changing the next of each node
+    // to the previous node.
+    // The head of the linked list will be the last node after reversing the linked
+    // list.
 
     public Node reverse(Node head) {
         Node prev = null;
@@ -348,14 +364,15 @@ public class LLDS {
 
     }
 
-
     // Function to reverse the list using recursion
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: LinkedList = 5->4->3->2->1
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 5->4->3->2->1
 
-// Approach: The linked list can be reversed recursively by changing the next of each node to the previous node.
-// The head of the linked list will be the last node after reversing the linked list.
+    // Approach: The linked list can be reversed recursively by changing the next of
+    // each node to the previous node.
+    // The head of the linked list will be the last node after reversing the linked
+    // list.
 
     public Node reverseRecursive(Node current) {
         if (current == null || current.next == null) {
@@ -369,11 +386,12 @@ public class LLDS {
 
     // Function to clear the list
 
-// Input: LinkedList = 1->2->3->4->5
-// Output: LinkedList = null
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = null
 
-// Approach: The linked list can be traversed and the next of each node can be set to null.
-// The head of the linked list will be null after clearing the linked list.
+    // Approach: The linked list can be traversed and the next of each node can be
+    // set to null.
+    // The head of the linked list will be null after clearing the linked list.
 
     public void clear() {
         Node current = head;
@@ -387,168 +405,174 @@ public class LLDS {
 
     // Function to delete node as parameter
 
-// Input: LinkedList = 1->2->3->4->5, Node = 3
-// Output: LinkedList = 1->2->4->5
+    // Input: LinkedList = 1->2->3->4->5, Node = 3
+    // Output: LinkedList = 1->2->4->5
 
-// Approach: The linked list can be traversed and the node can be deleted by 
-// changing the next of the previous node to the next of the current node.
-// The deleted node will be garbage collected by Java Garbage Collector.
+    // Approach: The linked list can be traversed and the node can be deleted by
+    // changing the next of the previous node to the next of the current node.
+    // The deleted node will be garbage collected by Java Garbage Collector.
 
-    public void DeleteNodeItselfAsParameter(Node node){
-
+    public void DeleteNodeItselfAsParameter(Node node) {
 
         node.data = node.next.data;
         node.next = node.next.next;
     }
 
-
     // Function to get Nth node from the end of the linked list
 
-// Input: LinkedList = 1->2->3->4->5, N = 2
-// Output: 4
+    // Input: LinkedList = 1->2->3->4->5, N = 2
+    // Output: 4
 
-// Approach: The linked list can be traversed to find the size of the linked list.
-// The Nth node from the end can be found by traversing the linked list again to the Nth node from the start.
+    // Approach: The linked list can be traversed to find the size of the linked
+    // list.
+    // The Nth node from the end can be found by traversing the linked list again to
+    // the Nth node from the start.
 
-    public int getNthNode(Node node, int n){
-        int size=0;
-        Node temp=head;
-        while(temp!=null){
+    public int getNthNode(Node node, int n) {
+        int size = 0;
+        Node temp = head;
+        while (temp != null) {
             size++;
-            temp=temp.next;
+            temp = temp.next;
         }
 
-        int index = size-n+1;
+        int index = size - n + 1;
 
-        // now get the elements 
+        // now get the elements
         Node temp1 = head;
-        for(int i=0;i<index-1;i++){
+        for (int i = 0; i < index - 1; i++) {
             temp1 = temp1.next;
         }
         return temp1.data;
     }
 
-
     // Function for get Nth node from the end using one iteration
 
-// Input: LinkedList = 1->2->3->4->5, N = 2
-// Output: 4
+    // Input: LinkedList = 1->2->3->4->5, N = 2
+    // Output: 4
 
-// Approach: The linked list can be traversed using two pointers.
-// The first pointer can be moved N nodes ahead.
-// Then both pointers can be moved one node at a time until the first pointer reaches the end.
-// The second pointer will be at the Nth node from the end.
+    // Approach: The linked list can be traversed using two pointers.
+    // The first pointer can be moved N nodes ahead.
+    // Then both pointers can be moved one node at a time until the first pointer
+    // reaches the end.
+    // The second pointer will be at the Nth node from the end.
 
-    public  int getNthNodeSingle(Node node,int n){
+    public int getNthNodeSingle(Node node, int n) {
 
-        Node slow=head;
-        Node fast=head;
+        Node slow = head;
+        Node fast = head;
 
-        for(int i=1;i<=n;i++){
-            fast=fast.next;
+        for (int i = 1; i <= n; i++) {
+            fast = fast.next;
         }
 
-        while(fast !=  null){
+        while (fast != null) {
             slow = slow.next;
             fast = fast.next;
-        } 
+        }
 
         return slow.data;
     }
 
+    // Function to delete he Nth Node from end of the linked list
 
-    // Function to  delete he Nth Node from end of the linked list
+    // Input: LinkedList = 1->2->3->4->5, N = 2
+    // Output: LinkedList = 1->2->3->5
 
-// Input: LinkedList = 1->2->3->4->5, N = 2
-// Output: LinkedList = 1->2->3->5
+    // Approach: The linked list can be traversed using two pointers.
+    // The first pointer can be moved N nodes ahead.
+    // Then both pointers can be moved one node at a time until the first pointer
+    // reaches the end.
+    // The second pointer will be at the Nth node from the end.
+    // The next of the second pointer can be changed to the next of the next of the
+    // second pointer.
 
-// Approach: The linked list can be traversed using two pointers.
-// The first pointer can be moved N nodes ahead.
-// Then both pointers can be moved one node at a time until the first pointer reaches the end.
-// The second pointer will be at the Nth node from the end.
-// The next of the second pointer can be changed to the next of the next of the second pointer.
+    public Node deleteNthNode(Node node, int n) {
+        Node slow = head;
+        Node fast = head;
 
-
-    public Node deleteNthNode(Node node, int n){
-        Node slow=head;
-        Node fast=head;
-
-        for(int i=1;i<=n;i++){
-            fast=fast.next;
+        for (int i = 1; i <= n; i++) {
+            fast = fast.next;
         }
 
-        if(fast == null){
+        if (fast == null) {
             head = head.next;
             return head;
         }
 
-        while(fast.next !=  null){
+        while (fast.next != null) {
             slow = slow.next;
             fast = fast.next;
-        } 
+        }
 
         slow.next = slow.next.next;
         return head;
     }
-    
 
     // Function to find inersection of two linkedlist
 
-// Input: LinkedList1 = 1->2->3->4->5, LinkedList2 = 6->7->8->3->4->5
-// Output: 3
+    // Input: LinkedList1 = 1->2->3->4->5, LinkedList2 = 6->7->8->3->4->5
+    // Output: 3
 
-// Approach: In this algorithm, we make the first list circular by connecting the last node to the first node. 
-// Then we take the size of the loop and move the first pointer in the second linked list by that number of nodes. 
-// Then take another pointer from the beginning of the second list and increment first and second pointer 
-// simultaneously to find the intersection point.
+    // Approach: In this algorithm, we make the first list circular by connecting
+    // the last node to the first node.
+    // Then we take the size of the loop and move the first pointer in the second
+    // linked list by that number of nodes.
+    // Then take another pointer from the beginning of the second list and increment
+    // first and second pointer
+    // simultaneously to find the intersection point.
 
-// Steps to solve the problem:
+    // Steps to solve the problem:
 
-// Traverse the first linked list (count the elements) and make a circular linked list. 
-//     (Remember the last node so that we can break the circle later on). 
-// Now view the problem as finding the loop in the second linked list. So the problem is solved. 
-// Since we already know the length of the loop (size of the first linked list) we can traverse 
-//     those many numbers of nodes in the second list, and then start another pointer from the 
-//     beginning of the second list. we have to traverse until they are equal, and that is the required intersection point. 
-// Remove the circle from the linked list. 
-// Please write comments if you find any bug in the above algorithm or a better way to solve the same problem.
+    // Traverse the first linked list (count the elements) and make a circular
+    // linked list.
+    // (Remember the last node so that we can break the circle later on).
+    // Now view the problem as finding the loop in the second linked list. So the
+    // problem is solved.
+    // Since we already know the length of the loop (size of the first linked list)
+    // we can traverse
+    // those many numbers of nodes in the second list, and then start another
+    // pointer from the
+    // beginning of the second list. we have to traverse until they are equal, and
+    // that is the required intersection point.
+    // Remove the circle from the linked list.
+    // Please write comments if you find any bug in the above algorithm or a better
+    // way to solve the same problem.
 
-    public Node intersectionOfTwoLL(Node headA,Node headB){
+    public Node intersectionOfTwoLL(Node headA, Node headB) {
         Node tempA = headA;
         Node tempB = headB;
-        int lengthA=0, lengthB=0;
-        while(tempA!=null){
+        int lengthA = 0, lengthB = 0;
+        while (tempA != null) {
             lengthA++;
-            tempA = tempA.next;   
+            tempA = tempA.next;
         }
-        while(tempB != null){
+        while (tempB != null) {
             lengthB++;
             tempB = tempB.next;
         }
-        tempA=headA;
-        tempB=headB;
-        if(lengthA>lengthB){
-            int steps=lengthA-lengthB;
-            for(int i=1;i<=steps;i++){   
+        tempA = headA;
+        tempB = headB;
+        if (lengthA > lengthB) {
+            int steps = lengthA - lengthB;
+            for (int i = 1; i <= steps; i++) {
                 tempA = tempA.next;
             }
+        } else {
+            int steps = lengthB - lengthA;
+
+            for (int i = 1; i <= steps; i++) {
+
+                tempB = tempB.next;
+            }
         }
-            else{
-                int steps = lengthB-lengthA;
-                
-                for(int i=1;i<=steps;i++){
-                    
-                    tempB =tempB.next;
-                }            
-        }
-        while(tempA != tempB){
-            
+        while (tempA != tempB) {
+
             tempA = tempA.next;
             tempB = tempB.next;
         }
         return tempA;
     }
-
 
     // Function to get middle element
 
@@ -556,22 +580,22 @@ public class LLDS {
     // Output: 3
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer
+    // will be at the middle of the linked list.
 
+    public Node getMiddleNode(Node head) {
+        Node slow = head;
+        Node fast = head;
 
-    public Node getMiddleNode(Node head){
-        Node slow=head;
-        Node fast=head;
-
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-        }   
+        }
 
         return slow;
     }
-
 
     // Function to delete middle element of the linked list
 
@@ -579,31 +603,31 @@ public class LLDS {
     // Output: LinkedList = 1->2->4->5
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
-    // The middle node can be deleted by changing the next of the previous node of the middle node to the next of the middle node.
-    
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer
+    // will be at the middle of the linked list.
+    // The middle node can be deleted by changing the next of the previous node of
+    // the middle node to the next of the middle node.
 
-    public Node deleteMiddleNode2(Node head){
-        Node slow=head;
-        Node fast=head;
-        Node prev=null;
+    public Node deleteMiddleNode2(Node head) {
+        Node slow = head;
+        Node fast = head;
+        Node prev = null;
 
-        if(fast.next ==null) {
+        if (fast.next == null) {
             return null;
         }
 
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             prev = slow;
             slow = slow.next;
             fast = fast.next.next;
-        }   
+        }
 
         prev.next = slow.next;
         return head;
     }
-
-
 
     // Function for de;ete a middle node from LL
 
@@ -611,30 +635,30 @@ public class LLDS {
     // Output: LinkedList = 1->2->4->5
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
-    // The middle node can be deleted by changing the next of the previous node of the middle node to the next of the middle node.
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer
+    // will be at the middle of the linked list.
+    // The middle node can be deleted by changing the next of the previous node of
+    // the middle node to the next of the middle node.
 
+    public Node deleteMiddleNode(Node head) {
+        Node slow = head;
+        Node fast = head;
 
-    public Node deleteMiddleNode(Node head){
-        Node slow=head;
-        Node fast=head;
-        
-        if(fast.next ==null) {
+        if (fast.next == null) {
             return null;
         }
 
-        while(fast.next.next != null && fast.next.next.next != null){
-            
+        while (fast.next.next != null && fast.next.next.next != null) {
+
             slow = slow.next;
             fast = fast.next.next;
-        }   
+        }
 
-        
         slow.next = slow.next.next;
         return head;
     }
-
 
     // Function to detect cycle in linked list
 
@@ -642,24 +666,26 @@ public class LLDS {
     // Output: true
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // If there is a cycle in the linked list, the slow and fast pointers will meet at some point.
-    // If there is no cycle in the linked list, the fast pointer will reach the end of the linked list.
-    
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // If there is a cycle in the linked list, the slow and fast pointers will meet
+    // at some point.
+    // If there is no cycle in the linked list, the fast pointer will reach the end
+    // of the linked list.
 
-    public boolean detectCycle(Node head){
-        Node slow=head;
-        Node fast=head;
-        if(head == null || head.next == null){
+    public boolean detectCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
+        if (head == null || head.next == null) {
             return false;
         }
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast){
+            if (slow == fast) {
                 return true;
             }
-        }   
+        }
 
         return false;
     }
@@ -670,31 +696,35 @@ public class LLDS {
     // Output: 3
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // If there is a cycle in the linked list, the slow and fast pointers will meet at some point.
-    // If there is no cycle in the linked list, the fast pointer will reach the end of the linked list.
-    // The slow pointer can be moved to the head of the linked list and both pointers can be moved one node at a time.
-    // The point where the slow and fast pointers meet is the node where the cycle starts.
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // If there is a cycle in the linked list, the slow and fast pointers will meet
+    // at some point.
+    // If there is no cycle in the linked list, the fast pointer will reach the end
+    // of the linked list.
+    // The slow pointer can be moved to the head of the linked list and both
+    // pointers can be moved one node at a time.
+    // The point where the slow and fast pointers meet is the node where the cycle
+    // starts.
 
-
-    public Node getNodewhereCycleStarts(Node head){
-        Node slow=head;
-        Node fast=head;
-        if(head == null || head.next == null){
+    public Node getNodewhereCycleStarts(Node head) {
+        Node slow = head;
+        Node fast = head;
+        if (head == null || head.next == null) {
             return null;
         }
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast){
+            if (slow == fast) {
                 slow = head;
-                while(slow != fast){
+                while (slow != fast) {
                     slow = slow.next;
                     fast = fast.next;
                 }
                 return slow;
             }
-        }   
+        }
 
         return null;
     }
@@ -704,32 +734,32 @@ public class LLDS {
     // Input: LinkedList1 = 1->2->4, LinkedList2 = 1->3->4
     // Output: LinkedList = 1->1->2->3->4->4
 
-    // Approach: The two linked lists can be merged by comparing the data of the nodes of the two linked lists.
+    // Approach: The two linked lists can be merged by comparing the data of the
+    // nodes of the two linked lists.
     // The node with the smaller data can be added to the merged linked list.
     // The node with the smaller data can be moved to the next node.
-    // The process can be repeated until all the nodes of the two linked lists are added to the merged linked list.
-    
+    // The process can be repeated until all the nodes of the two linked lists are
+    // added to the merged linked list.
 
-    public Node mergeTwoList(Node headA,Node headB){ // T.C = O(n+m) and S.C = O(n+m)
+    public Node mergeTwoList(Node headA, Node headB) { // T.C = O(n+m) and S.C = O(n+m)
         Node tempA = headA;
         Node tempB = headB;
         Node dummy = new Node(0);
         Node temp = dummy;
-        while(tempA != null && tempB != null){
-            if(tempA.data < tempB.data){
+        while (tempA != null && tempB != null) {
+            if (tempA.data < tempB.data) {
                 temp.next = tempA;
                 tempA = tempA.next;
-            }
-            else{
+            } else {
                 temp.next = tempB;
                 tempB = tempB.next;
             }
             temp = temp.next;
         }
-        if(tempA != null){
+        if (tempA != null) {
             temp.next = tempA;
         }
-        if(tempB != null){
+        if (tempB != null) {
             temp.next = tempB;
         }
         return dummy.next;
@@ -737,54 +767,52 @@ public class LLDS {
 
     // Function to merge two list in optimized way
 
-    // Approach: The two linked lists can be merged by comparing the data of the nodes of the two linked lists.
+    // Approach: The two linked lists can be merged by comparing the data of the
+    // nodes of the two linked lists.
     // The node with the smaller data can be added to the merged linked list.
 
-    public Node mergeTwoListOptimized(Node headA,Node headB){ // T.C = O(n+m) and S.C = O(1)
+    public Node mergeTwoListOptimized(Node headA, Node headB) { // T.C = O(n+m) and S.C = O(1)
         Node tempA = headA;
         Node tempB = headB;
         Node dummy = new Node(0);
         Node temp = dummy;
-        while(tempA != null && tempB != null){
-            if(tempA.data < tempB.data){
+        while (tempA != null && tempB != null) {
+            if (tempA.data < tempB.data) {
                 temp.next = tempA;
                 temp = tempA;
                 tempA = tempA.next;
-            }
-            else{
+            } else {
                 temp.next = tempB;
                 temp = tempB;
                 tempB = tempB.next;
             }
-           
+
         }
-        if(tempA == null){
+        if (tempA == null) {
             temp.next = tempB;
-        }
-        else{
+        } else {
             temp.next = tempA;
         }
         return dummy.next;
     }
-
 
     // Function to delete duplicate node from ll
 
     // Input: LinkedList = 1->2->2->3->4->4->5
     // Output: LinkedList = 1->2->3->4->5
 
-    // Approach: The linked list can be traversed and the duplicate nodes can be deleted.
-    // The next of the previous node of the duplicate node can be changed to the next of the next of the duplicate node.
+    // Approach: The linked list can be traversed and the duplicate nodes can be
+    // deleted.
+    // The next of the previous node of the duplicate node can be changed to the
+    // next of the next of the duplicate node.
     // The duplicate node will be garbage collected by Java Garbage Collector.
 
-    
-    public Node deleteDuplicate(Node head){
-        Node temp=head;
-        while(temp != null && temp.next != null){
-            if(temp.data == temp.next.data){
+    public Node deleteDuplicate(Node head) {
+        Node temp = head;
+        while (temp != null && temp.next != null) {
+            if (temp.data == temp.next.data) {
                 temp.next = temp.next.next;
-            }
-            else{
+            } else {
                 temp = temp.next;
             }
         }
@@ -796,12 +824,13 @@ public class LLDS {
     // Input: LinkedList = 1->2->2->3->4->4->5
     // Output: LinkedList = 1->3->5
 
-    // Approach: The linked list can be traversed and the duplicate nodes can be deleted.
-    // The next of the previous node of the duplicate node can be changed to the next of the next of the duplicate node.
+    // Approach: The linked list can be traversed and the duplicate nodes can be
+    // deleted.
+    // The next of the previous node of the duplicate node can be changed to the
+    // next of the next of the duplicate node.
     // The duplicate node will be garbage collected by Java Garbage Collector.
-    
 
-    public Node deleteDuplicate2(Node head){
+    public Node deleteDuplicate2(Node head) {
         if (head == null || head.next == null) {
             return head;
         }
@@ -832,10 +861,8 @@ public class LLDS {
         }
 
         return head;
-        
+
     }
-
-
 
     // Function to check palindrome linked list
 
@@ -843,29 +870,33 @@ public class LLDS {
     // Output: true
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer
+    // will be at the middle of the linked list.
     // The second half of the linked list can be reversed.
-    // The first half of the linked list and the reversed second half of the linked list can be compared.
-    // If the data of the nodes of the first half and the reversed second half are the same, the linked list is a palindrome.
-    // If the data of the nodes of the first half and the reversed second half are not the same, the linked list is not a palindrome.
-    
+    // The first half of the linked list and the reversed second half of the linked
+    // list can be compared.
+    // If the data of the nodes of the first half and the reversed second half are
+    // the same, the linked list is a palindrome.
+    // If the data of the nodes of the first half and the reversed second half are
+    // not the same, the linked list is not a palindrome.
 
-    public boolean isPalindrome(Node head){
-        Node slow=head;
-        Node fast=head;
-        if(head == null || head.next == null){
+    public boolean isPalindrome(Node head) {
+        Node slow = head;
+        Node fast = head;
+        if (head == null || head.next == null) {
             return true;
         }
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
-        }   
+        }
 
-        Node prev=null;
-        Node next=null;
-        Node curr=slow;
-        while(curr != null){
+        Node prev = null;
+        Node next = null;
+        Node curr = slow;
+        while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -873,8 +904,8 @@ public class LLDS {
         }
         slow = prev;
         fast = head;
-        while(slow != null){
-            if(slow.data != fast.data){
+        while (slow != null) {
+            if (slow.data != fast.data) {
                 return false;
             }
             slow = slow.next;
@@ -889,23 +920,25 @@ public class LLDS {
     // Output: true
 
     // Approach: The linked list can be traversed using two pointers.
-    // The slow pointer can be moved one node at a time and the fast pointer can be moved two nodes at a time.
-    // When the fast pointer reaches the end of the linked list, the slow pointer will be at the middle of the linked list.
+    // The slow pointer can be moved one node at a time and the fast pointer can be
+    // moved two nodes at a time.
+    // When the fast pointer reaches the end of the linked list, the slow pointer
+    // will be at the middle of the linked list.
     // The second half of the linked list can be reversed.
-    // The first half of the linked list and the reversed second half of the linked list can be compared.
+    // The first half of the linked list and the reversed second half of the linked
+    // list can be compared.
 
-
-    public boolean isPalindrome2(Node head){
-        Node temp=head;
-        Node newHead=null;
-        while(temp != null){
+    public boolean isPalindrome2(Node head) {
+        Node temp = head;
+        Node newHead = null;
+        while (temp != null) {
             Node newNode = new Node(temp.data);
             newNode.next = newHead;
             newHead = newNode;
             temp = temp.next;
         }
-        while(head != null){
-            if(head.data != newHead.data){
+        while (head != null) {
+            if (head.data != newHead.data) {
                 return false;
             }
             head = head.next;
@@ -914,28 +947,27 @@ public class LLDS {
         return true;
     }
 
-
     // Function to odd even linked list
 
     // Input: LinkedList = 1->2->3->4->5
     // Output: LinkedList = 1->3->5->2->4
 
     // Approach: The linked list can be traversed using two pointers.
-    // The odd nodes can be added to the odd linked list and the even nodes can be added to the even linked list.
-    
+    // The odd nodes can be added to the odd linked list and the even nodes can be
+    // added to the even linked list.
 
-    public Node oddEvenList(Node head){
+    public Node oddEvenList(Node head) {
         Node odd = new Node(0);
         Node even = new Node(0);
         Node tempodd = odd;
         Node tempeven = even;
-        Node temp=head;
+        Node temp = head;
 
-        while(temp != null){
+        while (temp != null) {
             tempodd.next = temp;
             tempodd = tempodd.next;
             temp = temp.next;
-            if(temp != null){
+            if (temp != null) {
                 tempeven.next = temp;
                 tempeven = tempeven.next;
                 temp = temp.next;
@@ -947,37 +979,35 @@ public class LLDS {
 
     }
 
-
-
     // function to twin sum or pair sum in linked list
 
-    public int pairSum(Node head){
-        Node slow=head;
-        Node fast=head;
-        int Maxsum=0;
-        while(fast.next.next != null){
-            
+    public int pairSum(Node head) {
+        Node slow = head;
+        Node fast = head;
+        int Maxsum = 0;
+        while (fast.next.next != null) {
+
             slow = slow.next;
             fast = fast.next.next;
-        }   
+        }
 
         slow.next = reverse_TwinSum(slow.next);
         Node head1 = head;
         Node head2 = slow.next;
 
-        while(head2 != null){
+        while (head2 != null) {
             int sum = head1.data + head2.data;
-            if(sum > Maxsum){
+            if (sum > Maxsum) {
                 Maxsum = sum;
             }
             head1 = head1.next;
-            head2 = head2.next; 
+            head2 = head2.next;
         }
         return Maxsum;
 
     }
 
-    public Node reverse_TwinSum(Node head){
+    public Node reverse_TwinSum(Node head) {
         Node prev = null;
         Node current = head;
         Node next = null;
@@ -991,19 +1021,17 @@ public class LLDS {
 
     }
 
-
-
     // function to reverse k nodes in linked list
-    
-    public Node reverseKNodes(Node head, int k){
-        Node prev=null;
-        Node next=null;
-        Node curr=head;
-        int count=0;
-        if(head == null){
+
+    public Node reverseKNodes(Node head, int k) {
+        Node prev = null;
+        Node next = null;
+        Node curr = head;
+        int count = 0;
+        if (head == null) {
             return null;
         }
-        while(curr != null && count < k){
+        while (curr != null && count < k) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
@@ -1011,54 +1039,53 @@ public class LLDS {
             count++;
         }
 
-        
-        if(next != null ){
+        if (next != null) {
             head.next = reverseKNodes(next, k);
         }
         return prev;
     }
 
-
-// function to reverse k nodes in linked bot of remain nodes
-    public Node reverseK(Node head){
-        if(head==null||head.next==null)return head;
-        Node rev=reverseK(head.next);
-        head.next.next=head;
-        head.next=null;
+    // function to reverse k nodes in linked bot of remain nodes
+    public Node reverseK(Node head) {
+        if (head == null || head.next == null)
+            return head;
+        Node rev = reverseK(head.next);
+        head.next.next = head;
+        head.next = null;
         return rev;
     }
+
     public Node reverseKGroup(Node head, int k) {
-        Node temp=head;
-        for(int i=1;i<k;i++){
-            if(temp==null)return head;
-            else temp=temp.next;
+        Node temp = head;
+        for (int i = 1; i < k; i++) {
+            if (temp == null)
+                return head;
+            else
+                temp = temp.next;
         }
-        Node n=null;
-        if(temp!=null)
-       { 
-        n=reverseKGroup(temp.next,k);
-        temp.next=null;
-        head=reverseK(head);
-        temp=head;
-        while(temp.next!=null)temp=temp.next;
-        temp.next=n;
-    }
+        Node n = null;
+        if (temp != null) {
+            n = reverseKGroup(temp.next, k);
+            temp.next = null;
+            head = reverseK(head);
+            temp = head;
+            while (temp.next != null)
+                temp = temp.next;
+            temp.next = n;
+        }
         return head;
-        
+
     }
-
-
 
     // function to remove loop in ll
 
     // Function that detects loop in the list
-    int detectAndRemoveLoop(Node node)
-    {
+    int detectAndRemoveLoop(Node node) {
         Node slow = node, fast = node;
         while (slow != null && fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
- 
+
             // If slow and fast meet at same point then loop
             // is present
             if (slow == fast) {
@@ -1069,13 +1096,11 @@ public class LLDS {
         return 0;
     }
 
-
     // Function to remove loop
-    void removeLoop(Node loop, Node head)
-    {
+    void removeLoop(Node loop, Node head) {
         Node ptr1 = loop;
         Node ptr2 = loop;
- 
+
         // Count the number of nodes in loop
         int k = 1, i;
         Node prevNode = ptr1;
@@ -1089,75 +1114,70 @@ public class LLDS {
     }
 
     // public Node copyRandomList(Node head){
-    //     if (head==null){
-    //         return null;
-    //     }
-    //     Node h=new Node(head.data);
-    //     Node prev=h;
-    //     Node p=head;
-    //     head=head.next;
-    //     Map<Node,Node> hm=new HashMap<>();
-    //     hm.put(p,h);
-    //     int i=1;
-    //     while(head!=null){
-    //         Node n=new Node(head.data);
-    //         prev.next=n;
-    //         prev=n;
-    //         hm.put(head,n);
-    //         i++;
-    //         head=head.next;
-    //     }
-    //     Node h1=h;
-    //     while(p!=null){
-    //         if (p.random!=null){
-    //             h1.random=hm.get(p.random);
-    //         }
-    //         h1=h1.next;
-    //         p=p.next;
-    //     }
-    //     return h;
+    // if (head==null){
+    // return null;
+    // }
+    // Node h=new Node(head.data);
+    // Node prev=h;
+    // Node p=head;
+    // head=head.next;
+    // Map<Node,Node> hm=new HashMap<>();
+    // hm.put(p,h);
+    // int i=1;
+    // while(head!=null){
+    // Node n=new Node(head.data);
+    // prev.next=n;
+    // prev=n;
+    // hm.put(head,n);
+    // i++;
+    // head=head.next;
+    // }
+    // Node h1=h;
+    // while(p!=null){
+    // if (p.random!=null){
+    // h1.random=hm.get(p.random);
+    // }
+    // h1=h1.next;
+    // p=p.next;
+    // }
+    // return h;
     // }
 
+    /*
+     * Function to remove duplicates from a
+     * unsorted linked list
+     */
+    static void removeDuplicate(Node head) {
+        // Hash to store seen values
+        HashSet<Integer> hs = new HashSet<>();
 
+        /* Pick elements one by one */
+        Node current = head;
+        Node prev = null;
+        while (current != null) {
+            int curval = current.data;
 
+            // If current value is seen before
+            if (hs.contains(curval)) {
+                prev.next = current.next;
+            } else {
+                hs.add(curval);
+                prev = current;
+            }
+            current = current.next;
+        }
+    }
 
-    /* Function to remove duplicates from a
-	unsorted linked list */
-	static void removeDuplicate(Node head)
-	{
-		// Hash to store seen values
-		HashSet<Integer> hs = new HashSet<>();
+    // function to move last element to front of linked list
 
-		/* Pick elements one by one */
-		Node current = head;
-		Node prev = null;
-		while (current != null) {
-			int curval = current.data;
-
-			// If current value is seen before
-			if (hs.contains(curval)) {
-				prev.next = current.next;
-			}
-			else {
-				hs.add(curval);
-				prev = current;
-			}
-			current = current.next;
-		}
-	}
-
-
-
-    //  function to move last element to front of linked list
-
-    public Node moveLastToFront(Node head){
-        if(head == null || head.next == null){
+    public Node moveLastToFront(Node head) {
+        if (head == null || head.next == null) {
             return head;
         }
         Node secLast = null;
         Node last = head;
 
-        while(last.next != null){
+        while (last.next != null) {
             secLast = last;
             last = last.next;
         }
@@ -1165,15 +1185,12 @@ public class LLDS {
         // set the next of second last as null
         secLast.next = null;
 
-
         // change head to last node
         last.next = head;
         head = last;
-        
+
         return head;
     }
-
-
 
     public Node addTwoNumbers(Node l1, Node l2) {
         Node dummyHead = new Node(0);
@@ -1201,32 +1218,30 @@ public class LLDS {
         return result;
     }
 
-
     // function to zig-zag linked list
 
-    public Node ZigZag(Node head){
+    public Node ZigZag(Node head) {
         // find mid
 
-        Node slow=head;
-        Node fast=head.next;
-        while(fast != null && fast.next != null){
+        Node slow = head;
+        Node fast = head.next;
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
         Node mid = slow;
 
         // reverse the second half
-        Node prev=null;
-        Node next=null;
-        Node curr=mid.next;
+        Node prev = null;
+        Node next = null;
+        Node curr = mid.next;
         mid.next = null;
-        while(curr != null){
+        while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
         }
-
 
         // swap the nodes
 
@@ -1234,13 +1249,11 @@ public class LLDS {
         Node right = prev;
         Node nextL, nextR;
 
-        while(left != null && right != null){
+        while (left != null && right != null) {
             nextL = left.next;
             left.next = right;
             nextR = right.next;
             right.next = nextL;
-            
-            
 
             left = nextL;
             right = nextR;
@@ -1249,10 +1262,9 @@ public class LLDS {
         return head;
     }
 
-
     // function to multiply two linked list
-     
-     public int multiplyTwoLL(Node l1, Node l2) {
+
+    public int multiplyTwoLL(Node l1, Node l2) {
         int num1 = 0, num2 = 0;
         while (l1 != null || l2 != null) {
             if (l1 != null) {
@@ -1269,18 +1281,17 @@ public class LLDS {
 
     // function to delete node with greater value on right side
 
-    public Node deleteNodeGreaterInRightSide(Node head){
+    public Node deleteNodeGreaterInRightSide(Node head) {
         head = reverse(head);
         Node current = head;
         Node maxnode = head;
         Node temp;
-        while(current != null && current.next != null){
-            if(current.next.data < maxnode.data){
+        while (current != null && current.next != null) {
+            if (current.next.data < maxnode.data) {
                 temp = current.next;
                 current.next = temp.next;
                 temp = null;
-            }
-            else{
+            } else {
                 current = current.next;
                 maxnode = current;
             }
@@ -1289,74 +1300,70 @@ public class LLDS {
         return head;
     }
 
-    // Multiply contents of two linked lists 
-    static long multiplyTwoLists(Node first, Node second) 
-    { 
-        long N = 1000000007; 
-        long num1 = 0, num2 = 0; 
-  
-        while (first != null || second !=  null){ 
-              
-            if(first != null){ 
-                num1 = ((num1)*10)%N + first.data; 
-                first = first.next; 
-            } 
-              
-            if(second != null) 
-            { 
-                num2 = ((num2)*10)%N + second.data; 
-                second = second.next; 
-            } 
-              
-        } 
-        return ((num1%N)*(num2%N))%N; 
-    } 
-  
+    // Multiply contents of two linked lists
+    static long multiplyTwoLists(Node first, Node second) {
+        long N = 1000000007;
+        long num1 = 0, num2 = 0;
+
+        while (first != null || second != null) {
+
+            if (first != null) {
+                num1 = ((num1) * 10) % N + first.data;
+                first = first.next;
+            }
+
+            if (second != null) {
+                num2 = ((num2) * 10) % N + second.data;
+                second = second.next;
+            }
+
+        }
+        return ((num1 % N) * (num2 % N)) % N;
+    }
+
     // Q-272. Segregate even and odd nodes in a Linked List
 
-//     Given a Linked List of integers, write a function to modify the linked list
-//      such that all even numbers appear before all the odd numbers in 
-//      the modified linked list. Also, keep the order of even and odd numbers the same.
+    // Given a Linked List of integers, write a function to modify the linked list
+    // such that all even numbers appear before all the odd numbers in
+    // the modified linked list. Also, keep the order of even and odd numbers the
+    // same.
 
-// Examples: 
+    // Examples:
 
-// Input: 17->15->8->12->10->5->4->1->7->6->NULL
-// Output: 8->12->10->4->6->17->15->5->1->7->NULL
-// Even nodes in the linked list are 8, 12, 10, 4 and 6
-// Odd Nodes in the linked list are 17, 15, 1 and 7
-// In the output list, we have all the even nodes first (in the same
-// order as input list, then all the odd nodes of the list (in the same
-// order as input list)
+    // Input: 17->15->8->12->10->5->4->1->7->6->NULL
+    // Output: 8->12->10->4->6->17->15->5->1->7->NULL
+    // Even nodes in the linked list are 8, 12, 10, 4 and 6
+    // Odd Nodes in the linked list are 17, 15, 1 and 7
+    // In the output list, we have all the even nodes first (in the same
+    // order as input list, then all the odd nodes of the list (in the same
+    // order as input list)
 
-// Input: 8->12->10->5->4->1->6->NULL
-// Output: 8->12->10->4->6->5->1->NULL
-
-
+    // Input: 8->12->10->5->4->1->6->NULL
+    // Output: 8->12->10->4->6->5->1->NULL
 
     // function to segragate even and odd nodes in linked list
 
-    public Node segregateEvenOdd(Node head){
+    public Node segregateEvenOdd(Node head) {
         Node end = head;
         Node prev = null;
         Node curr = head;
-        while(end.next != null){
+        while (end.next != null) {
             end = end.next;
         }
         Node new_end = end;
-        while(curr.data % 2 != 0 && curr != end){
+        while (curr.data % 2 != 0 && curr != end) {
             new_end.next = curr;
             curr = curr.next;
             new_end.next.next = null;
             new_end = new_end.next;
         }
-        if(curr.data % 2 == 0){
+        if (curr.data % 2 == 0) {
             head = curr;
-            while(curr != end){
-                if(curr.data % 2 == 0){
+            while (curr != end) {
+                if (curr.data % 2 == 0) {
                     prev = curr;
                     curr = curr.next;
-                }
-                else{
+                } else {
                     prev.next = curr.next;
                     curr.next = null;
                     new_end.next = curr;
@@ -1364,13 +1371,11 @@ public class LLDS {
                     curr = prev.next;
                 }
             }
-        }
-        else{
+        } else {
             prev = curr;
         }
         return head;
     }
-
 
     public static void main(String[] args) {
         LLDS list = new LLDS();
@@ -1402,8 +1407,6 @@ public class LLDS {
         list.ZigZag(list.head);
         list.traverse();
 
-
     }
-
 
 }
