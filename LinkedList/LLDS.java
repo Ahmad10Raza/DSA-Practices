@@ -487,6 +487,15 @@ public class LLDS {
     // The next of the second pointer can be changed to the next of the next of the
     // second pointer.
 
+    // Follow below steps to delete Nth node from end of linked list:
+    // 1. Initialize two pointers slow and fast to head.
+    // 2. Move the fast pointer to N nodes from head.
+    // 3. Move the slow pointer and fast pointer simultaneously until the fast
+    // pointer reaches the end.
+    // 4. The slow pointer will be at the Nth node from the end.
+    // 5. Change the next of the slow pointer to the next of the next of the slow
+    // pointer.
+
     public Node deleteNthNode(Node node, int n) {
         Node slow = head;
         Node fast = head;
@@ -495,6 +504,7 @@ public class LLDS {
             fast = fast.next;
         }
 
+        // if Nth node from end is head
         if (fast == null) {
             head = head.next;
             return head;
