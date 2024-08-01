@@ -982,6 +982,15 @@ public class LLDS {
     // The odd nodes can be added to the odd linked list and the even nodes can be
     // added to the even linked list.
 
+    // Follow below steps to solve the problem:
+    // 1. Initialize two linked lists odd and even.
+    // 2. Traverse the linked list and add the odd nodes to the odd linked list and
+    // the even nodes to the even linked list.
+    // 3. Connect the last node of the odd linked list to the head of the even
+    // linked
+    // list.
+    // 4. Return the head of the odd linked list.
+
     public Node oddEvenList(Node head) {
         Node odd = new Node(0);
         Node even = new Node(0);
@@ -1006,6 +1015,22 @@ public class LLDS {
     }
 
     // function to twin sum or pair sum in linked list
+
+    // Input: LinkedList = 5->4->2->1
+    // Output: 6
+    // Explanation: The maximum sum of pairs is 6.
+
+    // Approach: First we find the middle of the linked list. Then we reverse the
+    // second half of the linked list.
+    // Then we traverse the first half and the reversed second half of the linked
+    // list and find the maximum sum of pairs.
+
+    // Follow below steps to solve the problem:
+    // 1. Find the middle of the linked list.
+    // 2. Reverse the second half of the linked list.
+    // 3. Traverse the first half and the reversed second half of the linked list
+    // and find the maximum sum of pairs.
+    // 4. Return the maximum sum of pairs.
 
     public int pairSum(Node head) {
         Node slow = head;
