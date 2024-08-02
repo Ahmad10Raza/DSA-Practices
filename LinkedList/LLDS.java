@@ -1097,6 +1097,20 @@ public class LLDS {
     }
 
     // function to reverse k nodes in linked bot of remain nodes
+
+    // Input: LinkedList = 1->2->3->4->5, k = 2
+    // Output: LinkedList = 2->1->4->3->5
+
+    // Approach: First we reverse the first k nodes of the linked list. Then we move
+    // to the k+1 node and recursively call the function for the remaining nodes. We
+    // connect the head of the first k nodes to the head of the remaining nodes.
+    // Follow below steps to solve the problem:
+    // 1. Reverse the first k nodes of the linked list.
+    // 2. Move to the k+1 node and recursively call the function for the remaining
+    // nodes.
+    // 3. Connect the head of the first k nodes to the head of the remaining nodes.
+    // 4. Return the head of the linked list.
+
     public Node reverseK(Node head) {
         if (head == null || head.next == null)
             return head;
