@@ -43,7 +43,7 @@
 // 10. Repeat steps 5 to 9 until we reach the end of the array.
 // 11. Convert the resultant array to a number and return it.
 
-import java.util.Stack;
+// import java.util.Stack;
 
 public class NextGreaterElement3 {
 
