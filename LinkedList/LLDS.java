@@ -1162,6 +1162,16 @@ public class LLDS {
     }
 
     // Function to remove loop
+
+    // Follow below steps to remove the loop in the linked list:
+    // 1. Find the node where the slow and fast pointers meet.
+    // 2. Move the slow pointer to the head of the linked list.
+    // 3. Move the slow and fast pointers one node at a time until they meet.
+    // 4. The point where the slow and fast pointers meet is the node where the loop
+    // starts.
+    // 5. Change the next of the previous node of the node where the loop starts to
+    // null.
+
     void removeLoop(Node loop, Node head) {
         Node ptr1 = loop;
         Node ptr2 = loop;
@@ -1212,6 +1222,27 @@ public class LLDS {
      * Function to remove duplicates from a
      * unsorted linked list
      */
+
+    // Input: LinkedList = 1->2->2->3->4->4->5
+    // Output: LinkedList = 1->2->3->4->5
+
+    // Approach: The linked list can be traversed using a hash set. The data of the
+    // nodes can be added to the hash set.
+    // If the data of the node is already present in the hash set, the node can be
+    // deleted.
+    // The next of the previous node of the duplicate node can be changed to the
+    // next of the next of the duplicate node.
+    // The duplicate node will be garbage collected by Java Garbage Collector.
+
+    // Follow below steps to remove duplicates from a linked list:
+    // 1. Initialize a hash set to store the data of the nodes.
+    // 2. Traverse the linked list and add the data of the nodes to the hash set.
+    // 3. If the data of the node is already present in the hash set, delete the
+    // node.
+    // 4. Change the next of the previous node of the duplicate node to the next of
+    // the next of the duplicate node.
+    // 5. The duplicate node will be garbage collected by Java Garbage Collector.
+
     static void removeDuplicate(Node head) {
         // Hash to store seen values
         HashSet<Integer> hs = new HashSet<>();
@@ -1234,6 +1265,13 @@ public class LLDS {
     }
 
     // function to move last element to front of linked list
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 5->1->2->3->4
+
+    // Approach: The linked list can be traversed to find the last node.
+    // The next of the second last node can be set to null.
+    // The next of the last node can be set to the head of the linked list.
+    // The head of the linked list can be set to the last node.
 
     public Node moveLastToFront(Node head) {
         if (head == null || head.next == null) {
@@ -1256,6 +1294,33 @@ public class LLDS {
 
         return head;
     }
+
+    // function to add two numbers represented by linked list
+
+    // Input: LinkedList1 = 1->2->3, LinkedList2 = 4->5->6
+    // Output: LinkedList = 5->7->9
+
+    // Approach: The two linked lists can be traversed and the data of the nodes can
+    // be added.
+    // The carry can be added to the sum of the data of the nodes.
+    // The digit of the sum can be added to the new linked list.
+    // The carry can be updated to the sum divided by 10.
+    // The next of the previous node of the new node can be set to the new node.
+    // The new node can be updated to the next node.
+
+    // Follow below steps to add two numbers represented by linked lists:
+    // 1. Initialize a dummy node to store the result.
+    // 2. Initialize a tail node to store the last node of the result.
+    // 3. Initialize the carry to 0.
+    // 4. Traverse the linked lists and add the data of the nodes.
+    // 5. Add the carry to the sum of the data of the nodes.
+    // 6. Find the digit of the sum by taking the modulus of the sum by 10.
+    // 7. Update the carry to the sum divided by 10.
+    // 8. Create a new node with the digit of the sum.
+    // 9. Set the next of the tail node to the new node.
+    // 10. Update the tail node to the new node.
+    // 11. Move to the next node of the linked lists.
+    // 12. Return the next of the dummy node.
 
     public Node addTwoNumbers(Node l1, Node l2) {
         Node dummyHead = new Node(0);
@@ -1284,6 +1349,21 @@ public class LLDS {
     }
 
     // function to zig-zag linked list
+
+    // Input: LinkedList = 1->2->3->4->5
+    // Output: LinkedList = 1->5->2->4->3
+
+    // Approach: The linked list can be divided into two halves. The first half can
+    // be the left half and the second half can be the right half. The second half
+    // can be reversed.
+    // The nodes of the second half can be added to the first half in a zig-zag
+    // manner.
+
+    // Follow below steps to zig-zag the linked list:
+    // 1. Find the middle of the linked list.
+    // 2. Reverse the second half of the linked list.
+    // 3. Swap the nodes of the first half and the reversed second half of the
+    // linked list.
 
     public Node ZigZag(Node head) {
         // find mid
