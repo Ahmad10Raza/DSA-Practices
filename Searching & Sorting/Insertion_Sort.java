@@ -1,5 +1,4 @@
 
-
 // Array: [23, 1, 10, 5, 2]
 // First Pass:
 // Current element is 23
@@ -29,33 +28,38 @@
 // Final Array:
 // The sorted array is: [2, 1, 5, 10, 23]
 
+// Follow below steps to solve problems:
+// 1. Start from the second element, compare the current element with the previous elements of the array.
+// 2. If the current element is smaller than the previous element of the array, compare it with the previous elements.
+// 3. If the current element is greater than the previous element, move to the next element. Repeat Step 1.
+
 public class Insertion_Sort {
     public static void insertionSort(int array[]) {
         int n = array.length;
         for (int j = 1; j < n; j++) {
             int key = array[j];
-            int i = j-1;
-            while ( (i > -1) && ( array [i] > key ) ) {
-                array [i+1] = array [i];
+            int i = j - 1;
+            while ((i > -1) && (array[i] > key)) {
+                array[i + 1] = array[i];
                 i--;
             }
-            array[i+1] = key;
+            array[i + 1] = key;
         }
     }
 
-    public static void main(String a[]){
-        int[] arr1 = {9,14,3,2,43,11,58,22};
+    public static void main(String a[]) {
+        int[] arr1 = { 9, 14, 3, 2, 43, 11, 58, 22 };
         System.out.println("Before Insertion Sort");
-        for(int i:arr1){
-            System.out.print(i+" ");
+        for (int i : arr1) {
+            System.out.print(i + " ");
         }
         System.out.println();
 
-        insertionSort(arr1);//sorting array using insertion sort
+        insertionSort(arr1);// sorting array using insertion sort
 
         System.out.println("After Insertion Sort");
-        for(int i:arr1){
-            System.out.print(i+" ");
+        for (int i : arr1) {
+            System.out.print(i + " ");
         }
-    }    
+    }
 }
