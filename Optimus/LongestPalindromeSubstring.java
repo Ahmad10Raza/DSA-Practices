@@ -81,4 +81,40 @@ class Solution {
 
         return s.substring(start, start + maxLength);
     }
+
+    public boolean isPlaindrome(String s, int low, int high) {
+        while (low < high) {
+            if (s.charAt(low) != s.charAt(high))
+                return false;
+            low++;
+            high--;
+        }
+        return true;
+    }
+
+    public String LPS(String s) {
+        int n = s.length();
+        int max = 0, start = 0, end = 0;
+
+        for (int i = n; i >= 1; i--) {
+            for (int j = 0; j <= n - i; j++) {
+                if (isPlaindrome(s, j, j + i - 1) == true) {
+                    max = j - i + 1;
+                    start = j;
+                    end = j;
+                    break;
+
+                }
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        String s1 = "babad";
+        String s2 = "cbbd";
+        System.out.println(sol.longestPalindrome(s1)); // Output: "bab"
+        System.out.println(sol.longestPalindrome(s2)); // Output: "bb"
+    }
 }
